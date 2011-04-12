@@ -1,7 +1,74 @@
+/*
+ * Copyright (C) 2011 by Jens Haase <je.haase@googlemail.com>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+import jenshaase.uimaScala.descriptor.UimaTypeSystem
 import sbt._
+import jenshaase.uimaScala.sbt.UimaScalaPlugin
 
-class Project(info: ProjectInfo) extends DefaultProject(info) with IdeaProject {
+class Project(info: ProjectInfo) extends DefaultProject(info) with IdeaProject with UimaScalaPlugin {
 
-  // Testing
-  val specs = "org.scala-tools.testing" %% "specs" % "1.6.7" % "test"
+  // Projects
+  lazy val core = project("uima-core", "uima-core", new UimaCoreProject(_) with IdeaProject)
+  lazy val toolkit = project("uima-toolkit", "uima-toolkit", new UimaToolkitProject(_) with IdeaProject, core)
+  lazy val examples = project("uima-examples", "uima-examples", new UimaExamplesProject(_) with IdeaProject, toolkit)
+  
+  object Dependencies {
+    lazy val uimaFit = "org.uimafit" % "uimafit" % "1.1.0"
+    
+    lazy val specs = "org.specs2" %% "specs2" % "1.1" % "test"
+  }
+  
+  object Repositories {
+    lazy val uima = "UIMA" at "http://people.apache.org/repo/m2-incubating-repository"
+    
+    val scalaToolsSnapshots = "snapshots" at "http://scala-tools.org/repo-snapshots"
+    val scalaToolsReleases  = "releases" at "http://scala-tools.org/repo-releases"
+  }
+  
+  class UimaCoreProject(info: ProjectInfo) extends DefaultProject(info) {
+    val uima = Repositories.uima
+    val scalaToolsSnapshots = Repositories.scalaToolsSnapshots
+    val scalaToolsReleases = Repositories.scalaToolsReleases
+    
+    val uimaFit = Dependencies.uimaFit
+    val specs = Dependencies.specs
+  }
+  
+  class UimaToolkitProject(info: ProjectInfo) extends DefaultProject(info) with UimaScalaPlugin {
+    
+    val toolkitTypSystem = UimaTypeSystem("uimaScalaToolkit")(
+      _.description("Contains all type system descriptor for this toolkit"),
+
+      _.withType("jenshaase.uimaScala.toolkit.type.Token", "uima.tcas.Annotation")(
+        _.description("A simple token annotation")
+      ),
+
+      _.withType("jenshaase.uimaScala.toolkit.type.Sentence", "uima.tcas.Annotation")(
+        _.description("A simple sentence annotation")
+      )
+    )
+  }
+  
+  class UimaExamplesProject(info: ProjectInfo) extends DefaultProject(info) with UimaScalaPlugin {
+    
+  }
 }

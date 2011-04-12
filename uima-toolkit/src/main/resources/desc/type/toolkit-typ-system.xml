@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uimaScalaToolkit</name>
+    <description>Contains all type system descriptor for this toolkit</description>
+    
+    
+    
+    <types><typeDescription>
+    <name>jenshaase.uimaScala.toolkit.type.Sentence</name>
+    <description>A simple sentence annotation</description>
+    <supertypeName>uima.tcas.Annotation</supertypeName>
+    
+    </typeDescription><typeDescription>
+    <name>jenshaase.uimaScala.toolkit.type.Token</name>
+    <description>A simple token annotation</description>
+    <supertypeName>uima.tcas.Annotation</supertypeName>
+    
+    </typeDescription></types>
+    </typeSystemDescription>
