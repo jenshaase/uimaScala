@@ -51,18 +51,24 @@ class Project(info: ProjectInfo) extends DefaultProject(info) with IdeaProject w
     
     val uimaFit = Dependencies.uimaFit
     val specs = Dependencies.specs
+    
+    def specs2Framework = new TestFramework("org.specs2.runner.SpecsFramework")
+    override def testFrameworks = super.testFrameworks ++ Seq(specs2Framework)
   }
   
   class UimaToolkitProject(info: ProjectInfo) extends DefaultProject(info) with UimaScalaPlugin {
     
+    def specs2Framework = new TestFramework("org.specs2.runner.SpecsFramework")
+    override def testFrameworks = super.testFrameworks ++ Seq(specs2Framework)
+    
     val toolkitTypSystem = UimaTypeSystem("uimaScalaToolkit")(
       _.description("Contains all type system descriptor for this toolkit"),
 
-      _.withType("jenshaase.uimaScala.toolkit.type.Token", "uima.tcas.Annotation")(
+      _.withType("jenshaase.uimaScala.toolkit.types.Token", "uima.tcas.Annotation")(
         _.description("A simple token annotation")
       ),
 
-      _.withType("jenshaase.uimaScala.toolkit.type.Sentence", "uima.tcas.Annotation")(
+      _.withType("jenshaase.uimaScala.toolkit.types.Sentence", "uima.tcas.Annotation")(
         _.description("A simple sentence annotation")
       )
     )
