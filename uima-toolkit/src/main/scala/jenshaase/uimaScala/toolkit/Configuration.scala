@@ -20,10 +20,9 @@
  * THE SOFTWARE.
  */
 
-package jenshaase.uimaScala.toolkit.annotator
+package jenshaase.uimaScala.toolkit
 
 import org.uimafit.descriptor.ConfigurationParameter
-import org.uimafit.descriptor.ConfigurationParameter._
 import java.util.Locale
 import org.apache.uima.jcas.JCas
 
@@ -38,11 +37,11 @@ object Configuration {
 trait LocaleConfig {
   
   @ConfigurationParameter(name=Configuration.PARAM_LOCALE, mandatory=false)
-  protected var locale: String = null
+  protected var locale: Locale = null
   
   def getLocale: Locale = {
     if (locale != null) {
-      new Locale(locale)
+      locale
     } else {
       Locale.getDefault
     }
@@ -50,7 +49,7 @@ trait LocaleConfig {
   
   def getLocale(jcas: JCas): Locale = {
     if (locale != null) {
-      return new Locale(locale)
+      return locale
     }
     
     val l = jcas.getDocumentLanguage

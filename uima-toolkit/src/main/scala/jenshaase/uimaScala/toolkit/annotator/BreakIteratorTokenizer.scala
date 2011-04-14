@@ -29,6 +29,7 @@ import jenshaase.uimaScala.toolkit.types.{Token, Sentence}
 import org.uimafit.descriptor.ConfigurationParameter
 import jenshaase.uimaScala.core.SCasAnnotator_ImplBase
 import jenshaase.uimaScala.core.Implicits._
+import jenshaase.uimaScala.toolkit.LocaleConfig
 
 /**
  * @author Jens Haase <je.haase@googlemail.com>
