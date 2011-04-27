@@ -23,41 +23,43 @@
 package jenshaase.uimaScala.toolkit.annotator
 
 import org.specs2.mutable.Specification
-import org.uimafit.factory.AnalysisEngineFactory
 import org.apache.uima.analysis_engine.AnalysisEngine
-import org.uimafit.util.JCasUtil
-import jenshaase.uimaScala.toolkit.types.{Token, Sentence}
+import org.uimafit.factory.AnalysisEngineFactory
 import jenshaase.uimaScala.core.Implicits._
+import jenshaase.uimaScala.toolkit.types.{Token, Stopword}
 
-/**
- * @author Jens Haase <je.haase@googlemail.com>
- */
+class StopwordTaggerSpec extends Specification {
 
-class BreakIteratorSpec extends Specification {
-  
-  "Break Iterator" should {
-    val tokenizer: AnalysisEngine = BreakIteratorTokenizer()
+  "Stopword Tagger" should {
+    val tokenizer: AnalysisEngine = AnalysisEngineFactory.createPrimitive(classOf[BreakIteratorTokenizer])
 
-    "split german sentences" in {
+    "add annotations for each stopword" in {
+      val tagger = StopwordTagger("uima-toolkit/src/main/resources/stopwords/german.txt")
       val jcas = tokenizer.newJCas()
       jcas.setDocumentText("Hallo, alle zusammen. Wie geht es euch?")
       jcas.setDocumentLanguage("de")
       tokenizer.process(jcas)
-      
-      jcas.selectByIndex(classOf[Sentence], 0).getCoveredText must be equalTo("Hallo, alle zusammen.")
-      jcas.selectByIndex(classOf[Sentence], 1).getCoveredText must be equalTo("Wie geht es euch?")
+      tagger.process(jcas)
+
+      jcas.selectByIndex(classOf[Stopword], 0).getCoveredText must be equalTo("alle")
+      jcas.selectByIndex(classOf[Stopword], 1).getCoveredText must be equalTo("es")
     }
-    
-    "split german words" in {
+  }
+
+  "Stopword remover" should {
+    val tokenizer: AnalysisEngine = AnalysisEngineFactory.createPrimitive(classOf[BreakIteratorTokenizer])
+
+    "remove stopword tokens" in {
+      val tagger = StopwordRemover("uima-toolkit/src/main/resources/stopwords/german.txt")
       val jcas = tokenizer.newJCas()
       jcas.setDocumentText("Hallo, alle zusammen. Wie geht es euch?")
       jcas.setDocumentLanguage("de")
       tokenizer.process(jcas)
-      
+      tagger.process(jcas)
+
       jcas.selectByIndex(classOf[Token], 0).getCoveredText must be equalTo("Hallo")
       jcas.selectByIndex(classOf[Token], 1).getCoveredText must be equalTo(",")
-      jcas.selectByIndex(classOf[Token], 2).getCoveredText must be equalTo("alle")
-      jcas.selectByIndex(classOf[Token], 3).getCoveredText must be equalTo("zusammen")
+      jcas.selectByIndex(classOf[Token], 2).getCoveredText must be equalTo("zusammen")
     }
   }
 }

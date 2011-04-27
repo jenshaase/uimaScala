@@ -10,15 +10,15 @@ import org.apache.uima.jcas.cas.TOP_Type;
 import org.apache.uima.jcas.tcas.Annotation;
 
 
-/** A simple sentence annotation
+/** A stopword annotation
  * Updated by JCasGen Wed Apr 27 19:14:15 CEST 2011
  * XML source: ./uima-toolkit/src/main/resources/desc/types/toolkit-typ-system.xml
  * @generated */
-public class Sentence extends Annotation {
+public class Stopword extends Annotation {
   /** @generated
    * @ordered 
    */
-  public final static int typeIndexID = JCasRegistry.register(Sentence.class);
+  public final static int typeIndexID = JCasRegistry.register(Stopword.class);
   /** @generated
    * @ordered 
    */
@@ -28,23 +28,23 @@ public class Sentence extends Annotation {
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected Sentence() {}
+  protected Stopword() {}
     
   /** Internal - constructor used by generator 
    * @generated */
-  public Sentence(int addr, TOP_Type type) {
+  public Stopword(int addr, TOP_Type type) {
     super(addr, type);
     readObject();
   }
   
   /** @generated */
-  public Sentence(JCas jcas) {
+  public Stopword(JCas jcas) {
     super(jcas);
     readObject();   
   } 
 
   /** @generated */  
-  public Sentence(JCas jcas, int begin, int end) {
+  public Stopword(JCas jcas, int begin, int end) {
     super(jcas);
     setBegin(begin);
     setEnd(end);

@@ -39,9 +39,9 @@ class TextFileReaderSpec extends Specification {
       
       val it = new ReaderIterator(reader)
       it.hasNext must beTrue
-      it.next.getDocumentText must be equalTo("file1.txt")
-      it.hasNext must beTrue
       it.next.getDocumentText must be equalTo("file2.txt")
+      it.hasNext must beTrue
+      it.next.getDocumentText must be equalTo("file1.txt")
       it.hasNext must beFalse
     }
     
@@ -50,9 +50,9 @@ class TextFileReaderSpec extends Specification {
       
       val it = new ReaderIterator(reader)
       it.hasNext must beTrue
-      it.next.getDocumentText must be equalTo("file1.txt")
-      it.hasNext must beTrue
       it.next.getDocumentText must be equalTo("file2.txt")
+      it.hasNext must beTrue
+      it.next.getDocumentText must be equalTo("file1.txt")
       it.hasNext must beTrue
       it.next.getDocumentText must be equalTo("subfile1.txt")
       it.hasNext must beFalse
@@ -63,9 +63,9 @@ class TextFileReaderSpec extends Specification {
       
       val it = new ReaderIterator(reader)
       it.hasNext must beTrue
-      it.next.getDocumentText must be equalTo("file1.txt")
-      it.hasNext must beTrue
       it.next.getDocumentText must be equalTo("file2.txt")
+      it.hasNext must beTrue
+      it.next.getDocumentText must be equalTo("file1.txt")
       it.hasNext must beFalse
     }
   }

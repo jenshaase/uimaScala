@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Wed Apr 13 11:34:11 CEST 2011 */
+/* First created by JCasGen Wed Apr 27 19:14:15 CEST 2011 */
 package jenshaase.uimaScala.toolkit.types;
 
 import org.apache.uima.jcas.JCas;
@@ -12,7 +12,7 @@ import org.apache.uima.cas.Type;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** A simple token annotation
- * Updated by JCasGen Wed Apr 13 11:34:11 CEST 2011
+ * Updated by JCasGen Wed Apr 27 19:14:15 CEST 2011
  * @generated */
 public class Token_Type extends Annotation_Type {
   /** @generated */

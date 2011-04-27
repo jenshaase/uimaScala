@@ -6,5 +6,6 @@ class Plugins(info: ProjectInfo) extends PluginDefinition(info) {
   val sbtIdea = "com.github.mpeltonen" % "sbt-idea-plugin" % "0.3.0"
   
   // Uima Scala plugin
+  val sbtUimaScalaRepo = "sbt-uima-repo" at "http://jenshaase.github.com/maven/"
   val sbtUimaScala = "jenshaase" % "sbt-uimascala" % "0.1"
 }

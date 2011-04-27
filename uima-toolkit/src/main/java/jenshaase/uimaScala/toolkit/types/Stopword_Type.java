@@ -11,39 +11,39 @@ import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
-/** A simple sentence annotation
+/** A stopword annotation
  * Updated by JCasGen Wed Apr 27 19:14:15 CEST 2011
  * @generated */
-public class Sentence_Type extends Annotation_Type {
+public class Stopword_Type extends Annotation_Type {
   /** @generated */
   protected FSGenerator getFSGenerator() {return fsGenerator;}
   /** @generated */
   private final FSGenerator fsGenerator = 
     new FSGenerator() {
       public FeatureStructure createFS(int addr, CASImpl cas) {
-  			 if (Sentence_Type.this.useExistingInstance) {
+  			 if (Stopword_Type.this.useExistingInstance) {
   			   // Return eq fs instance if already created
-  		     FeatureStructure fs = Sentence_Type.this.jcas.getJfsFromCaddr(addr);
+  		     FeatureStructure fs = Stopword_Type.this.jcas.getJfsFromCaddr(addr);
   		     if (null == fs) {
-  		       fs = new Sentence(addr, Sentence_Type.this);
-  			   Sentence_Type.this.jcas.putJfsFromCaddr(addr, fs);
+  		       fs = new Stopword(addr, Stopword_Type.this);
+  			   Stopword_Type.this.jcas.putJfsFromCaddr(addr, fs);
   			   return fs;
   		     }
   		     return fs;
-        } else return new Sentence(addr, Sentence_Type.this);
+        } else return new Stopword(addr, Stopword_Type.this);
   	  }
     };
   /** @generated */
-  public final static int typeIndexID = Sentence.typeIndexID;
+  public final static int typeIndexID = Stopword.typeIndexID;
   /** @generated 
      @modifiable */
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("jenshaase.uimaScala.toolkit.types.Sentence");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("jenshaase.uimaScala.toolkit.types.Stopword");
 
 
 
   /** initialize variables to correspond with Cas Type and Features
 	* @generated */
-  public Sentence_Type(JCas jcas, Type casType) {
+  public Stopword_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 

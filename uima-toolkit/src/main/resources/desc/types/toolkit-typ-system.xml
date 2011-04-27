@@ -6,6 +6,11 @@
     
     
     <types><typeDescription>
+    <name>jenshaase.uimaScala.toolkit.types.Stopword</name>
+    <description>A stopword annotation</description>
+    <supertypeName>uima.tcas.Annotation</supertypeName>
+    
+    </typeDescription><typeDescription>
     <name>jenshaase.uimaScala.toolkit.types.Sentence</name>
     <description>A simple sentence annotation</description>
     <supertypeName>uima.tcas.Annotation</supertypeName>

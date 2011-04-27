@@ -26,6 +26,9 @@ import jenshaase.uimaScala.sbt.UimaScalaPlugin
 
 class Project(info: ProjectInfo) extends DefaultProject(info) with IdeaProject with UimaScalaPlugin {
 
+  override def managedStyle = ManagedStyle.Maven
+  lazy val publishTo = Resolver.file("GitHub Pages", new java.io.File("../../jenshaase.github.com/maven/"))
+
   // Projects
   lazy val core = project("uima-core", "uima-core", new UimaCoreProject(_) with IdeaProject)
   lazy val toolkit = project("uima-toolkit", "uima-toolkit", new UimaToolkitProject(_) with IdeaProject, core)
@@ -70,6 +73,10 @@ class Project(info: ProjectInfo) extends DefaultProject(info) with IdeaProject w
 
       _.withType("jenshaase.uimaScala.toolkit.types.Sentence", "uima.tcas.Annotation")(
         _.description("A simple sentence annotation")
+      ),
+
+      _.withType("jenshaase.uimaScala.toolkit.types.Stopword", "uima.tcas.Annotation")(
+        _.description("A stopword annotation")
       )
     )
   }
