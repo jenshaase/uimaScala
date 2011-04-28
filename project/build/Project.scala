@@ -30,9 +30,9 @@ class Project(info: ProjectInfo) extends DefaultProject(info) with IdeaProject w
   lazy val publishTo = Resolver.file("GitHub Pages", new java.io.File("../../jenshaase.github.com/maven/"))
 
   // Projects
-  lazy val core = project("uima-core", "uima-core", new UimaCoreProject(_) with IdeaProject)
-  lazy val toolkit = project("uima-toolkit", "uima-toolkit", new UimaToolkitProject(_) with IdeaProject, core)
-  lazy val examples = project("uima-examples", "uima-examples", new UimaExamplesProject(_) with IdeaProject, toolkit)
+  val core = project("uima-core", "uima-core", new UimaCoreProject(_) with IdeaProject)
+  val toolkit = project("uima-toolkit", "uima-toolkit", new UimaToolkitProject(_) with IdeaProject, core)
+  val examples = project("uima-examples", "uima-examples", new UimaExamplesProject(_) with IdeaProject, toolkit)
   
   object Dependencies {
     lazy val uimaFit = "org.uimafit" % "uimafit" % "1.1.0"

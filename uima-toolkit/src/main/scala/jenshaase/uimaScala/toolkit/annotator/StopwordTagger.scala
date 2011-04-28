@@ -45,12 +45,12 @@ class StopwordTagger extends SCasAnnotator_ImplBase {
     if (stopwordFile == null) {
       throw new Exception("Filename is null")
     }
-    stopwords = scala.io.Source.fromFile(stopwordFile).getLines.toSet
+    stopwords = scala.io.Source.fromFile(stopwordFile).getLines.map(_.toLowerCase).toSet
   }
 
   def process(cas: JCas) = {
     cas.select(classOf[Token]).foreach(t => {
-      if (stopwords.contains(t.getCoveredText)) {
+      if (stopwords.contains(t.getCoveredText.toLowerCase)) {
         new Stopword(cas, t.getBegin, t.getEnd).addToIndexes
       }
     })
@@ -72,7 +72,9 @@ object StopwordTagger {
 class StopwordRemover extends StopwordTagger {
 
   override def process(cas: JCas) = {
-    cas.select(classOf[Token]).filter(t => stopwords.contains(t.getCoveredText)).foreach(_.removeFromIndexes)
+    cas.select(classOf[Token]).
+      filter(t => stopwords.contains(t.getCoveredText.toLowerCase)).
+      foreach(_.removeFromIndexes)
   }
 }
 
