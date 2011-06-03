@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Wed Apr 27 19:14:15 CEST 2011 */
+/* First created by JCasGen Fri Apr 29 11:18:30 CEST 2011 */
 package jenshaase.uimaScala.toolkit.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,7 +11,7 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** A simple sentence annotation
- * Updated by JCasGen Wed Apr 27 19:14:15 CEST 2011
+ * Updated by JCasGen Fri Apr 29 11:18:30 CEST 2011
  * XML source: ./uima-toolkit/src/main/resources/desc/types/toolkit-typ-system.xml
  * @generated */
 public class Sentence extends Annotation {

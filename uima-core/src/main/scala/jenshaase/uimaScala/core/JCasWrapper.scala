@@ -25,6 +25,7 @@ package jenshaase.uimaScala.core
 import org.apache.uima.jcas.JCas
 import org.apache.uima.cas.text.AnnotationFS
 import org.apache.uima.jcas.tcas.Annotation
+import org.apache.uima.jcas.cas.TOP
 import scala.collection.JavaConversions._
 import org.apache.uima.cas.FeatureStructure
 import scala.collection.JavaConversions._
@@ -40,7 +41,7 @@ class JCasWrapper(cas: JCas) {
   /**
    * @see org.uimafit.uitl.JCasUtil#select
    */
-  def select[T <: AnnotationFS](typ: Class[T]): Iterable[T] = JCasUtil.select(cas, typ)
+  def select[T <: TOP](typ: Class[T]): Iterable[T] = JCasUtil.select(cas, typ)
 
   /**
    * @see org.uimafit.uitl.JCasUtil#selectByIndex
@@ -63,7 +64,7 @@ class JCasWrapper(cas: JCas) {
   /**
    * @see org.uimafit.uitl.JCasUtil#selectSingle
    */
-  def selectSingle[T <: FeatureStructure](typ: Class[T]) =
+  def selectSingle[T <: TOP](typ: Class[T]) =
     JCasUtil.selectSingle(cas, typ)
   
   /**
@@ -99,7 +100,7 @@ class JCasWrapper(cas: JCas) {
   /**
    * @see org.uimafit.uitl.JCasUtil#exists
    */
-  def exists[T <: AnnotationFS](typ: Class[T]) =
+  def exists[T <: TOP](typ: Class[T]) =
     JCasUtil.exists(cas, typ)
   
   /**

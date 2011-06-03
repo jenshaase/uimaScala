@@ -26,6 +26,8 @@ import org.specs2.mutable.Specification
 import org.apache.uima.collection.CollectionReader
 import org.apache.uima.util.CasCreationUtils
 import org.apache.uima.jcas.JCas
+import jenshaase.uimaScala.core.Implicits._
+import jenshaase.uimaScala.toolkit.types.DocumentAnnotation
 
 /**
  * @author Jens Haase <je.haase@googlemail.com>
@@ -34,6 +36,16 @@ import org.apache.uima.jcas.JCas
 class TextFileReaderSpec extends Specification {
   
   "Text file reader" should {
+    "add document annotation" in {
+      val reader = TextFileReader("uima-toolkit/src/test/resources/reader/textFileReader/test1")
+
+      val it = new ReaderIterator(reader)
+      it.hasNext must beTrue
+      val doc = it.next.selectByIndex(classOf[DocumentAnnotation], 0)
+      doc.getName must be equalTo("file2.txt")
+      doc.getSource.endsWith("src/test/resources/reader/textFileReader/test1/file2.txt") must beTrue
+    }
+
     "read text files from a directory" in {
       val reader = TextFileReader("uima-toolkit/src/test/resources/reader/textFileReader/test1")
       

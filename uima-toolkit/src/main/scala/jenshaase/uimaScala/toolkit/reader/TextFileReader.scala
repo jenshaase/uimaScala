@@ -34,6 +34,7 @@ import org.apache.uima.resource.metadata.TypeSystemDescription
 import jenshaase.uimaScala.toolkit.{Configuration, LocaleConfig}
 import org.uimafit.factory.{TypeSystemDescriptionFactory, CollectionReaderFactory}
 import org.apache.uima.collection.CollectionReader
+import jenshaase.uimaScala.toolkit.types.DocumentAnnotation
 
 /**
  * @author Jens Haase <je.haase@googlemail.com>
@@ -57,8 +58,14 @@ class TextFileReader extends JCasCollectionReader_ImplBase with LocaleConfig {
   }
 
   def getNext(cas: JCas) = {
+    val file = files.dequeue
+
     cas.setDocumentLanguage(getLocale.getLanguage)
-    cas.setDocumentText(scala.io.Source.fromFile(files.dequeue).mkString)
+    cas.setDocumentText(scala.io.Source.fromFile(file).mkString)
+    val doc = new DocumentAnnotation(cas,0,0)
+    doc.setName(file.getName)
+    doc.setSource(file.getAbsolutePath)
+    doc.addToIndexes
   }
   
   def hasNext =

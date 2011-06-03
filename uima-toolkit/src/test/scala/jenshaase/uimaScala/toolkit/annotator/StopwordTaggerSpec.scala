@@ -42,7 +42,8 @@ class StopwordTaggerSpec extends Specification {
       tagger.process(jcas)
 
       jcas.selectByIndex(classOf[Stopword], 0).getCoveredText must be equalTo("alle")
-      jcas.selectByIndex(classOf[Stopword], 1).getCoveredText must be equalTo("es")
+      jcas.selectByIndex(classOf[Stopword], 1).getCoveredText must be equalTo("Wie")
+      jcas.selectByIndex(classOf[Stopword], 2).getCoveredText must be equalTo("es")
     }
   }
 

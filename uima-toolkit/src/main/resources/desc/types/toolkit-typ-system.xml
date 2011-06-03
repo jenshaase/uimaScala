@@ -20,5 +20,22 @@
     <description>A simple token annotation</description>
     <supertypeName>uima.tcas.Annotation</supertypeName>
     
+    </typeDescription><typeDescription>
+    <name>jenshaase.uimaScala.toolkit.types.DocumentAnnotation</name>
+    <description>A annotation for the complete document</description>
+    <supertypeName>uima.tcas.Annotation</supertypeName>
+    <features><featureDescription>
+    <name>source</name>
+    
+    <rangeTypeName>uima.cas.String</rangeTypeName>
+    
+    
+    </featureDescription><featureDescription>
+    <name>name</name>
+    
+    <rangeTypeName>uima.cas.String</rangeTypeName>
+    
+    
+    </featureDescription></features>
     </typeDescription></types>
     </typeSystemDescription>
