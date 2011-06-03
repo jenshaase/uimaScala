@@ -25,11 +25,11 @@ package jenshaase.uimaScala.toolkit.annotator
 import org.apache.uima.jcas.JCas
 import java.text.BreakIterator
 import java.util.Locale
-import jenshaase.uimaScala.toolkit.types.{Token, Sentence}
+import jenshaase.uimaScala.toolkit.types._
 import org.uimafit.descriptor.ConfigurationParameter
 import jenshaase.uimaScala.core.SCasAnnotator_ImplBase
 import jenshaase.uimaScala.core.Implicits._
-import jenshaase.uimaScala.toolkit.LocaleConfig
+import jenshaase.uimaScala.toolkit.configuration._
 import org.uimafit.factory.AnalysisEngineFactory
 
 /**

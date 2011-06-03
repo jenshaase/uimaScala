@@ -31,7 +31,7 @@ import collection.mutable.Queue
 import org.apache.uima.util.ProgressImpl
 import java.util.regex.Pattern
 import org.apache.uima.resource.metadata.TypeSystemDescription
-import jenshaase.uimaScala.toolkit.{Configuration, LocaleConfig}
+import jenshaase.uimaScala.toolkit.configuration._
 import org.uimafit.factory.{TypeSystemDescriptionFactory, CollectionReaderFactory}
 import org.apache.uima.collection.CollectionReader
 import jenshaase.uimaScala.toolkit.types.DocumentAnnotation
@@ -39,7 +39,6 @@ import jenshaase.uimaScala.toolkit.types.DocumentAnnotation
 /**
  * @author Jens Haase <je.haase@googlemail.com>
  */
-
 class TextFileReader extends JCasCollectionReader_ImplBase with LocaleConfig {
 
   @ConfigurationParameter(name=TextFileReader.PARAM_PATH, mandatory=true)
