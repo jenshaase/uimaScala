@@ -6,15 +6,17 @@ import SbtUimaPlugin._
 
 object UimaScalaBuild extends Build {
 
-    override def projects = Seq(uimaCore, uimaToolkit, uimaExamples)
+    override def projects = Seq(root, uimaCore, uimaToolkit, uimaExamples)
     
-    lazy val uimaCore = Project("uima-core", file("uima-core"),
+    lazy val root = Project("uimaScala", file("."), settings = Defaults.defaultSettings ++ sharedSettings) aggregate(uimaCore, uimaToolkit, uimaExamples)
+    
+    lazy val uimaCore = Project("uimaScala-core", file("uima-core"),
         settings = Defaults.defaultSettings ++ sharedSettings ++ uimaSettings ++ coreSettings)
 
-    lazy val uimaToolkit = Project("uima-toolkit", file("uima-toolkit"),
+    lazy val uimaToolkit = Project("uimaScala-toolkit", file("uima-toolkit"),
         settings = Defaults.defaultSettings ++ sharedSettings ++ uimaSettings ++ toolkitSettings) dependsOn(uimaCore)
     
-    lazy val uimaExamples = Project("uima-examples", file("uima-examples"),
+    lazy val uimaExamples = Project("uimaScala-examples", file("uima-examples"),
         settings = Defaults.defaultSettings ++ sharedSettings ++ uimaSettings ++ exampleSettings) dependsOn(uimaToolkit)
     
     lazy val sharedSettings = Seq(

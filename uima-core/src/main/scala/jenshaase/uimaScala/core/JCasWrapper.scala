@@ -77,9 +77,7 @@ class JCasWrapper(cas: JCas) {
    * @see org.uimafit.uitl.JCasUtil#selectPreceding
    */
   def selectPreceding[T <: Annotation](typ: Class[T], annotation: Annotation, count: Int): Buffer[T] = {
-    // TODO: Use JCasUtil.selectPreceding when bug #83 of uimafit is solved
-    val t = JCasUtil.getType(cas, typ)
-    CasUtil.selectPreceding(cas.getCas, t, annotation, count).asInstanceOf[java.util.List[T]]
+    JCasUtil.selectPreceding(cas, typ, annotation, count);
   }
   
   /**
@@ -92,9 +90,7 @@ class JCasWrapper(cas: JCas) {
    * @see org.uimafit.uitl.JCasUtil#selectFollowing
    */
   def selectFollowing[T <: Annotation](typ: Class[T], annotation: Annotation, count: Int): Buffer[T] = {
-    // TODO: Use JCasUtil.selectFollowing when bug #83 of uimafit is solved
-    val t = JCasUtil.getType(cas, typ)
-    CasUtil.selectFollowing(cas.getCas, t, annotation, count).asInstanceOf[java.util.List[T]]
+    JCasUtil.selectFollowing(cas, typ, annotation, count)
   }
   
   /**
