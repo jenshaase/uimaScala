@@ -41,7 +41,7 @@ object Release extends Build {
         import extracted._
     
         val v = (version in currentRef get structure.data).get
-        commitAndPush("'Release of version "+v+"'", tag = Some("v"+v))
+        commitAndPush(v, tag = Some("v"+v))
         
         
         val nextVersion = Version.fromString(v) match {
@@ -49,17 +49,20 @@ object Release extends Build {
             case _ => "something you like"
         }
         println("-------------------------------")
-        println("Nearly done. Change the version io this project to " + nextVersion)
-        println("Than execute:")
-        println("  git commit -am 'Bumped to version "+nextVersion+"'");
-        println("  git push");
+        println("Released version "+v)
+        println("Next(Optional):")
+        println("   For crossbuild set version to "+v+", reload and execute '+ publish'")
+        println("Finally:")
+        println("  * Change build settings to version "+nextVersion);
+        println("  * git commit -am 'Bumped to version "+nextVersion+"'");
+        println("  * git push");
         
         state
     }
     
     def fullRelease = Command.command("full-release") { (state: State) =>
         state.copy(remainingCommands =
-            Seq("release-prepare", "+publish", "release-finalize") ++ state.remainingCommands)
+            Seq("release-prepare", "publish", "release-finalize") ++ state.remainingCommands)
     }
     
     def tag(state: State) = {
@@ -105,7 +108,7 @@ object Release extends Build {
 Before running full-release:
 1. Ensure all code is committed and the working directory is completely clean. 'git status' should show no untracked files.
 2. 'test'
-3. Set the release version in sREADME
+3. Set the release version in README
 """
 }
 

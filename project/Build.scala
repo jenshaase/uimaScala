@@ -34,6 +34,7 @@ object UimaScalaBuild extends Build {
         organization := "jenshaase",
         version := "0.2-SNAPSHOT",
         scalaVersion := "2.9.0-1",
+        crossScalaVersions := Seq("2.9.0-1"),
         scalacOptions += "-deprecation",
         libraryDependencies ++= Seq(
             "org.uimafit" % "uimafit" % "1.2.0",
