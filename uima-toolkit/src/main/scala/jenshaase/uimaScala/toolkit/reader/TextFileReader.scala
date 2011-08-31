@@ -22,44 +22,43 @@
 
 package jenshaase.uimaScala.toolkit.reader
 
-import org.uimafit.component.JCasCollectionReader_ImplBase
-import org.apache.uima.jcas.JCas
-import org.apache.uima.UimaContext
-import java.io.File
-import org.uimafit.descriptor.ConfigurationParameter
-import collection.mutable.Queue
-import org.apache.uima.util.ProgressImpl
+import jenshaase.uimaScala.core.SCasCollectionReader_ImplBase
+import jenshaase.uimaScala.core.configuration.parameter._
 import java.util.regex.Pattern
-import org.apache.uima.resource.metadata.TypeSystemDescription
-import jenshaase.uimaScala.toolkit.configuration._
-import org.uimafit.factory.{TypeSystemDescriptionFactory, CollectionReaderFactory}
-import org.apache.uima.collection.CollectionReader
+import org.apache.uima.UimaContext
+import org.apache.uima.jcas.JCas
 import jenshaase.uimaScala.toolkit.types.DocumentAnnotation
+import org.apache.uima.util.ProgressImpl
+import java.io.File
+import scala.collection.mutable.Queue
+
 
 /**
  * @author Jens Haase <je.haase@googlemail.com>
  */
-class TextFileReader extends JCasCollectionReader_ImplBase with LocaleConfig {
+class TextFileReader extends SCasCollectionReader_ImplBase {
 
-  @ConfigurationParameter(name=TextFileReader.PARAM_PATH, mandatory=true)
-  protected var path: File = null
+  object path extends FileParameter(this)
   
-  @ConfigurationParameter(name=TextFileReader.PARAM_FILENAME_PATTERN, mandatory=true)
-  protected var filenamePattern: Pattern = Pattern.compile(".*\\.txt")
+  object filenamePattern extends OptionalPatternParameter(this) {
+    override def defaultValue = Some(Pattern.compile(".*\\.txt"))
+  }
+  
+  object locale extends OptionalLocaleParameter(this)
   
   var files: Queue[File] = null
   
   var total: Int = 0
 
   override def initialize(context: UimaContext) = {
-    files = collectFiles(path)
+    files = collectFiles(path.is)
     total = files.size
   }
 
   def getNext(cas: JCas) = {
     val file = files.dequeue
 
-    cas.setDocumentLanguage(getLocale.getLanguage)
+    locale.is.map(l => cas.setDocumentLanguage(l.getLanguage))
     cas.setDocumentText(scala.io.Source.fromFile(file).mkString)
     val doc = new DocumentAnnotation(cas,0,0)
     doc.setName(file.getName)
@@ -75,25 +74,10 @@ class TextFileReader extends JCasCollectionReader_ImplBase with LocaleConfig {
   
   def collectFiles(path: File): Queue[File] = {
     val files = path.listFiles
-    Queue() ++= files.filter(
-      f => f.isFile && 
-        filenamePattern.matcher(f.getName).matches) ++ 
-      files.filter(_.isDirectory).flatMap(collectFiles)
-  }
-}
-
-object TextFileReader {
-  final val PARAM_PATH = "Path"
-  final val PARAM_FILENAME_PATTERN = "FilenamePattern"
-  
-  def apply(path: String, pattern: String = ".*\\.txt", locale: String = "en"): CollectionReader =
-    apply(TypeSystemDescriptionFactory.createTypeSystemDescription, path, pattern, locale)
-  
-  def apply(typeSystem: TypeSystemDescription, path: String, pattern: String, locale: String): CollectionReader = {
-    CollectionReaderFactory.createCollectionReader(classOf[TextFileReader], typeSystem,
-      PARAM_PATH, path,
-      PARAM_FILENAME_PATTERN, pattern,
-      Configuration.PARAM_LOCALE, locale
-    )
+    Queue() ++= files.
+    	filter { f => 
+    	  f.isFile &&
+    	  	filenamePattern.is.map(_.matcher(f.getName).matches).getOrElse(true) 
+    	} ++ files.filter(_.isDirectory).flatMap(collectFiles)
   }
 }

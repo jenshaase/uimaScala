@@ -28,6 +28,7 @@ import org.apache.uima.util.CasCreationUtils
 import org.apache.uima.jcas.JCas
 import jenshaase.uimaScala.core.Implicits._
 import jenshaase.uimaScala.toolkit.types.DocumentAnnotation
+import java.io.File
 
 /**
  * @author Jens Haase <je.haase@googlemail.com>
@@ -37,7 +38,9 @@ class TextFileReaderSpec extends Specification {
   
   "Text file reader" should {
     "add document annotation" in {
-      val reader = TextFileReader("uima-toolkit/src/test/resources/reader/textFileReader/test1")
+      var reader = new TextFileReader().
+      	path(new File("uima-toolkit/src/test/resources/reader/textFileReader/test1")).
+      	asCollectionReader
 
       val it = new ReaderIterator(reader)
       it.hasNext must beTrue
@@ -47,7 +50,9 @@ class TextFileReaderSpec extends Specification {
     }
 
     "read text files from a directory" in {
-      val reader = TextFileReader("uima-toolkit/src/test/resources/reader/textFileReader/test1")
+      val reader = new TextFileReader().
+      	path(new File("uima-toolkit/src/test/resources/reader/textFileReader/test1")).
+      	asCollectionReader
       
       val it = new ReaderIterator(reader)
       it.hasNext must beTrue
@@ -58,7 +63,9 @@ class TextFileReaderSpec extends Specification {
     }
     
     "read directories recursivly" in {
-      val reader = TextFileReader("uima-toolkit/src/test/resources/reader/textFileReader/test2")
+      val reader = new TextFileReader().
+      	path(new File("uima-toolkit/src/test/resources/reader/textFileReader/test2")).
+      	asCollectionReader
       
       val it = new ReaderIterator(reader)
       it.hasNext must beTrue
@@ -71,7 +78,9 @@ class TextFileReaderSpec extends Specification {
     }
     
     "read only files that match the pattern" in {
-      val reader = TextFileReader("uima-toolkit/src/test/resources/reader/textFileReader/test3")
+      val reader = new TextFileReader().
+      	path(new File("uima-toolkit/src/test/resources/reader/textFileReader/test3")).
+      	asCollectionReader
       
       val it = new ReaderIterator(reader)
       it.hasNext must beTrue

@@ -28,7 +28,6 @@ import java.util.Locale
 import jenshaase.uimaScala.toolkit.types._
 import org.uimafit.descriptor.ConfigurationParameter
 import jenshaase.uimaScala.core.SCasAnnotator_ImplBase
-import jenshaase.uimaScala.core.Implicits._
 import jenshaase.uimaScala.toolkit.configuration._
 import org.uimafit.factory.AnalysisEngineFactory
 
@@ -65,9 +64,4 @@ class BreakIteratorTokenizer extends SCasAnnotator_ImplBase with LocaleConfig {
       cur = bi.next
     }
   }
-}
-
-object BreakIteratorTokenizer {
-
-  def apply() = AnalysisEngineFactory.createPrimitive(classOf[BreakIteratorTokenizer])
 }

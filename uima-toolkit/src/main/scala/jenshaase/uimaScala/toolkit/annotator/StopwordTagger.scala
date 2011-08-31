@@ -24,28 +24,29 @@ package jenshaase.uimaScala.toolkit.annotator
 
 import jenshaase.uimaScala.core.SCasAnnotator_ImplBase
 import org.apache.uima.jcas.JCas
-import jenshaase.uimaScala.core.Implicits._
 import jenshaase.uimaScala.toolkit.types.{Stopword, Token}
 import org.uimafit.descriptor.ConfigurationParameter
 import java.io.File
 import org.apache.uima.UimaContext
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.uimafit.factory.AnalysisEngineFactory
+import jenshaase.uimaScala.core.configuration.parameter.FileParameter
+import scala.io.Source
 
 
 class StopwordTagger extends SCasAnnotator_ImplBase {
 
-  @ConfigurationParameter(name=StopwordTagger.PARAM_STOPWORD_FILE, mandatory=true)
-  protected var stopwordFile: String = null
-
-  protected var stopwords: Set[String] = null
+  object stopwordFile extends FileParameter(this) {
+    def loadStopwords: Set[String] = 
+      Source.fromFile(is).getLines.map(_.toLowerCase).toSet
+  }
+  
+  protected var stopwords: Set[String] = _
 
   override def initialize(context: UimaContext) = {
     super.initialize(context)
-    if (stopwordFile == null) {
-      throw new Exception("Filename is null")
-    }
-    stopwords = scala.io.Source.fromFile(stopwordFile).getLines.map(_.toLowerCase).toSet
+
+    stopwords = stopwordFile.loadStopwords
   }
 
   def process(cas: JCas) = {
@@ -57,18 +58,6 @@ class StopwordTagger extends SCasAnnotator_ImplBase {
   }
 }
 
-object StopwordTagger {
-  final val PARAM_STOPWORD_FILE = "StopwordFile"
-
-  def apply(file: String): AnalysisEngine = AnalysisEngineFactory.
-    createPrimitive(classOf[StopwordTagger],
-    PARAM_STOPWORD_FILE, file)
-
-  def apply(stopwordFile: File): AnalysisEngine = apply(stopwordFile.getAbsolutePath)
-}
-
-
-
 class StopwordRemover extends StopwordTagger {
 
   override def process(cas: JCas) = {
@@ -76,14 +65,4 @@ class StopwordRemover extends StopwordTagger {
       filter(t => stopwords.contains(t.getCoveredText.toLowerCase)).
       foreach(_.removeFromIndexes)
   }
-}
-
-object StopwordRemover {
-  final val PARAM_STOPWORD_FILE = "StopwordFile"
-
-  def apply(file: String): AnalysisEngine = AnalysisEngineFactory.
-    createPrimitive(classOf[StopwordRemover],
-    PARAM_STOPWORD_FILE, file)
-
-  def apply(stopwordFile: File): AnalysisEngine = apply(stopwordFile.getAbsolutePath)
 }

@@ -27,14 +27,17 @@ import org.apache.uima.analysis_engine.AnalysisEngine
 import org.uimafit.factory.AnalysisEngineFactory
 import jenshaase.uimaScala.core.Implicits._
 import jenshaase.uimaScala.toolkit.types.{Token, Stopword}
+import java.io.File
 
 class StopwordTaggerSpec extends Specification {
 
   "Stopword Tagger" should {
-    val tokenizer: AnalysisEngine = AnalysisEngineFactory.createPrimitive(classOf[BreakIteratorTokenizer])
+    val tokenizer: AnalysisEngine = new BreakIteratorTokenizer().asAnalysisEngine
 
     "add annotations for each stopword" in {
-      val tagger = StopwordTagger("uima-toolkit/src/main/resources/stopwords/german.txt")
+      val tagger = new StopwordTagger().
+      	stopwordFile(new File("uima-toolkit/src/main/resources/stopwords/german.txt")).
+      	asAnalysisEngine
       val jcas = tokenizer.newJCas()
       jcas.setDocumentText("Hallo, alle zusammen. Wie geht es euch?")
       jcas.setDocumentLanguage("de")
@@ -48,10 +51,12 @@ class StopwordTaggerSpec extends Specification {
   }
 
   "Stopword remover" should {
-    val tokenizer: AnalysisEngine = AnalysisEngineFactory.createPrimitive(classOf[BreakIteratorTokenizer])
+    val tokenizer: AnalysisEngine = new BreakIteratorTokenizer().asAnalysisEngine
 
     "remove stopword tokens" in {
-      val tagger = StopwordRemover("uima-toolkit/src/main/resources/stopwords/german.txt")
+      val tagger = new StopwordRemover().
+      	stopwordFile(new File("uima-toolkit/src/main/resources/stopwords/german.txt")).
+      	asAnalysisEngine
       val jcas = tokenizer.newJCas()
       jcas.setDocumentText("Hallo, alle zusammen. Wie geht es euch?")
       jcas.setDocumentLanguage("de")

@@ -2,15 +2,18 @@ target/
 lib_managed/
 src_managed/
 project/boot/
+uima-scala-docs/build/
 *.iml
 *.ipr
 *.iws
 /.idea
+.scala-dependencies
 
 # Eclipse
 *.pydevproject
 .project
 .metadata
+.history
 bin/**
 tmp/**
 tmp/**/*

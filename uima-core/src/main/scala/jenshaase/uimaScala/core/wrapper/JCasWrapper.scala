@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package jenshaase.uimaScala.core
+package jenshaase.uimaScala.core.wrapper
 
 import org.apache.uima.jcas.JCas
 import org.apache.uima.cas.text.AnnotationFS
