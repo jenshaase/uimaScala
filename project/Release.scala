@@ -4,18 +4,15 @@ import Keys._
 object Release extends Build {
 
     lazy val prerelease = TaskKey[Unit]("prerelease")
-    /*lazy val fullRelease = TaskKey[Unit]("full-release")
-    lazy val pushMain = TaskKey[Unit]("push-main")
-    lazy val myVersion = TaskKey[Unit]("my-version")*/
 
     def releaseSettings: Seq[Setting[_]] = fullReleaseSettings
         
     def fullReleaseSettings: Seq[Setting[_]] = Seq(
         prerelease := println(Prerelease),
-        commands += fullReleaseCmd
+        commands ++= Seq(fullRelease, prepareRelease, finalizeRelease)
     )
     
-    def fullReleaseCmd = Command.command("full-release") { (state: State) =>
+    def prepareRelease = Command.command("release-prepare") { (state: State) =>
         val extracted = Project.extract(state)
         import extracted._
         val transformed = session.mergeSettings map ( s => updateVersion(s) )
@@ -31,12 +28,38 @@ object Release extends Build {
             }.getOrElse(true)
             
             if (correctDep) {
-                tag(state)
+                newState
             } else {
                 println("Cannot publish a release with snapshotted dependencies.");
                 state.fail
             }
         }
+    }
+    
+    def finalizeRelease = Command.command("release-finalize") { (state: State) =>
+        val extracted = Project.extract(state)
+        import extracted._
+    
+        val v = (version in currentRef get structure.data).get
+        commitAndPush("'Release of version "+v+"'", tag = Some("v"+v))
+        
+        
+        val nextVersion = Version.fromString(v) match {
+            case Right(r: BasicVersion) => r.incrementMinor.withExtra(Some("SNAPSHOT")).toString
+            case _ => "something you like"
+        }
+        println("-------------------------------")
+        println("Nearly done. Change the version io this project to " + nextVersion)
+        println("Than execute:")
+        println("  git commit -am 'Bumped to version "+nextVersion+"'");
+        println("  git push");
+        
+        state
+    }
+    
+    def fullRelease = Command.command("full-release") { (state: State) =>
+        state.copy(remainingCommands =
+            Seq("release-prepare", "+publish", "release-finalize") ++ state.remainingCommands)
     }
     
     def tag(state: State) = {
@@ -46,7 +69,7 @@ object Release extends Build {
         val v = (version in currentRef get structure.data).get
         commitAndPush(v, tag = Some("v"+v))
         
-        state
+        state.copy(remainingCommands = "help" +: state.remainingCommands)
     }
     
     def updateVersion(s: Setting[_]): Setting[_] = s.key.key match {
@@ -70,9 +93,9 @@ object Release extends Build {
     
     def git(args: String*): Unit =
     {
-       val full = "git" +: args
+       val full = args.foldLeft("git")(_ + " " +_)
        println(full)
-       // full !
+       full !
     }
     
     def gitIsCleanWorkingTree =
