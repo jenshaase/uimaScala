@@ -32,7 +32,7 @@ object UimaScalaBuild extends Build {
     
     lazy val sharedSettings = Seq(
         organization := "jenshaase",
-        version := "0.2-SNAPSHOT",
+        version := "0.3-SNAPSHOT",
         scalaVersion := "2.9.0-1",
         crossScalaVersions := Seq("2.9.0-1"),
         scalacOptions += "-deprecation",
