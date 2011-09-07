@@ -1,0 +1,1 @@
+Search.setIndex({objects:{},terms:{index:0,search:0,welcom:0,scala:0,uima:0,indic:0,tabl:0,document:0,page:0},objtypes:{},titles:["Welcome to the UIMA-Scala Documentation"],objnames:{},filenames:["index"]})
