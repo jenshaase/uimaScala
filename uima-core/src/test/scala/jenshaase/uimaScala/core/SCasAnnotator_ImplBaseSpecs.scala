@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011 Jens Haase
+ */
 package jenshaase.uimaScala.core
 
 import org.specs2.mutable.Specification

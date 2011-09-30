@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011 Jens Haase
+ */
 package jenshaase.uimaScala.core.configuration.parameter
 
 import org.specs2.Specification

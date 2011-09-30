@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011 Jens Haase
+ */
 package jenshaase.uimaScala.core
 
 import org.apache.uima.collection.CollectionReader_ImplBase
@@ -23,22 +26,22 @@ abstract class SCasCollectionReader_ImplBase extends CollectionReader_ImplBase
   def initialize(context: UimaContext) = {}
 
   def asCollectionReader = {
-    val aed = CollectionReaderFactory.createDescription(this.niceClass, parameterKeyValues:_*)
-    
-    aed.setExternalResourceDependencies(resources.map(r => 
+    val aed = CollectionReaderFactory.createDescription(this.niceClass, parameterKeyValues: _*)
+
+    aed.setExternalResourceDependencies(resources.map(r ⇒
       ExternalResourceFactory.createExternalResourceDependency(r.name, r.className, !r.mandatory_?)).toArray)
-    resources.foreach { r =>
+    resources.foreach { r ⇒
       r.createBinding(aed)
     }
-    
+
     CollectionReaderFactory.createCollectionReader(aed)
   }
 
   def getNext(cas: CAS) = {
-	  getNext(cas.getJCas())
+    getNext(cas.getJCas())
   }
 
   def getNext(cas: JCas)
-  
+
   def close() = {}
 }

@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011 Jens Haase
+ */
 package jenshaase.uimaScala.core
 
 import org.apache.uima.analysis_component.JCasMultiplier_ImplBase
@@ -17,13 +20,13 @@ abstract class SCasMultiplier_ImplBase extends JCasMultiplier_ImplBase
     this.loadParameter(context)
     this.loadResources(context)
   }
-  
+
   def asAnalysisEngine = {
-    val aed = AnalysisEngineFactory.createPrimitiveDescription(this.niceClass, parameterKeyValues:_*)
-    
-    aed.setExternalResourceDependencies(resources.map(r => 
+    val aed = AnalysisEngineFactory.createPrimitiveDescription(this.niceClass, parameterKeyValues: _*)
+
+    aed.setExternalResourceDependencies(resources.map(r ⇒
       ExternalResourceFactory.createExternalResourceDependency(r.name, r.className, !r.mandatory_?)).toArray)
-    resources.foreach { r =>
+    resources.foreach { r ⇒
       r.createBinding(aed)
     }
 

@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011 Jens Haase
+ */
 package jenshaase.uimaScala.core.configuration
 import org.apache.uima.analysis_component.AnalysisComponent
 
@@ -11,9 +14,9 @@ trait BaseParameter {
   // The parameter name
   private var fieldName: String = _
   private var set = false
-  
+
   protected def set_?(b: Boolean) = set = b
-  
+
   def set_? : Boolean = set
 
   /**
@@ -31,7 +34,7 @@ trait BaseParameter {
    * Is this parameter mandatory?
    */
   def mandatory_? = true
-  
+
   /**
    * Sets the parameter name
    */
@@ -74,39 +77,39 @@ trait TypedParameter[ThisType] extends BaseParameter {
    * Helper method often used in @see #setFromAny(a: Any)
    */
   protected final def genericSetFromAny(in: Any)(implicit m: Manifest[ThisType]): Either[Failure, Option[ThisType]] = in match {
-    case value if m.erasure.isInstance(value) => setOption(Some(value.asInstanceOf[ThisType]))
-    case Some(value) if m.erasure.isInstance(value) => setOption(Some(value.asInstanceOf[ThisType]))
-    case (value) :: _ if m.erasure.isInstance(value) => setOption(Some(value.asInstanceOf[ThisType]))
-    case (value: String) => setFromString(value)
-    case Some(value: String) => setFromString(value)
-    case (value: String) :: _ => setFromString(value)
-    case null | None => setOption(defaultValueOption)
-    case Some(other) => setFromString(String.valueOf(other))
-    case other => setFromString(String.valueOf(other))
+    case value if m.erasure.isInstance(value)        ⇒ setOption(Some(value.asInstanceOf[ThisType]))
+    case Some(value) if m.erasure.isInstance(value)  ⇒ setOption(Some(value.asInstanceOf[ThisType]))
+    case (value) :: _ if m.erasure.isInstance(value) ⇒ setOption(Some(value.asInstanceOf[ThisType]))
+    case (value: String)                             ⇒ setFromString(value)
+    case Some(value: String)                         ⇒ setFromString(value)
+    case (value: String) :: _                        ⇒ setFromString(value)
+    case null | None                                 ⇒ setOption(defaultValueOption)
+    case Some(other)                                 ⇒ setFromString(String.valueOf(other))
+    case other                                       ⇒ setFromString(String.valueOf(other))
   }
 
   /**
    * Set the parameter value with an Option
    */
   def setOption(in: Option[ThisType]): Either[Failure, Option[ThisType]] = in match {
-    case Some(_) => {
+    case Some(_) ⇒ {
       data = in
       set_?(true)
       Right(data)
     }
-    case _ if !mandatory_? => {
+    case _ if !mandatory_? ⇒ {
       data = in
       set_?(true)
       Right(data)
     }
-    case _ => Left(Failure("Value required for " + name))
+    case _ ⇒ Left(Failure("Value required for " + name))
   }
-  
+
   /**
    * The default value
    */
   def defaultValue: ValueType
-  
+
   protected def defaultValueOption: Option[ThisType]
 
   /**
@@ -138,9 +141,8 @@ trait MandatoryTypedParameter[ThisType] extends TypedParameter[ThisType] {
   /**
    * Set the parameter value
    */
-  def set(in: ThisType): ThisType = setOption(Some(in)) fold(
-	  r => defaultValue,
-	  l => l getOrElse defaultValue)
+  def set(in: ThisType): ThisType = setOption(Some(in)) fold (r ⇒ defaultValue,
+    l ⇒ l getOrElse defaultValue)
 
   /**
    * Returns the value of this parameter. If not set defaultValue will
@@ -157,7 +159,7 @@ trait MandatoryTypedParameter[ThisType] extends TypedParameter[ThisType] {
    * @see #value
    */
   def is: ThisType = value
-  
+
   protected def defaultValueOption = if (!mandatory_?) None else Some(defaultValue)
 }
 
@@ -176,9 +178,8 @@ trait OptionalTypedParameter[ThisType] extends TypedParameter[ThisType] {
    * Set the value to this parameter.
    * If None given the defaultValue is set
    */
-  def set(in: Option[ThisType]): Option[ThisType] = setOption(in) fold(
-	  r => defaultValue,
-	  l => l orElse defaultValue)
+  def set(in: Option[ThisType]): Option[ThisType] = setOption(in) fold (r ⇒ defaultValue,
+    l ⇒ l orElse defaultValue)
 
   /**
    * Returns the value of the parameter
@@ -199,7 +200,7 @@ trait OptionalTypedParameter[ThisType] extends TypedParameter[ThisType] {
    * Returns the default value
    */
   def defaultValue: ValueType = None
-  
+
   protected def defaultValueOption = defaultValue
 }
 

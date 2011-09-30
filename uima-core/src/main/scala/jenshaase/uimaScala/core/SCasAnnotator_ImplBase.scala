@@ -1,25 +1,6 @@
-/*
- * Copyright (C) 2011 by Jens Haase <je.haase@googlemail.com>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+/**
+ * Copyright (C) 2011 Jens Haase
  */
-
 package jenshaase.uimaScala.core
 
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase
@@ -65,11 +46,11 @@ abstract class SCasAnnotator_ImplBase extends JCasAnnotator_ImplBase
    * Creates a analysis engine from an Annotator instance
    */
   def asAnalysisEngine = {
-    val aed = AnalysisEngineFactory.createPrimitiveDescription(this.niceClass, parameterKeyValues:_*)
-    
-    aed.setExternalResourceDependencies(resources.map(r => 
+    val aed = AnalysisEngineFactory.createPrimitiveDescription(this.niceClass, parameterKeyValues: _*)
+
+    aed.setExternalResourceDependencies(resources.map(r ⇒
       ExternalResourceFactory.createExternalResourceDependency(r.name, r.className, !r.mandatory_?)).toArray)
-    resources.foreach { r =>
+    resources.foreach { r ⇒
       r.createBinding(aed)
     }
 

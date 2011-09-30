@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011 Jens Haase
+ */
 package jenshaase.uimaScala.toolkit.configuration
 
 import org.uimafit.descriptor.ConfigurationParameter
@@ -10,10 +13,10 @@ import jenshaase.uimaScala.core.SCasAnnotator_ImplBase
 /**
  * @author Jens Haase <je.haase@googlemail.com>
  */
-trait LocaleConfig { this: SCasAnnotator_ImplBase =>
- 
+trait LocaleConfig { this: SCasAnnotator_ImplBase ⇒
+
   object locale extends OptionalLocaleParameter(this)
-  
+
   def getLocale(jcas: JCas): Locale = {
     val l = jcas.getDocumentLanguage()
     if (l != null && l != "x-unspecified") {

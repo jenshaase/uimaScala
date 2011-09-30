@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011 Jens Haase
+ */
 package jenshaase.uimaScala.core
 
 import org.apache.uima.flow.JCasFlowController_ImplBase
@@ -16,8 +19,8 @@ abstract class SCasFlowController_ImplBase extends JCasFlowController_ImplBase
 
     this.loadParameter(context)
   }
-  
+
   def asAnalysisEngine = {
-    FlowControllerFactory.createFlowControllerDescription(this.niceClass, this.parameterKeyValues:_*)
+    FlowControllerFactory.createFlowControllerDescription(this.niceClass, this.parameterKeyValues: _*)
   }
 }

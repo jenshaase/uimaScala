@@ -1,0 +1,26 @@
+{
+    "folders":
+    [
+        {
+            "path": ".",
+            "folder_exclude_patterns": ["boot", "target"],
+            "file_exclude_patterns": [".scala_dependencies", "*sublime-workspace"]
+        }
+
+    ],
+    "settings":
+    {
+        "tab_size": 2
+    },
+    "build_systems":
+    [
+        {
+            "name": "sbt",
+            "cmd": ["xsbt-no-color compile"],
+            "file_regex": "^\\[error\\] ([.a-zA-Z0-9/-]+[.]scala):([0-9]+):",
+            "selector": "source.scala",
+            "working_dir": "${project_path:${folder}}",
+            "shell": "true"
+        }
+    ]
+}

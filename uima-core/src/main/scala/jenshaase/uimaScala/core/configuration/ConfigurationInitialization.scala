@@ -1,4 +1,8 @@
+/**
+ * Copyright (C) 2011 Jens Haase
+ */
 package jenshaase.uimaScala.core.configuration
+
 import scala.collection.mutable.ListBuffer
 import org.apache.uima.analysis_component.AnalysisComponent
 import java.lang.reflect.Method
@@ -10,39 +14,39 @@ import org.apache.uima.resource.ResourceInitializationException
  *
  * This can be used whenever configuration parameters must be initalized
  */
-trait ConfigurationInitialization { this: Configurable =>
+trait ConfigurationInitialization { this: Configurable ⇒
 
   private var parameterList: List[ParameterHolder] = Nil
 
   private val tArray: ListBuffer[ParameterHolder] = new ListBuffer[ParameterHolder]
   val methods = this.getClass.getMethods
   introspect(this, methods) {
-    case (v, mf) => tArray += ParameterHolder(mf.name, v, mf)
+    case (v, mf) ⇒ tArray += ParameterHolder(mf.name, v, mf)
   }
   parameterList = tArray.toList
 
   /**
    * Uses reflection to find the parameters in the class
    */
-  protected def introspect(comp: Configurable, methods: Array[Method])(f: (Method, Parameter[_, Configurable]) => Any): Unit = {
+  protected def introspect(comp: Configurable, methods: Array[Method])(f: (Method, Parameter[_, Configurable]) ⇒ Any): Unit = {
     val potentialParams = methods.toList.filter(isParameter)
 
     val map: Map[String, List[Method]] = potentialParams.foldLeft[Map[String, List[Method]]](Map()) {
-      case (map, method) =>
+      case (map, method) ⇒
         val name = method.getName
         map + (name -> (method :: map.getOrElse(name, Nil)))
     }
 
     val realMeth = map.values.map(_.sortWith {
-      case (a, b) => !a.getReturnType().isAssignableFrom(b.getReturnType)
+      case (a, b) ⇒ !a.getReturnType().isAssignableFrom(b.getReturnType)
     }).map(_.head)
 
-    for (v <- realMeth) {
+    for (v ← realMeth) {
       v.invoke(comp) match {
-        case mf: Parameter[_, Configurable] =>
+        case mf: Parameter[_, Configurable] ⇒
           mf.setName_!(v.getName)
           f(v, mf)
-        case _ =>
+        case _ ⇒
       }
     }
   }
@@ -56,7 +60,7 @@ trait ConfigurationInitialization { this: Configurable =>
    * Uses the uima context to set the parameter
    */
   protected def loadParameter(context: UimaContext) = {
-    parameters.foreach { f =>
+    parameters.foreach { f ⇒
       val value = context.getConfigParameterValue(f.name)
 
       if (f.mandatory_? && value == null) {
@@ -65,8 +69,8 @@ trait ConfigurationInitialization { this: Configurable =>
 
       if (value != null) {
         f.setFromAny(value) match {
-          case Left(f: Failure) => throw f.exception.map(new ResourceInitializationException(_)).getOrElse(new ResourceInitializationException())
-          case _ =>
+          case Left(f: Failure) ⇒ throw f.exception.map(new ResourceInitializationException(_)).getOrElse(new ResourceInitializationException())
+          case _                ⇒
         }
       }
     }
@@ -83,7 +87,7 @@ trait ConfigurationInitialization { this: Configurable =>
   }
   implicit def toNiceObject[T <: AnyRef](x: T) = new NiceObject(x)
 
-  def parameterKeyValues = parameters.filter(_.set_?).flatMap { f =>
+  def parameterKeyValues = parameters.filter(_.set_?).flatMap { f ⇒
     Array(f.name, f.asString)
   }.toArray
 

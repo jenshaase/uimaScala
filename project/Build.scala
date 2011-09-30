@@ -1,59 +1,87 @@
+/**
+ * Copyright (C) 2011 Jens Haase
+ */
+package uimascala
+
 import sbt._
 import Keys._
 
-import jenshaase.uimaScala.sbt._
-import SbtUimaPlugin._
+import uimascala.SbtUimaPlugin._
+import com.typesafe.sbtscalariform.ScalariformPlugin
+import ScalariformPlugin.{ format, formatPreferences }
 
 object UimaScalaBuild extends Build {
 
-    lazy val root = Project(
-        "root",
-        file("."),
-        settings = Defaults.defaultSettings ++ sharedSettings ++ Release.releaseSettings
-    ) aggregate(uimaCore, uimaToolkit, uimaExamples)
-    
-    lazy val uimaCore = Project(
-        "uima-scala-core",
-        file("uima-core"),
-        settings = Defaults.defaultSettings ++ sharedSettings ++ uimaSettings ++ coreSettings
+    lazy val buildSettings = Seq(
+        organization := "com.github.jenshaase.uimascala",
+        version      := "0.3-SNAPSHOT",
+        scalaVersion := "2.9.1"
     )
 
-    lazy val uimaToolkit = Project(
-        "uima-scala-toolkit",
-        file("uima-toolkit"),
-        settings = Defaults.defaultSettings ++ sharedSettings ++ uimaSettings ++ toolkitSettings
-    ) dependsOn(uimaCore)
-    
-    lazy val uimaExamples = Project(
-        "uima-scala-examples",
-        file("uima-examples"),
-        settings = Defaults.defaultSettings ++ sharedSettings ++ uimaSettings ++ exampleSettings
-    ) dependsOn(uimaToolkit)
-    
-    lazy val sharedSettings = Seq(
-        organization := "jenshaase",
-        version := "0.3-SNAPSHOT",
-        scalaVersion := "2.9.0-1",
-        crossScalaVersions := Seq("2.9.0-1"),
-        scalacOptions += "-deprecation",
-        libraryDependencies ++= Seq(
-            "org.uimafit" % "uimafit" % "1.2.0",
-            "org.specs2" %% "specs2" % "1.3" % "test"
-            ),
-        shellPrompt := { "sbt (%s)> " format projectId(_) },
-        publishMavenStyle := true,
-        publishTo := Some(Resolver.file("Local", Path.userHome / "programming" / "jenshaase.github.com" / "maven" asFile)(Patterns(true, Resolver.mavenStyleBasePattern)))
+    lazy val uimascala = Project(
+        id = "uimascala",
+        base = file("."),
+        settings = parentSettings ++ Unidoc.settings ++ Seq(
+            parallelExecution in GlobalScope := false,
+            Unidoc.unidocExclude := Seq(examples.id)
+        ),
+        aggregate = Seq(core, toolkit, examples)
     )
     
-    lazy val coreSettings = Seq(
+    lazy val core = Project(
+        id = "uimascala-core",
+        base = file("uima-core"),
+        settings = defaultSettings ++ uimaSettings ++ Seq(
+            libraryDependencies ++= Seq(Dependency.uimafit, Dependency.specs2)
+        )
+    )
+
+    lazy val toolkit = Project(
+        id = "uimascala-toolkit",
+        base = file("uima-toolkit"),
+        settings = defaultSettings ++ uimaSettings ++ Seq(
+            typeSystem := Seq(toolkitTypSystem)
+        ),
+        dependencies = Seq(core, uri("uima-sbt-plugin"))
     )
     
-    lazy val toolkitSettings = Seq(
-        typeSystem := Seq(toolkitTypSystem)
+    lazy val examples = Project(
+        id = "uimascala-examples",
+        base = file("uima-examples"),
+        settings = defaultSettings ++ uimaSettings ++ Seq(),
+        dependencies = Seq(toolkit)
     )
     
-    lazy val exampleSettings = Seq(
+    // Settings
+
+    override lazy val settings = super.settings ++ buildSettings ++ Publish.versionSettings
+
+    lazy val baseSettings = Defaults.defaultSettings ++ Publish.settings
+
+    lazy val parentSettings = baseSettings ++ Seq(
+        publishArtifact in Compile := false
     )
+
+    lazy val defaultSettings = baseSettings ++ formatSettings ++ Seq(
+        scalacOptions ++= Seq("-encoding", "UTF-8", "-deprecation", "-unchecked")
+    )
+
+    lazy val formatSettings = ScalariformPlugin.settings ++ Seq(
+        formatPreferences in Compile := formattingPreferences,
+        formatPreferences in Test := formattingPreferences
+    )
+
+    def formattingPreferences = {
+        import scalariform.formatter.preferences._
+        FormattingPreferences()
+            .setPreference(RewriteArrowSymbols, true)
+            .setPreference(AlignParameters, true)
+            .setPreference(AlignSingleLineCaseStatements, true)
+            .setPreference(IndentSpaces, 2)
+    }
+
+
+    // Type description
 
     lazy val toolkitTypSystem = UimaTypeSystem("uimaScalaToolkit")(
       _.description("Contains all type system descriptor for this toolkit"),
@@ -76,8 +104,13 @@ object UimaScalaBuild extends Build {
         _.description("A stopword annotation")
       )
     )
+}
+
+
+object Dependency {
     
-    // Helpers
-    def projectId(state: State) = extracted(state).currentProject.id
-    def extracted(state: State) = Project extract state
+    val uimafit = "org.uimafit" % "uimafit" % "1.2.0"
+
+    // Testing
+    val specs2 = "org.specs2" %% "specs2" % "1.6.1" % "test"
 }
