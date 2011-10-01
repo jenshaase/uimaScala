@@ -24,6 +24,7 @@ import org.apache.uima.resource.ResourceSpecifier
 import jenshaase.uimaScala.core.resource.TypedSharedResource
 import org.apache.uima.UIMAFramework
 import org.apache.uima.analysis_engine.AnalysisEngineDescription
+import xml.Node
 
 /**
  * Scala Annotator.
@@ -33,7 +34,7 @@ import org.apache.uima.analysis_engine.AnalysisEngineDescription
  * @author Jens Haase <je.haase@googlemail.com>
  */
 abstract class SCasAnnotator_ImplBase extends JCasAnnotator_ImplBase
-  with Configurable with ConfigurationInitialization with ResourceInitialization with Implicits {
+  with Configurable with ConfigurationInitialization with ResourceInitialization with Implicits with XmlDescriptor {
 
   override def initialize(context: UimaContext) = {
     super.initialize(context)
@@ -74,4 +75,7 @@ abstract class SCasAnnotator_ImplBase extends JCasAnnotator_ImplBase
     a.addToIndexes
     a
   }
+
+  def toXml: Node =
+    <todo></todo>
 }

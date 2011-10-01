@@ -21,7 +21,7 @@ object UimaScalaBuild extends Build {
     lazy val uimascala = Project(
         id = "uimascala",
         base = file("."),
-        settings = parentSettings ++ Unidoc.settings ++ Seq(
+        settings = parentSettings ++ Unidoc.settings ++ uimaSettings ++ Seq(
             parallelExecution in GlobalScope := false,
             Unidoc.unidocExclude := Seq(examples.id)
         ),

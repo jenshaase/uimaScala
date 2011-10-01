@@ -4,29 +4,114 @@
 package uimascala
 
 import sbt._
-import Keys._
-import Defaults._
-import Scope.GlobalScope
-import sbt.CommandSupport.logger
+import Build.data
+import compiler.Discovery
+import complete._
+import DefaultParsers._
+import classpath._
+import std.TaskExtra._
+import Project.Initialize
 
-import xml.XML
+import sbinary.DefaultProtocol.StringFormat
+import Cache.seqFormat
+
+import Types._
+import Path._
+import Keys._
+
+import xml.{XML, Node}
 
 import org.apache.uima.UIMAFramework
 import org.apache.uima.util.{CasCreationUtils, XMLInputSource}
 import org.apache.uima.cas.impl.CASImpl
 import org.apache.uima.tools.jcasgen._
 
-object SbtUimaPlugin extends Plugin {
+object SbtUimaKeys {
+  val Uima = config("uima")
 
+  // Settings
   val typeSystem = SettingKey[Seq[UimaTypeSystem]]("type-system")
   val typeSystemDescriptorPath = SettingKey[File]("type-system-descriptor-path")
+  val xmlDescriptorPath = SettingKey[File]("xml-descriptor-path")
 
-  val uimaSettings = Seq(
+  // Task
+  val definedXmlDescriptor = TaskKey[Seq[String]]("defined-xml-descriptor")
+  val genXmlDescriptor = InputKey[Unit]("generate-xml-descriptor")
+  val jcasgen = TaskKey[Unit]("jcasgen", "Starts the jcasgen gui")
+}
+
+object SbtUimaPlugin extends Plugin with BuildCommon {
+
+  import SbtUimaKeys._
+
+  lazy val uimaSettings = inConfig(Uima) (Seq(
+    // Settings
     typeSystem := Seq(),
     typeSystemDescriptorPath <<= (resourceDirectory in Runtime){ (dir) => dir / "desc" / "types" },
-    commands += uimaTypeSystemCommand,
-    libraryDependencies += "org.apache.uima" % "uimaj-tools" % "2.3.1"
-  )
+    xmlDescriptorPath <<= (resourceDirectory in Runtime){ (dir) => dir / "desc" },
+
+    // Tasks
+    definedXmlDescriptor <<= TaskData.write((compile in Runtime) map discoverXmlDescriptors) triggeredBy (compile in Runtime),
+    genXmlDescriptor <<= genXmlDescriptorTask,
+    libraryDependencies += "org.apache.uima" % "uimaj-tools" % "2.3.1",
+    jcasgen <<= run("org.apache.uima.tools.jcasgen.Jg"), // TODO: Add arguments: First arg: <xmlDescriptorPath> <xmlDescriptorPath>
+
+    // Commands
+    commands += uimaTypeSystemCommand
+  ))
+
+  /**
+   * Runs a main method. This is used to start uima guis
+   */
+  def run(mainClass: String, args: Seq[String] = Seq.empty): Initialize[Task[Unit]] =
+    (fullClasspath in Runtime, runner, streams) map {
+      case (cp, runner, s) => runner.run(mainClass, data(cp), args, s.log)
+    }
+
+  /**
+   * Discovers all class that are subclasses of
+   *   jenshaase.uimaScala.core.XmlDescriptor
+   */
+  def discoverXmlDescriptors(analysis: inc.Analysis): Seq[String] = {
+    val descClass = "jenshaase.uimaScala.core.XmlDescriptor"
+
+    val discovery = Discovery(Set(descClass), Set.empty)(Tests allDefs analysis)
+    discovery collect { case (df, disc) if (disc.baseClasses contains descClass) => df.name } toSeq
+  }
+
+  /**
+   * This task generate the analysis engine xml description.
+   * As argument of the task add the classes for which the xml description should be rendered (multiple possible)
+   * If empty all descriptions will be created
+   */
+  def genXmlDescriptorTask =
+    InputTask( TaskData(definedXmlDescriptor)(genXmlDescriptorParser)(Nil) ) { result =>
+      (fullClasspath in Runtime, scalaInstance, xmlDescriptorPath, streams, result) map { case (cp, inst, path, s, descClasses) =>
+        val loader = ClasspathUtilities.makeLoader(data(cp), inst)
+        try {
+          descClasses.foreach { descClass =>
+            val desc = Class.forName(descClass, true, loader).newInstance.asInstanceOf[{ def toXml: Node }];
+
+            val filename = path / descClass+".xml"
+            new File(filename).getParentFile.mkdirs
+            XML.save(filename, desc.toXml, "UTF-8", true, null)
+            s.log("Successful created descriptor: " + filename)
+          }
+        } catch {
+          case e: ClassNotFoundException => 
+        }
+        print("")
+      }
+    }
+
+  /**
+   * The parser for the xml descriptor class.
+   * This enabled tab completion in sbt
+   */
+  def genXmlDescriptorParser: (State, Seq[String]) => Parser[Seq[String]] = {
+    (state, descClasses) => (Space ~> token(NotSpace examples descClasses.toSet)).* map ( l => if(l.isEmpty) descClasses else l )
+  }
+    
 
   val uimaTypeSystemCommand = Command.command("uima-type-system"){ state =>
     val extracted = Project.extract(state)
@@ -61,4 +146,3 @@ object SbtUimaPlugin extends Plugin {
     state
   }
 }
-
