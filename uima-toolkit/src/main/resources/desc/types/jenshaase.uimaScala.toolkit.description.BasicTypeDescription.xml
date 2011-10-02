@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <name>uimascalaToolkitBasic</name>
+  <description>Basic type description for this toolkit</description>
+  <version>0.3-SNAPSHOT</version>
+  <vendor></vendor>
+  <imports> </imports>
+  <types>
+    <typeDescription>
+      <name>jenshaase.uimaScala.toolkit.types.DocumentAnnotation</name>
+      <description></description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>name</name>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>source</name>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+    <typeDescription>
+      <name>jenshaase.uimaScala.toolkit.types.Token</name>
+      <description></description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features> </features>
+    </typeDescription>
+    <typeDescription>
+      <name>jenshaase.uimaScala.toolkit.types.Sentence</name>
+      <description></description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features> </features>
+    </typeDescription>
+    <typeDescription>
+      <name>jenshaase.uimaScala.toolkit.types.Stopword</name>
+      <description></description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features> </features>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

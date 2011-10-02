@@ -17,9 +17,9 @@ trait StringTypedParameter extends TypedParameter[String] {
     case _                  ⇒ setOption(Some(s))
   }
 
-  def asString = this.valueOption match {
-    case Some(s: String) ⇒ s
-    case None            ⇒ ""
+  def asObject = this.valueOption match {
+    case Some(s: String) ⇒ s.asInstanceOf[Object]
+    case None            ⇒ null
   }
 }
 

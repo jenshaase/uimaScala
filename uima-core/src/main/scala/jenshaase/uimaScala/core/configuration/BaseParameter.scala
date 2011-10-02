@@ -36,6 +36,17 @@ trait BaseParameter {
   def mandatory_? = true
 
   /**
+   * If the parameter can take multiple values (collections)
+   */
+  def multiValued_? = false
+
+  /**
+   * Default is string.
+   * Also possible: Integer, Float, Boolean
+   */
+  def uimaType = "String"
+
+  /**
    * Sets the parameter name
    */
   private[configuration] final def setName_!(newName: String): String = {
@@ -61,17 +72,17 @@ trait TypedParameter[ThisType] extends BaseParameter {
   /**
    * Set the parameter value by string
    */
-  def setFromString(s: String): Either[Failure, Option[ThisType]]
+  def setFromString(in: String): Either[Failure, Option[ThisType]]
 
   /**
    * Set the parameter value by an object
    */
-  def setFromAny(a: Any): Either[Failure, Option[ThisType]]
+  def setFromAny(in: Any): Either[Failure, Option[ThisType]]
 
   /**
-   * Converts the value to string
+   * Converts the data to a valid uima type
    */
-  def asString: String
+  def asObject: Object
 
   /**
    * Helper method often used in @see #setFromAny(a: Any)

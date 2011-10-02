@@ -34,7 +34,7 @@ import xml.Node
  * @author Jens Haase <je.haase@googlemail.com>
  */
 abstract class SCasAnnotator_ImplBase extends JCasAnnotator_ImplBase
-  with Configurable with ConfigurationInitialization with ResourceInitialization with Implicits with XmlDescriptor {
+  with Configurable with ConfigurationInitialization with ResourceInitialization with Implicits {
 
   override def initialize(context: UimaContext) = {
     super.initialize(context)
@@ -75,7 +75,4 @@ abstract class SCasAnnotator_ImplBase extends JCasAnnotator_ImplBase
     a.addToIndexes
     a
   }
-
-  def toXml: Node =
-    <todo></todo>
 }

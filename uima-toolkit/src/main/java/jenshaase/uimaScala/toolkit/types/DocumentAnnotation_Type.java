@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Fri Apr 29 11:18:30 CEST 2011 */
+/* First created by JCasGen Sun Oct 02 18:26:25 CEST 2011 */
 package jenshaase.uimaScala.toolkit.types;
 
 import org.apache.uima.jcas.JCas;
@@ -13,8 +13,8 @@ import org.apache.uima.cas.impl.FeatureImpl;
 import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
-/** A annotation for the complete document
- * Updated by JCasGen Fri Apr 29 11:18:30 CEST 2011
+/** 
+ * Updated by JCasGen Sun Oct 02 18:26:25 CEST 2011
  * @generated */
 public class DocumentAnnotation_Type extends Annotation_Type {
   /** @generated */
@@ -42,24 +42,6 @@ public class DocumentAnnotation_Type extends Annotation_Type {
   public final static boolean featOkTst = JCasRegistry.getFeatOkTst("jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
  
   /** @generated */
-  final Feature casFeat_source;
-  /** @generated */
-  final int     casFeatCode_source;
-  /** @generated */ 
-  public String getSource(int addr) {
-        if (featOkTst && casFeat_source == null)
-      jcas.throwFeatMissing("source", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
-    return ll_cas.ll_getStringValue(addr, casFeatCode_source);
-  }
-  /** @generated */    
-  public void setSource(int addr, String v) {
-        if (featOkTst && casFeat_source == null)
-      jcas.throwFeatMissing("source", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
-    ll_cas.ll_setStringValue(addr, casFeatCode_source, v);}
-    
-  
- 
-  /** @generated */
   final Feature casFeat_name;
   /** @generated */
   final int     casFeatCode_name;
@@ -76,6 +58,24 @@ public class DocumentAnnotation_Type extends Annotation_Type {
     ll_cas.ll_setStringValue(addr, casFeatCode_name, v);}
     
   
+ 
+  /** @generated */
+  final Feature casFeat_source;
+  /** @generated */
+  final int     casFeatCode_source;
+  /** @generated */ 
+  public String getSource(int addr) {
+        if (featOkTst && casFeat_source == null)
+      jcas.throwFeatMissing("source", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
+    return ll_cas.ll_getStringValue(addr, casFeatCode_source);
+  }
+  /** @generated */    
+  public void setSource(int addr, String v) {
+        if (featOkTst && casFeat_source == null)
+      jcas.throwFeatMissing("source", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
+    ll_cas.ll_setStringValue(addr, casFeatCode_source, v);}
+    
+  
 
 
 
@@ -86,12 +86,12 @@ public class DocumentAnnotation_Type extends Annotation_Type {
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 
  
-    casFeat_source = jcas.getRequiredFeatureDE(casType, "source", "uima.cas.String", featOkTst);
-    casFeatCode_source  = (null == casFeat_source) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_source).getCode();
-
- 
     casFeat_name = jcas.getRequiredFeatureDE(casType, "name", "uima.cas.String", featOkTst);
     casFeatCode_name  = (null == casFeat_name) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_name).getCode();
+
+ 
+    casFeat_source = jcas.getRequiredFeatureDE(casType, "source", "uima.cas.String", featOkTst);
+    casFeatCode_source  = (null == casFeat_source) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_source).getCode();
 
   }
 }

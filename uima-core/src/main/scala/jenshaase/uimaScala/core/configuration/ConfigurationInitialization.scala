@@ -87,8 +87,8 @@ trait ConfigurationInitialization { this: Configurable ⇒
   }
   implicit def toNiceObject[T <: AnyRef](x: T) = new NiceObject(x)
 
-  def parameterKeyValues = parameters.filter(_.set_?).flatMap { f ⇒
-    Array(f.name, f.asString)
+  def parameterKeyValues: Array[Object] = parameters.filter(_.set_?).flatMap { f ⇒
+    Array(f.name.asInstanceOf[Object], f.asObject)
   }.toArray
 
   case class ParameterHolder(name: String, method: Method, metaParameter: Parameter[_, Configurable]) {

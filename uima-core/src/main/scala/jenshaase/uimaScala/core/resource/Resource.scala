@@ -17,6 +17,10 @@ trait BaseResource {
 
   def name: String = resourceKey
 
+  def description: String = ""
+
+  def interfaceName: String
+
   def mandatory_? = true
 
   private[resource] final def setName_!(newName: String): String = {
@@ -49,11 +53,13 @@ trait TypedResourceWrapper[ThisType] extends BaseResource {
 
   def resourceOption: Option[ThisType] = boundResource
 
-  def parameter = params;
+  def parameter = params
 
   def parameterList: Seq[ParamsType] = parameter.toSeq.flatMap(p ⇒ List(p._1, p._2))
 
-  def className = clazz;
+  def className = clazz
+
+  def interfaceName = className.getName
 
   def createBinding(aed: ResourceSpecifier)
 }

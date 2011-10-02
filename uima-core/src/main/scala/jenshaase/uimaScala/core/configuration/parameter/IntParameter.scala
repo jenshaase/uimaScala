@@ -22,9 +22,9 @@ trait IntTypedParameter extends TypedParameter[Int] {
     }
   }
 
-  def asString = this.valueOption match {
-    case Some(i: Int) ⇒ i.toString
-    case None         ⇒ ""
+  def asObject = this.valueOption match {
+    case Some(i: Int) ⇒ i.asInstanceOf[Object]
+    case None         ⇒ null
   }
 
   protected def parse(s: String): Either[Failure, Int] = try {
@@ -32,6 +32,8 @@ trait IntTypedParameter extends TypedParameter[Int] {
   } catch {
     case e: Exception ⇒ Left(Failure("Error: " + e.getMessage, Some(e)))
   }
+
+  override def uimaType = "Integer"
 }
 
 class IntParameter[OwnerType <: Configurable](comp: OwnerType)

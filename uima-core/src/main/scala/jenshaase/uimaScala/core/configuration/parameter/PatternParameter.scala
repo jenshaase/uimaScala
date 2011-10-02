@@ -22,9 +22,9 @@ trait PatternTypedParameter extends TypedParameter[Pattern] {
     }
   }
 
-  def asString = this.valueOption match {
-    case Some(p: Pattern) ⇒ p.pattern
-    case None             ⇒ ""
+  def asObject = this.valueOption match {
+    case Some(p: Pattern) ⇒ p.pattern.asInstanceOf[Object]
+    case None             ⇒ null
   }
 
   protected def compile(s: String): Either[Failure, Option[Pattern]] = try {

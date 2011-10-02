@@ -22,9 +22,9 @@ trait BooleanTypedParameter extends TypedParameter[Boolean] {
     }
   }
 
-  def asString = this.valueOption match {
-    case Some(b: Boolean) ⇒ b.toString
-    case None             ⇒ ""
+  def asObject = this.valueOption match {
+    case Some(b: Boolean) ⇒ b.asInstanceOf[Object]
+    case None             ⇒ null
   }
 
   protected def parse(s: String): Either[Failure, Boolean] = try {
@@ -40,6 +40,8 @@ trait BooleanTypedParameter extends TypedParameter[Boolean] {
   } catch {
     case e: Exception ⇒ Left(Failure("Can not parse to boolean: " + e.getMessage, Some(e)))
   }
+
+  override def uimaType = "Boolean"
 }
 
 class BooleanParameter[OwnerType <: Configurable](comp: OwnerType)

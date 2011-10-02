@@ -24,9 +24,9 @@ trait FileTypedParameter extends TypedParameter[File] {
     case _                  ⇒ setOption(Some(new File(s)))
   }
 
-  def asString = this.valueOption match {
-    case Some(f: File) ⇒ f.getAbsolutePath
-    case None          ⇒ ""
+  def asObject = this.valueOption match {
+    case Some(f: File) ⇒ f.getAbsolutePath.asInstanceOf[Object]
+    case None          ⇒ null
   }
 }
 

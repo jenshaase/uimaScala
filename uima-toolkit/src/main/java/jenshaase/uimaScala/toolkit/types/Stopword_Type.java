@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Fri Apr 29 11:18:30 CEST 2011 */
+/* First created by JCasGen Sun Oct 02 18:26:25 CEST 2011 */
 package jenshaase.uimaScala.toolkit.types;
 
 import org.apache.uima.jcas.JCas;
@@ -11,8 +11,8 @@ import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
-/** A stopword annotation
- * Updated by JCasGen Fri Apr 29 11:18:30 CEST 2011
+/** 
+ * Updated by JCasGen Sun Oct 02 18:26:25 CEST 2011
  * @generated */
 public class Stopword_Type extends Annotation_Type {
   /** @generated */

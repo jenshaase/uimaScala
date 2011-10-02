@@ -19,12 +19,13 @@ import Types._
 import Path._
 import Keys._
 
-import xml.{XML, Node}
+import xml.{XML, Node, PrettyPrinter}
 
 import org.apache.uima.UIMAFramework
 import org.apache.uima.util.{CasCreationUtils, XMLInputSource}
 import org.apache.uima.cas.impl.CASImpl
 import org.apache.uima.tools.jcasgen._
+import java.io.FileWriter
 
 object SbtUimaKeys {
   val Uima = config("uima")
@@ -86,16 +87,27 @@ object SbtUimaPlugin extends Plugin with BuildCommon {
    */
   def genXmlDescriptorTask =
     InputTask( TaskData(definedXmlDescriptor)(genXmlDescriptorParser)(Nil) ) { result =>
-      (fullClasspath in Runtime, scalaInstance, xmlDescriptorPath, streams, result) map { case (cp, inst, path, s, descClasses) =>
+      (fullClasspath in Runtime, scalaInstance, xmlDescriptorPath, streams, result, javaSource in Runtime) map { case (cp, inst, path, s, descClasses, javaPath) =>
         val loader = ClasspathUtilities.makeLoader(data(cp), inst)
+        val formatter = new PrettyPrinter(80, 2)
         try {
           descClasses.foreach { descClass =>
-            val desc = Class.forName(descClass, true, loader).newInstance.asInstanceOf[{ def toXml: Node }];
+            val desc = Class.forName(descClass, true, loader).newInstance.asInstanceOf[
+              { def toXml: Node; def xmlType: String }];
 
-            val filename = path / descClass+".xml"
-            new File(filename).getParentFile.mkdirs
-            XML.save(filename, desc.toXml, "UTF-8", true, null)
+            val filename = path / desc.xmlType / descClass+".xml"
+            writeXml(filename, desc.toXml)
             s.log("Successful created descriptor: " + filename)
+
+            // Generate java classes for typ system
+            if (desc.xmlType == "types") {
+              val xmlIS = new XMLInputSource(filename)
+              val tsd = UIMAFramework.getXMLParser.parseTypeSystemDescription(xmlIS)
+              val cas = CasCreationUtils.createCas(tsd, null, null)
+              
+              val jg = new Jg()
+              jg.mainForCde(null, new UimaLoggerProgressMonitor(), new LogThrowErrorImpl(), filename, javaPath.toString, tsd.getTypes, cas.asInstanceOf[CASImpl])
+            }
           }
         } catch {
           case e: ClassNotFoundException => 
@@ -112,6 +124,19 @@ object SbtUimaPlugin extends Plugin with BuildCommon {
     (state, descClasses) => (Space ~> token(NotSpace examples descClasses.toSet)).* map ( l => if(l.isEmpty) descClasses else l )
   }
     
+  private val pp = new PrettyPrinter(500,2)
+  def writeXml(file: String, n: Node) = {
+    new File(file).getParentFile.mkdirs
+    val sb = new StringBuilder()
+    
+    pp.format(n, sb)
+
+    val fw = new FileWriter(file)
+    fw.write("<?xml version='1.0' encoding='UTF-8'?>\n")
+    fw.write(sb.toString)
+    fw.write("\n")
+    fw.close()
+  }
 
   val uimaTypeSystemCommand = Command.command("uima-type-system"){ state =>
     val extracted = Project.extract(state)

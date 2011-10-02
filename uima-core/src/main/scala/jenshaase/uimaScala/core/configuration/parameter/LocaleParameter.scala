@@ -21,9 +21,9 @@ trait LocaleTypedParameter extends TypedParameter[Locale] {
     case _                  ⇒ setOption(Some(new Locale(s)))
   }
 
-  def asString = this.valueOption match {
-    case Some(l: Locale) ⇒ l.getLanguage
-    case None            ⇒ ""
+  def asObject = this.valueOption match {
+    case Some(l: Locale) ⇒ l.getLanguage.asInstanceOf[Object]
+    case None            ⇒ null
   }
 }
 

@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Fri Apr 29 11:18:30 CEST 2011 */
+/* First created by JCasGen Sun Oct 02 18:26:25 CEST 2011 */
 package jenshaase.uimaScala.toolkit.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -10,9 +10,9 @@ import org.apache.uima.jcas.cas.TOP_Type;
 import org.apache.uima.jcas.tcas.Annotation;
 
 
-/** A stopword annotation
- * Updated by JCasGen Fri Apr 29 11:18:30 CEST 2011
- * XML source: ./uima-toolkit/src/main/resources/desc/types/toolkit-typ-system.xml
+/** 
+ * Updated by JCasGen Sun Oct 02 18:26:25 CEST 2011
+ * XML source: /home/jens/programming/scala/uimaScala/uima-toolkit/src/main/resources/desc/types/jenshaase.uimaScala.toolkit.description.BasicTypeDescription.xml
  * @generated */
 public class Stopword extends Annotation {
   /** @generated

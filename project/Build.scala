@@ -7,6 +7,7 @@ import sbt._
 import Keys._
 
 import uimascala.SbtUimaPlugin._
+import uimascala.SbtUimaKeys._
 import com.typesafe.sbtscalariform.ScalariformPlugin
 import ScalariformPlugin.{ format, formatPreferences }
 
@@ -48,7 +49,21 @@ object UimaScalaBuild extends Build {
     lazy val examples = Project(
         id = "uimascala-examples",
         base = file("uima-examples"),
-        settings = defaultSettings ++ uimaSettings ++ Seq(),
+        settings = parentSettings,
+        aggregate = Seq(examples_ex1, examples_ex2)
+    )
+
+    lazy val examples_ex1 = Project(
+        id = "uimascala-examples-ex1",
+        base = file("uima-examples/ex1"),
+        settings = defaultSettings ++ uimaSettings,
+        dependencies = Seq(toolkit)
+    )
+
+    lazy val examples_ex2 = Project(
+        id = "uimascala-examples-ex2",
+        base = file("uima-examples/ex2"),
+        settings = defaultSettings ++ uimaSettings,
         dependencies = Seq(toolkit)
     )
     
@@ -63,7 +78,8 @@ object UimaScalaBuild extends Build {
     )
 
     lazy val defaultSettings = baseSettings ++ formatSettings ++ Seq(
-        scalacOptions ++= Seq("-encoding", "UTF-8", "-deprecation", "-unchecked")
+        scalacOptions ++= Seq("-encoding", "UTF-8", "-deprecation", "-unchecked"),
+        libraryDependencies += Dependency.specs2
     )
 
     lazy val formatSettings = ScalariformPlugin.settings ++ Seq(

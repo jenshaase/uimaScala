@@ -12,10 +12,9 @@ import org.uimafit.factory.TypeSystemDescriptionFactory
  */
 
 trait Helper {
-  
+
   def newJCas: JCas = {
     CasCreationUtils.createCas(
-      TypeSystemDescriptionFactory.createTypeSystemDescription, null , null
-    ).getJCas
+      TypeSystemDescriptionFactory.createTypeSystemDescription, null, null).getJCas
   }
 }

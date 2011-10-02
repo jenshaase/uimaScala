@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Fri Apr 29 11:18:30 CEST 2011 */
+/* First created by JCasGen Sun Oct 02 18:26:25 CEST 2011 */
 package jenshaase.uimaScala.toolkit.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -10,9 +10,9 @@ import org.apache.uima.jcas.cas.TOP_Type;
 import org.apache.uima.jcas.tcas.Annotation;
 
 
-/** A annotation for the complete document
- * Updated by JCasGen Fri Apr 29 11:18:30 CEST 2011
- * XML source: ./uima-toolkit/src/main/resources/desc/types/toolkit-typ-system.xml
+/** 
+ * Updated by JCasGen Sun Oct 02 18:26:25 CEST 2011
+ * XML source: /home/jens/programming/scala/uimaScala/uima-toolkit/src/main/resources/desc/types/jenshaase.uimaScala.toolkit.description.BasicTypeDescription.xml
  * @generated */
 public class DocumentAnnotation extends Annotation {
   /** @generated
@@ -60,24 +60,6 @@ public class DocumentAnnotation extends Annotation {
  
     
   //*--------------*
-  //* Feature: source
-
-  /** getter for source - gets 
-   * @generated */
-  public String getSource() {
-    if (DocumentAnnotation_Type.featOkTst && ((DocumentAnnotation_Type)jcasType).casFeat_source == null)
-      jcasType.jcas.throwFeatMissing("source", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
-    return jcasType.ll_cas.ll_getStringValue(addr, ((DocumentAnnotation_Type)jcasType).casFeatCode_source);}
-    
-  /** setter for source - sets  
-   * @generated */
-  public void setSource(String v) {
-    if (DocumentAnnotation_Type.featOkTst && ((DocumentAnnotation_Type)jcasType).casFeat_source == null)
-      jcasType.jcas.throwFeatMissing("source", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
-    jcasType.ll_cas.ll_setStringValue(addr, ((DocumentAnnotation_Type)jcasType).casFeatCode_source, v);}    
-   
-    
-  //*--------------*
   //* Feature: name
 
   /** getter for name - gets 
@@ -93,6 +75,24 @@ public class DocumentAnnotation extends Annotation {
     if (DocumentAnnotation_Type.featOkTst && ((DocumentAnnotation_Type)jcasType).casFeat_name == null)
       jcasType.jcas.throwFeatMissing("name", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
     jcasType.ll_cas.ll_setStringValue(addr, ((DocumentAnnotation_Type)jcasType).casFeatCode_name, v);}    
+   
+    
+  //*--------------*
+  //* Feature: source
+
+  /** getter for source - gets 
+   * @generated */
+  public String getSource() {
+    if (DocumentAnnotation_Type.featOkTst && ((DocumentAnnotation_Type)jcasType).casFeat_source == null)
+      jcasType.jcas.throwFeatMissing("source", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
+    return jcasType.ll_cas.ll_getStringValue(addr, ((DocumentAnnotation_Type)jcasType).casFeatCode_source);}
+    
+  /** setter for source - sets  
+   * @generated */
+  public void setSource(String v) {
+    if (DocumentAnnotation_Type.featOkTst && ((DocumentAnnotation_Type)jcasType).casFeat_source == null)
+      jcasType.jcas.throwFeatMissing("source", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
+    jcasType.ll_cas.ll_setStringValue(addr, ((DocumentAnnotation_Type)jcasType).casFeatCode_source, v);}    
   }
 
     
