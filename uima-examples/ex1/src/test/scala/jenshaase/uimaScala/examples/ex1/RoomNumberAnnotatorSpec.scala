@@ -17,7 +17,7 @@ class RoomNumberAnnotatorSpec extends Specification {
       cas.setDocumentText("9:00AM-5:00PM in Yorktown 11-176: Meeting")
       ann.process(cas)
 
-      val a = cas.selectByIndex(classOf[RoomNumber], 0)
+      val a = cas.selectByIndex[RoomNumber](0)
       a.getCoveredText must be equalTo ("11-176")
       a.getBuilding must be equalTo ("Yorktown")
     }
@@ -27,7 +27,7 @@ class RoomNumberAnnotatorSpec extends Specification {
       cas.setDocumentText("9:00AM-5:00PM in HAW GN-S23: Meeting")
       ann.process(cas)
 
-      val a = cas.selectByIndex(classOf[RoomNumber], 0)
+      val a = cas.selectByIndex[RoomNumber](0)
       a.getCoveredText must be equalTo ("GN-S23")
       a.getBuilding must be equalTo ("Hawthrone")
     }

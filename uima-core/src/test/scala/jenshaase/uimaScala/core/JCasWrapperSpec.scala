@@ -26,8 +26,8 @@ class JCasWrapperSpec extends Specification with Helper {
 
       // Note: One Annotation and one DocumentAnnotation are default
       // to each new JCas
-      cas.select(classOf[Annotation]).size must be equalTo (3)
-      cas.select(classOf[DocumentAnnotation]).size must be equalTo (1)
+      cas.select[Annotation].size must be equalTo (3)
+      cas.select[DocumentAnnotation].size must be equalTo (1)
     }
 
     "select annotation by index" in {
@@ -36,7 +36,7 @@ class JCasWrapperSpec extends Specification with Helper {
 
       new Annotation(cas, 0, 4).addToIndexes
 
-      cas.selectByIndex(classOf[Annotation], 1).getCoveredText must be equalTo ("This")
+      cas.selectByIndex[Annotation](1).getCoveredText must be equalTo ("This")
     }
 
     "select all anntation covered by another annotation" in {
@@ -50,8 +50,8 @@ class JCasWrapperSpec extends Specification with Helper {
       val a3 = new Annotation(cas, 1, 2)
       a3.addToIndexes
 
-      cas.selectCovered(classOf[Annotation], a1).size must be equalTo (2)
-      cas.selectCovered(classOf[Annotation], a1).get(0).getCoveredText must be equalTo ("T")
+      cas.selectCovered[Annotation](a1).size must be equalTo (2)
+      cas.selectCovered[Annotation](a1).get(0).getCoveredText must be equalTo ("T")
     }
 
     "check if a annotation is covered" in {
@@ -65,14 +65,14 @@ class JCasWrapperSpec extends Specification with Helper {
       val a3 = new Annotation(cas, 1, 2)
       a3.addToIndexes
 
-      cas.isCovered(a1, classOf[Annotation]) must beTrue
+      cas.isCovered[Annotation](a1) must beTrue
     }
 
     "select a single annotation" in {
       val cas = newJCas
       cas.setDocumentText("This is a text")
 
-      cas.selectSingle(classOf[Annotation]).getCoveredText must be equalTo ("This is a text")
+      cas.selectSingle[Annotation].getCoveredText must be equalTo ("This is a text")
     }
 
     "select all preceding annotation" in {
@@ -86,7 +86,7 @@ class JCasWrapperSpec extends Specification with Helper {
       val a3 = new Annotation(cas, 8, 9)
       a3.addToIndexes
 
-      val p1 = cas.selectPreceding(classOf[Annotation], a2, 1)
+      val p1 = cas.selectPreceding[Annotation](a2, 1)
       p1.size must be equalTo (1)
       p1.head.getCoveredText must be equalTo (a1.getCoveredText)
     }
@@ -102,7 +102,7 @@ class JCasWrapperSpec extends Specification with Helper {
       val a3 = new Annotation(cas, 8, 9)
       a3.addToIndexes
 
-      val p1 = cas.selectFollowing(classOf[Annotation], a2, 1)
+      val p1 = cas.selectFollowing[Annotation](a2, 1)
       p1.size must be equalTo (1)
       p1.head.getCoveredText must be equalTo (a3.getCoveredText)
     }
@@ -111,7 +111,7 @@ class JCasWrapperSpec extends Specification with Helper {
       val cas = newJCas
       cas.setDocumentText("This is a text")
 
-      cas.exists(classOf[Annotation]) must beTrue
+      cas.exists[Annotation] must beTrue
     }
   }
 }

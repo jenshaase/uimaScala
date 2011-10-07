@@ -26,8 +26,8 @@ class BreakIteratorSpec extends Specification {
       jcas.setDocumentText("Hallo, alle zusammen. Wie geht es euch?")
       germanTokenizer.process(jcas)
 
-      jcas.selectByIndex(classOf[Sentence], 0).getCoveredText must be equalTo ("Hallo, alle zusammen.")
-      jcas.selectByIndex(classOf[Sentence], 1).getCoveredText must be equalTo ("Wie geht es euch?")
+      jcas.selectByIndex[Sentence](0).getCoveredText must be equalTo ("Hallo, alle zusammen.")
+      jcas.selectByIndex[Sentence](1).getCoveredText must be equalTo ("Wie geht es euch?")
     }
 
     "split german words" in {
@@ -35,10 +35,10 @@ class BreakIteratorSpec extends Specification {
       jcas.setDocumentText("Hallo, alle zusammen. Wie geht es euch?")
       germanTokenizer.process(jcas)
 
-      jcas.selectByIndex(classOf[Token], 0).getCoveredText must be equalTo ("Hallo")
-      jcas.selectByIndex(classOf[Token], 1).getCoveredText must be equalTo (",")
-      jcas.selectByIndex(classOf[Token], 2).getCoveredText must be equalTo ("alle")
-      jcas.selectByIndex(classOf[Token], 3).getCoveredText must be equalTo ("zusammen")
+      jcas.selectByIndex[Token](0).getCoveredText must be equalTo ("Hallo")
+      jcas.selectByIndex[Token](1).getCoveredText must be equalTo (",")
+      jcas.selectByIndex[Token](2).getCoveredText must be equalTo ("alle")
+      jcas.selectByIndex[Token](3).getCoveredText must be equalTo ("zusammen")
     }
 
     "split english words when document language is set" in {
@@ -47,11 +47,11 @@ class BreakIteratorSpec extends Specification {
       jcas.setDocumentLanguage("en");
       germanTokenizer.process(jcas)
 
-      jcas.selectByIndex(classOf[Token], 0).getCoveredText must be equalTo ("What's")
-      jcas.selectByIndex(classOf[Token], 1).getCoveredText must be equalTo ("up")
-      jcas.selectByIndex(classOf[Token], 2).getCoveredText must be equalTo ("?")
-      jcas.selectByIndex(classOf[Token], 3).getCoveredText must be equalTo ("Once")
-      jcas.selectByIndex(classOf[Token], 4).getCoveredText must be equalTo ("again")
+      jcas.selectByIndex[Token](0).getCoveredText must be equalTo ("What's")
+      jcas.selectByIndex[Token](1).getCoveredText must be equalTo ("up")
+      jcas.selectByIndex[Token](2).getCoveredText must be equalTo ("?")
+      jcas.selectByIndex[Token](3).getCoveredText must be equalTo ("Once")
+      jcas.selectByIndex[Token](4).getCoveredText must be equalTo ("again")
     }
   }
 }

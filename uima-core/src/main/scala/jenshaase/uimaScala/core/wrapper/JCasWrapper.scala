@@ -22,63 +22,51 @@ class JCasWrapper(cas: JCas) {
   /**
    * @see org.uimafit.uitl.JCasUtil#select
    */
-  def select[T <: TOP](typ: Class[T]): Iterable[T] = JCasUtil.select(cas, typ)
+  def select[T <: TOP](implicit mf: Manifest[T]): Iterable[T] = JCasUtil.select(cas, mf.erasure.asInstanceOf[Class[T]])
 
   /**
    * @see org.uimafit.uitl.JCasUtil#selectByIndex
    */
-  def selectByIndex[T <: Annotation](typ: Class[T], index: Int) =
-    JCasUtil.selectByIndex(cas, typ, index)
+  def selectByIndex[T <: Annotation](index: Int)(implicit mf: Manifest[T]) =
+    JCasUtil.selectByIndex(cas, mf.erasure.asInstanceOf[Class[T]], index)
 
   /**
    * @see org.uimafit.uitl.JCasUtil#selectCovered
    */
-  def selectCovered[T <: Annotation](typ: Class[T], coveringAnnotation: Annotation) =
-    JCasUtil.selectCovered(cas, typ, coveringAnnotation)
+  def selectCovered[T <: Annotation](coveringAnnotation: Annotation)(implicit mf: Manifest[T]) =
+    JCasUtil.selectCovered(cas, mf.erasure.asInstanceOf[Class[T]], coveringAnnotation)
 
   /**
    * @see org.uimafit.uitl.JCasUtil#isCovered
    */
-  def isCovered[T <: Annotation](coveringAnnotation: Annotation, typ: Class[T]) =
-    JCasUtil.isCovered(cas, coveringAnnotation, typ)
+  def isCovered[T <: Annotation](coveringAnnotation: Annotation)(implicit mf: Manifest[T]) =
+    JCasUtil.isCovered(cas, coveringAnnotation, mf.erasure.asInstanceOf[Class[T]])
 
   /**
    * @see org.uimafit.uitl.JCasUtil#selectSingle
    */
-  def selectSingle[T <: TOP](typ: Class[T]) =
-    JCasUtil.selectSingle(cas, typ)
+  def selectSingle[T <: TOP](implicit mf: Manifest[T]) =
+    JCasUtil.selectSingle(cas, mf.erasure.asInstanceOf[Class[T]])
 
   /**
    * @see org.uimafit.uitl.JCasUtil#selectPreceding
    */
-  def selectPreceding[T <: Annotation](typ: Class[T], annotation: Annotation): Buffer[T] =
-    selectPreceding(typ, annotation, Int.MaxValue)
-
-  /**
-   * @see org.uimafit.uitl.JCasUtil#selectPreceding
-   */
-  def selectPreceding[T <: Annotation](typ: Class[T], annotation: Annotation, count: Int): Buffer[T] = {
-    JCasUtil.selectPreceding(cas, typ, annotation, count);
+  def selectPreceding[T <: Annotation](annotation: Annotation, count: Int = Int.MaxValue)(implicit mf: Manifest[T]): Buffer[T] = {
+    JCasUtil.selectPreceding(cas, mf.erasure.asInstanceOf[Class[T]], annotation, count);
   }
 
   /**
    * @see org.uimafit.uitl.JCasUtil#selectFollowing
    */
-  def selectFollowing[T <: Annotation](typ: Class[T], annotation: Annotation): Buffer[T] =
-    selectFollowing(typ, annotation, Int.MaxValue)
-
-  /**
-   * @see org.uimafit.uitl.JCasUtil#selectFollowing
-   */
-  def selectFollowing[T <: Annotation](typ: Class[T], annotation: Annotation, count: Int): Buffer[T] = {
-    JCasUtil.selectFollowing(cas, typ, annotation, count)
+  def selectFollowing[T <: Annotation](annotation: Annotation, count: Int = Int.MaxValue)(implicit mf: Manifest[T]): Buffer[T] = {
+    JCasUtil.selectFollowing(cas, mf.erasure.asInstanceOf[Class[T]], annotation, count)
   }
 
   /**
    * @see org.uimafit.uitl.JCasUtil#exists
    */
-  def exists[T <: TOP](typ: Class[T]) =
-    JCasUtil.exists(cas, typ)
+  def exists[T <: TOP](implicit mf: Manifest[T]) =
+    JCasUtil.exists(cas, mf.erasure.asInstanceOf[Class[T]])
 
   /**
    * @see org.uimafit.uitl.JCasUtil#getView

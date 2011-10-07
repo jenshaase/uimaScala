@@ -25,9 +25,9 @@ class StopwordTaggerSpec extends Specification {
       tokenizer.process(jcas)
       tagger.process(jcas)
 
-      jcas.selectByIndex(classOf[Stopword], 0).getCoveredText must be equalTo ("alle")
-      jcas.selectByIndex(classOf[Stopword], 1).getCoveredText must be equalTo ("Wie")
-      jcas.selectByIndex(classOf[Stopword], 2).getCoveredText must be equalTo ("es")
+      jcas.selectByIndex[Stopword](0).getCoveredText must be equalTo ("alle")
+      jcas.selectByIndex[Stopword](1).getCoveredText must be equalTo ("Wie")
+      jcas.selectByIndex[Stopword](2).getCoveredText must be equalTo ("es")
     }
   }
 
@@ -44,9 +44,9 @@ class StopwordTaggerSpec extends Specification {
       tokenizer.process(jcas)
       tagger.process(jcas)
 
-      jcas.selectByIndex(classOf[Token], 0).getCoveredText must be equalTo ("Hallo")
-      jcas.selectByIndex(classOf[Token], 1).getCoveredText must be equalTo (",")
-      jcas.selectByIndex(classOf[Token], 2).getCoveredText must be equalTo ("zusammen")
+      jcas.selectByIndex[Token](0).getCoveredText must be equalTo ("Hallo")
+      jcas.selectByIndex[Token](1).getCoveredText must be equalTo (",")
+      jcas.selectByIndex[Token](2).getCoveredText must be equalTo ("zusammen")
     }
   }
 }

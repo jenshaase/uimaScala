@@ -31,7 +31,7 @@ class StopwordTagger extends SCasAnnotator_ImplBase {
   }
 
   def process(cas: JCas) = {
-    cas.select(classOf[Token]).foreach(t ⇒ {
+    cas.select[Token].foreach(t ⇒ {
       if (stopwords.contains(t.getCoveredText.toLowerCase)) {
         new Stopword(cas, t.getBegin, t.getEnd).addToIndexes
       }
@@ -42,7 +42,7 @@ class StopwordTagger extends SCasAnnotator_ImplBase {
 class StopwordRemover extends StopwordTagger {
 
   override def process(cas: JCas) = {
-    cas.select(classOf[Token]).
+    cas.select[Token].
       filter(t ⇒ stopwords.contains(t.getCoveredText.toLowerCase)).
       foreach(_.removeFromIndexes)
   }

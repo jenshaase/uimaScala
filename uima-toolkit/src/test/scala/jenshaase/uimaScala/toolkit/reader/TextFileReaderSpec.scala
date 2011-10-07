@@ -25,7 +25,7 @@ class TextFileReaderSpec extends Specification {
 
       val it = new ReaderIterator(reader)
       it.hasNext must beTrue
-      val doc: DocumentAnnotation = it.next.selectByIndex(classOf[DocumentAnnotation], 0)
+      val doc: DocumentAnnotation = it.next.selectByIndex[DocumentAnnotation](0)
       doc.getName must be equalTo ("file1.txt")
       doc.getSource.endsWith("src/test/resources/reader/textFileReader/test1/file1.txt") must beTrue
     }
