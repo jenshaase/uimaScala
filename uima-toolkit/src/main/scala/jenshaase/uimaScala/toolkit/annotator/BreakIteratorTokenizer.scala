@@ -3,13 +3,13 @@
  */
 package jenshaase.uimaScala.toolkit.annotator
 
-import org.apache.uima.jcas.JCas
 import java.text.BreakIterator
 import java.util.Locale
-import jenshaase.uimaScala.toolkit.types._
-import org.uimafit.descriptor.ConfigurationParameter
-import jenshaase.uimaScala.core.SCasAnnotator_ImplBase
+import jenshaase.uimaScala.core._
 import jenshaase.uimaScala.toolkit.configuration._
+import jenshaase.uimaScala.toolkit.types._
+import org.apache.uima.jcas.JCas
+import org.uimafit.descriptor.ConfigurationParameter
 import org.uimafit.factory.AnalysisEngineFactory
 
 /**

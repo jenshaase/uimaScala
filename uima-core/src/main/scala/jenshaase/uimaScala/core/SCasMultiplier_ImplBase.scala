@@ -3,16 +3,16 @@
  */
 package jenshaase.uimaScala.core
 
+import configuration._
 import org.apache.uima.analysis_component.JCasMultiplier_ImplBase
-import configuration.Configurable
-import jenshaase.uimaScala.core.resource.ResourceInitialization
-import configuration.ConfigurationInitialization
 import org.apache.uima.UimaContext
 import org.uimafit.factory.AnalysisEngineFactory
 import org.uimafit.factory.ExternalResourceFactory
 
 abstract class SCasMultiplier_ImplBase extends JCasMultiplier_ImplBase
-  with Configurable with ConfigurationInitialization with ResourceInitialization with Implicits {
+    with Configurable
+    with ConfigurationInitialization
+    with ResourceInitialization {
 
   override def initialize(context: UimaContext) = {
     super.initialize(context)

@@ -3,20 +3,21 @@
  */
 package jenshaase.uimaScala.toolkit.annotator
 
-import jenshaase.uimaScala.core.SCasAnnotator_ImplBase
-import org.apache.uima.jcas.JCas
-import jenshaase.uimaScala.toolkit.types.{ Stopword, Token }
-import org.uimafit.descriptor.ConfigurationParameter
 import java.io.File
-import org.apache.uima.UimaContext
+import jenshaase.uimaScala.core._
+import jenshaase.uimaScala.core.configuration._
+import jenshaase.uimaScala.toolkit.types._
 import org.apache.uima.analysis_engine.AnalysisEngine
+import org.apache.uima.jcas.JCas
+import org.apache.uima.UimaContext
+import org.uimafit.descriptor.ConfigurationParameter
 import org.uimafit.factory.AnalysisEngineFactory
-import jenshaase.uimaScala.core.configuration.parameter.FileParameter
 import scala.io.Source
 
 class StopwordTagger extends SCasAnnotator_ImplBase {
 
-  object stopwordFile extends FileParameter(this) {
+  // TODO: Make Resource
+  object stopwordFile extends Parameter[File](new File("src/main/resources/stopwords.txt")) {
     def loadStopwords: Set[String] =
       Source.fromFile(is).getLines.map(_.toLowerCase).toSet
   }

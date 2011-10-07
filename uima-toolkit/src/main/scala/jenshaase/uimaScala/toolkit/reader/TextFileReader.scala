@@ -3,14 +3,15 @@
  */
 package jenshaase.uimaScala.toolkit.reader
 
-import jenshaase.uimaScala.core.SCasCollectionReader_ImplBase
-import jenshaase.uimaScala.core.configuration.parameter._
-import java.util.regex.Pattern
-import org.apache.uima.UimaContext
-import org.apache.uima.jcas.JCas
-import jenshaase.uimaScala.toolkit.types.DocumentAnnotation
-import org.apache.uima.util.ProgressImpl
 import java.io.File
+import java.util.Locale
+import java.util.regex.Pattern
+import jenshaase.uimaScala.core.configuration._
+import jenshaase.uimaScala.core.SCasCollectionReader_ImplBase
+import jenshaase.uimaScala.toolkit.types.DocumentAnnotation
+import org.apache.uima.jcas.JCas
+import org.apache.uima.UimaContext
+import org.apache.uima.util.ProgressImpl
 import scala.collection.mutable.Queue
 
 /**
@@ -18,13 +19,11 @@ import scala.collection.mutable.Queue
  */
 class TextFileReader extends SCasCollectionReader_ImplBase {
 
-  object path extends FileParameter(this)
+  object path extends Parameter[File](new File("src/main/resources/data"))
 
-  object filenamePattern extends OptionalPatternParameter(this) {
-    override def defaultValue = Some(Pattern.compile(".*\\.txt"))
-  }
+  object filenamePattern extends Parameter[Pattern](Pattern.compile(".*\\.txt"))
 
-  object locale extends OptionalLocaleParameter(this)
+  object locale extends Parameter[Locale](Locale.getDefault())
 
   var files: Queue[File] = null
 
@@ -38,7 +37,7 @@ class TextFileReader extends SCasCollectionReader_ImplBase {
   def getNext(cas: JCas) = {
     val file = files.dequeue
 
-    locale.is.map(l ⇒ cas.setDocumentLanguage(l.getLanguage))
+    cas.setDocumentLanguage(locale.is.getLanguage)
     cas.setDocumentText(scala.io.Source.fromFile(file).mkString)
     val doc = new DocumentAnnotation(cas, 0, 0)
     doc.setName(file.getName)
@@ -57,7 +56,7 @@ class TextFileReader extends SCasCollectionReader_ImplBase {
     Queue() ++= files.
       filter { f ⇒
         f.isFile &&
-          filenamePattern.is.map(_.matcher(f.getName).matches).getOrElse(true)
+          filenamePattern.is.matcher(f.getName).matches
       } ++ files.filter(_.isDirectory).flatMap(collectFiles)
   }
 }

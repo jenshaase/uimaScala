@@ -94,6 +94,7 @@ object UimaScalaBuild extends Build {
             .setPreference(AlignParameters, true)
             .setPreference(AlignSingleLineCaseStatements, true)
             .setPreference(IndentSpaces, 2)
+            .setPreference(DoubleIndentClassDeclaration, true)
     }
 
 

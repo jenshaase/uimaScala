@@ -28,7 +28,7 @@ trait ConfigurationInitialization { this: Configurable ⇒
   /**
    * Uses reflection to find the parameters in the class
    */
-  protected def introspect(comp: Configurable, methods: Array[Method])(f: (Method, Parameter[_, Configurable]) ⇒ Any): Unit = {
+  protected def introspect[B, V](comp: Configurable, methods: Array[Method])(f: (Method, Parameter[_]) ⇒ Any): Unit = {
     val potentialParams = methods.toList.filter(isParameter)
 
     val map: Map[String, List[Method]] = potentialParams.foldLeft[Map[String, List[Method]]](Map()) {
@@ -43,7 +43,7 @@ trait ConfigurationInitialization { this: Configurable ⇒
 
     for (v ← realMeth) {
       v.invoke(comp) match {
-        case mf: Parameter[_, Configurable] ⇒
+        case mf: Parameter[_] ⇒
           mf.setName_!(v.getName)
           f(v, mf)
         case _ ⇒
@@ -68,10 +68,7 @@ trait ConfigurationInitialization { this: Configurable ⇒
       }
 
       if (value != null) {
-        f.setFromAny(value) match {
-          case Left(f: Failure) ⇒ throw f.exception.map(new ResourceInitializationException(_)).getOrElse(new ResourceInitializationException())
-          case _                ⇒
-        }
+        f.setFromUimaType(value)
       }
     }
   }
@@ -80,18 +77,18 @@ trait ConfigurationInitialization { this: Configurable ⇒
    * Checks if a method is a subclass of Parameter
    */
   def isParameter(m: Method) =
-    !m.isSynthetic && classOf[Parameter[_, _]].isAssignableFrom(m.getReturnType)
+    !m.isSynthetic && classOf[Parameter[_]].isAssignableFrom(m.getReturnType)
 
   class NiceObject[T <: AnyRef](x: T) {
     def niceClass: Class[_ <: T] = x.getClass.asInstanceOf[Class[T]]
   }
   implicit def toNiceObject[T <: AnyRef](x: T) = new NiceObject(x)
 
-  def parameterKeyValues: Array[Object] = parameters.filter(_.set_?).flatMap { f ⇒
-    Array(f.name.asInstanceOf[Object], f.asObject)
+  def parameterKeyValues: Array[Object] = parameters.flatMap { f ⇒
+    Array(f.name, f.toUimaType)
   }.toArray
 
-  case class ParameterHolder(name: String, method: Method, metaParameter: Parameter[_, Configurable]) {
-    def parameter(inst: Configurable): Parameter[_, Configurable] = method.invoke(inst).asInstanceOf[Parameter[_, Configurable]]
+  case class ParameterHolder(name: String, method: Method, metaParameter: Parameter[_]) {
+    def parameter(inst: Configurable): Parameter[_] = method.invoke(inst).asInstanceOf[Parameter[_]]
   }
 }

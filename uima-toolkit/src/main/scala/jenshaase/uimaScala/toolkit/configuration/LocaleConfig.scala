@@ -3,19 +3,18 @@
  */
 package jenshaase.uimaScala.toolkit.configuration
 
-import org.uimafit.descriptor.ConfigurationParameter
 import java.util.Locale
-import org.apache.uima.jcas.JCas
-import jenshaase.uimaScala.core.configuration.parameter.OptionalLocaleParameter
-import jenshaase.uimaScala.core.configuration.Configurable
+import jenshaase.uimaScala.core.configuration._
 import jenshaase.uimaScala.core.SCasAnnotator_ImplBase
+import org.apache.uima.jcas.JCas
+import org.uimafit.descriptor.ConfigurationParameter
 
 /**
  * @author Jens Haase <je.haase@googlemail.com>
  */
 trait LocaleConfig { this: SCasAnnotator_ImplBase ⇒
 
-  object locale extends OptionalLocaleParameter(this)
+  object locale extends Parameter[Locale](Locale.getDefault)
 
   def getLocale(jcas: JCas): Locale = {
     val l = jcas.getDocumentLanguage()
@@ -23,6 +22,6 @@ trait LocaleConfig { this: SCasAnnotator_ImplBase ⇒
       return new Locale(l)
     }
 
-    locale.is.getOrElse(Locale.getDefault())
+    locale.is
   }
 }

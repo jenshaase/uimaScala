@@ -3,9 +3,9 @@
  */
 package jenshaase.uimaScala.examples.ex1
 
-import org.specs2.mutable.Specification
-import jenshaase.uimaScala.core.Implicits._
+import jenshaase.uimaScala.core._
 import jenshaase.uimaScala.examples.ex1.types._
+import org.specs2.mutable.Specification
 
 class RoomNumberAnnotatorSpec extends Specification {
 

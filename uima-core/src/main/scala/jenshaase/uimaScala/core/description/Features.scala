@@ -7,11 +7,11 @@ import UimaTyp._
 import xml.Node
 
 abstract class Feature(
-  name: String,
-  rangeType: String,
-  desc: Option[String] = None,
-  elementType: Option[String] = None,
-  multipleRef: Option[Boolean] = None) {
+    name: String,
+    rangeType: String,
+    desc: Option[String] = None,
+    elementType: Option[String] = None,
+    multipleRef: Option[Boolean] = None) {
 
   def toXml: Node =
     <featureDescription>

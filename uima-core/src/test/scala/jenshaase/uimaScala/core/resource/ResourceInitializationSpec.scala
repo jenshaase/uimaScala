@@ -1,13 +1,12 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core.resource
+package jenshaase.uimaScala.core.configuration
 
 import org.specs2.Specification
 import org.apache.uima.resource.SharedResourceObject
 import org.apache.uima.resource.DataResource
 import org.apache.uima.resource.Resource_ImplBase
-import jenshaase.uimaScala.core.configuration.Configurable
 
 class ResourceInitializationSpec extends Specification {
   def is =
@@ -36,13 +35,13 @@ class ResourceInitializationSpec extends Specification {
 
 class ResourceMock extends Configurable with ResourceInitialization {
 
-  object dictionary extends SharedResource[SharedDict, ResourceMock](this)
+  object dictionary extends SharedResource[SharedDict]("/path/to/noWhere")
 
-  object name extends Resource[SharedName, ResourceMock](this)
+  object name extends Resource[SharedName]
 
-  object stopwords extends SharedResource[SharedStopword, ResourceMock](this)
+  object stopwords extends SharedResource[SharedStopword]("/path/to/noWhere")
 
-  object optName extends Resource[SharedOptName, ResourceMock](this)
+  object optName extends Resource[SharedOptName]
 }
 
 class SharedName extends Resource_ImplBase {

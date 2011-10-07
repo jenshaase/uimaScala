@@ -5,7 +5,6 @@ package jenshaase.uimaScala.core
 
 import org.specs2.mutable.Specification
 import util.Helper
-import Implicits._
 import org.apache.uima.jcas.tcas.{ DocumentAnnotation, Annotation }
 import org.apache.uima.jcas.JCas
 

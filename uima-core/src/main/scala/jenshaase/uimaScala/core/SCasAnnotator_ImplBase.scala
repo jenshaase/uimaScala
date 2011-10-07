@@ -3,27 +3,24 @@
  */
 package jenshaase.uimaScala.core
 
-import org.apache.uima.analysis_component.JCasAnnotator_ImplBase
-import org.apache.uima.jcas.tcas.Annotation
-import org.apache.uima.UimaContext
-import java.lang.reflect.Method
 import configuration.Parameter
-import org.apache.uima.analysis_component.AnalysisComponent
-import scala.collection.mutable.ListBuffer
-import org.apache.uima.resource.ResourceInitializationException
-import org.uimafit.factory.AnalysisEngineFactory
-import jenshaase.uimaScala.core.configuration.{ Configurable, ConfigurationInitialization }
-import jenshaase.uimaScala.core.resource.ResourceInitialization
-import jenshaase.uimaScala.core.wrapper._
-import org.apache.uima.jcas.JCas
-import org.uimafit.factory.ExternalResourceFactory
-import java.net.URL
 import java.io.File
-import jenshaase.uimaScala.core.resource.Resource
-import org.apache.uima.resource.ResourceSpecifier
-import jenshaase.uimaScala.core.resource.TypedSharedResource
-import org.apache.uima.UIMAFramework
+import java.lang.reflect.Method
+import java.net.URL
+import jenshaase.uimaScala.core.configuration._
+import jenshaase.uimaScala.core.wrapper._
+import org.apache.uima.analysis_component.AnalysisComponent
+import org.apache.uima.analysis_component.JCasAnnotator_ImplBase
 import org.apache.uima.analysis_engine.AnalysisEngineDescription
+import org.apache.uima.jcas.JCas
+import org.apache.uima.jcas.tcas.Annotation
+import org.apache.uima.resource.ResourceInitializationException
+import org.apache.uima.resource.ResourceSpecifier
+import org.apache.uima.UimaContext
+import org.apache.uima.UIMAFramework
+import org.uimafit.factory.AnalysisEngineFactory
+import org.uimafit.factory.ExternalResourceFactory
+import scala.collection.mutable.ListBuffer
 import xml.Node
 
 /**
@@ -34,7 +31,9 @@ import xml.Node
  * @author Jens Haase <je.haase@googlemail.com>
  */
 abstract class SCasAnnotator_ImplBase extends JCasAnnotator_ImplBase
-  with Configurable with ConfigurationInitialization with ResourceInitialization with Implicits {
+    with Configurable
+    with ConfigurationInitialization
+    with ResourceInitialization {
 
   override def initialize(context: UimaContext) = {
     super.initialize(context)

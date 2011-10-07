@@ -3,13 +3,13 @@
  */
 package jenshaase.uimaScala.toolkit.annotator
 
+import java.util.Locale
+import jenshaase.uimaScala.core._
+import jenshaase.uimaScala.toolkit.types.{ Token, Sentence }
+import org.apache.uima.analysis_engine.AnalysisEngine
 import org.specs2.mutable.Specification
 import org.uimafit.factory.AnalysisEngineFactory
-import org.apache.uima.analysis_engine.AnalysisEngine
 import org.uimafit.util.JCasUtil
-import jenshaase.uimaScala.toolkit.types.{ Token, Sentence }
-import jenshaase.uimaScala.core.Implicits._
-import java.util.Locale
 
 /**
  * @author Jens Haase <je.haase@googlemail.com>
@@ -18,7 +18,8 @@ import java.util.Locale
 class BreakIteratorSpec extends Specification {
 
   "Break Iterator" should {
-    val germanTokenizer: AnalysisEngine = new BreakIteratorTokenizer().locale(Locale.GERMAN).asAnalysisEngine
+    val germanTokenizer: AnalysisEngine = new BreakIteratorTokenizer().config(
+      _.locale := Locale.GERMAN).asAnalysisEngine
 
     "split german sentences" in {
       val jcas = germanTokenizer.newJCas()

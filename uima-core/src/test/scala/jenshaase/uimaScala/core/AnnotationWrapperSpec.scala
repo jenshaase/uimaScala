@@ -4,7 +4,6 @@
 package jenshaase.uimaScala.core
 
 import org.specs2.mutable.Specification
-import Implicits._
 import org.apache.uima.util.CasCreationUtils
 import org.uimafit.factory.{ TypePrioritiesFactory, TypeSystemDescriptionFactory }
 import org.apache.uima.jcas.JCas

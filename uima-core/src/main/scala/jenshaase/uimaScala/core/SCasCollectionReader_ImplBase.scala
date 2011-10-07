@@ -3,17 +3,18 @@
  */
 package jenshaase.uimaScala.core
 
-import org.apache.uima.collection.CollectionReader_ImplBase
-import jenshaase.uimaScala.core.configuration.{ Configurable, ConfigurationInitialization }
-import org.uimafit.factory.CollectionReaderFactory
-import org.apache.uima.UimaContext
+import jenshaase.uimaScala.core.configuration._
 import org.apache.uima.cas.CAS
+import org.apache.uima.collection.CollectionReader_ImplBase
 import org.apache.uima.jcas.JCas
-import jenshaase.uimaScala.core.resource.ResourceInitialization
+import org.apache.uima.UimaContext
+import org.uimafit.factory.CollectionReaderFactory
 import org.uimafit.factory.ExternalResourceFactory
 
 abstract class SCasCollectionReader_ImplBase extends CollectionReader_ImplBase
-  with Configurable with ConfigurationInitialization with ResourceInitialization with Implicits {
+    with Configurable
+    with ConfigurationInitialization
+    with ResourceInitialization {
 
   override def initialize = {
     super.initialize

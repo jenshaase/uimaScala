@@ -1,15 +1,14 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core.resource
+package jenshaase.uimaScala.core.configuration
 
-import jenshaase.uimaScala.core.configuration.Configurable
 import java.lang.reflect.Method
-import scala.collection.mutable.ListBuffer
-import org.apache.uima.UimaContext
-import org.apache.uima.resource.ResourceInitializationException
 import org.apache.uima.resource.ResourceAccessException
+import org.apache.uima.resource.ResourceInitializationException
+import org.apache.uima.UimaContext
 import org.uimafit.descriptor.ExternalResourceLocator
+import scala.collection.mutable.ListBuffer
 
 trait ResourceInitialization { this: Configurable ⇒
 
@@ -24,7 +23,7 @@ trait ResourceInitialization { this: Configurable ⇒
   }
   resourceList = resTempArray.toList
 
-  protected def introspectResources(comp: Configurable, methods: Array[Method])(f: (Method, ResourceWrapper[_, Configurable]) ⇒ Any): Unit = {
+  protected def introspectResources(comp: Configurable, methods: Array[Method])(f: (Method, TypedResource[_, _]) ⇒ Any): Unit = {
     val potentialResources = methods.toList.filter(isResource)
 
     val map: Map[String, List[Method]] = potentialResources.foldLeft[Map[String, List[Method]]](Map()) {
@@ -39,7 +38,7 @@ trait ResourceInitialization { this: Configurable ⇒
 
     for (v ← realMeth) {
       v.invoke(comp) match {
-        case mf: ResourceWrapper[_, Configurable] ⇒
+        case mf: TypedResource[_, _] ⇒
           mf.setName_!(v.getName)
           f(v, mf)
         case _ ⇒
@@ -67,7 +66,7 @@ trait ResourceInitialization { this: Configurable ⇒
       }
 
       if (value != null) {
-        r.bindResourceFromAny(value) match {
+        r.setFromUima(value) match {
           case Left(f: Failure) ⇒ throw f.exception.map(new ResourceInitializationException(_)).getOrElse(new ResourceInitializationException())
           case _                ⇒
         }
@@ -76,9 +75,9 @@ trait ResourceInitialization { this: Configurable ⇒
   }
 
   def isResource(m: Method) =
-    !m.isSynthetic && classOf[ResourceWrapper[_, _]].isAssignableFrom(m.getReturnType)
+    !m.isSynthetic && classOf[TypedResource[_, _]].isAssignableFrom(m.getReturnType)
 
-  case class ResourceHolder(name: String, method: Method, metaParameter: ResourceWrapper[_, Configurable]) {
-    def resource(inst: Configurable): ResourceWrapper[_, _] = method.invoke(inst).asInstanceOf[ResourceWrapper[_, Configurable]]
+  case class ResourceHolder(name: String, method: Method, metaParameter: TypedResource[_, _]) {
+    def resource(inst: Configurable): TypedResource[_, _] = method.invoke(inst).asInstanceOf[TypedResource[_, _]]
   }
 }
