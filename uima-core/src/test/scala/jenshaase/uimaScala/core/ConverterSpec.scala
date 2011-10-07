@@ -34,7 +34,8 @@ class ConverterSpec extends Specification with DataTables {
   }*/
   
   def to[T, R](in: T, out: R)(implicit m: Manifest[T]) = {
-    toUima(in) must beSome
-    toUima(in).get must_== out
+    toUima(in) must beRight
+    toUima(in).right.get must beSome
+    toUima(in).right.get.get must_== out
   }
 }

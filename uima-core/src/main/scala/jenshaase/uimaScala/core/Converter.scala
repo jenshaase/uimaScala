@@ -49,12 +49,18 @@ object CastFactory {
   register(fileCaster)
 
   // TODO: Output error if not caster is found
-  def toUima[A](in: A)(implicit m: Manifest[A]) =
-    convertSeq.map(_.convertToUimaType(in)).find(_.isDefined).getOrElse(None)
+  def toUima[A](in: A)(implicit m: Manifest[A]): Either[Failure, Option[Any]] =
+    convertSeq.map(_.convertToUimaType(in)).find(_.isDefined) match {
+      case Some(v) ⇒ Right(v)
+      case None    ⇒ Left(Failure("Can not find a converter for: " + m.erasure.toString))
+    }
 
   // TODO: Output error if not caster is found
-  def fromUima[A](in: Any)(implicit m: Manifest[A]): Option[A] = {
-    convertSeq.map(c ⇒ c.convertFromUimaType[A](in)).find(_.isDefined).get.map(_.asInstanceOf[A])
+  def fromUima[A](in: Any)(implicit m: Manifest[A]): Either[Failure, Option[A]] = {
+    convertSeq.map(c ⇒ c.convertFromUimaType[A](in)).find(_.isDefined) match {
+      case Some(v) ⇒ Right(v.map(_.asInstanceOf[A]))
+      case None    ⇒ Left(Failure("Can not find a converter for: " + m.erasure.toString))
+    }
   }
 
   def register[In, Out](c: Caster[In, Out])(implicit ml: Manifest[List[In]], m: Manifest[In], mo: Manifest[Out]) =

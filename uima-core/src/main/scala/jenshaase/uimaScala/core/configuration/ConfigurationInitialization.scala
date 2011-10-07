@@ -68,7 +68,10 @@ trait ConfigurationInitialization { this: Configurable ⇒
       }
 
       if (value != null) {
-        f.setFromUimaType(value)
+        f.setFromUimaType(value) match {
+          case Right(o) ⇒ ()
+          case Left(l)  ⇒ throw new ResourceInitializationException(new ClassCastException(l.msg))
+        }
       }
     }
   }
@@ -85,7 +88,10 @@ trait ConfigurationInitialization { this: Configurable ⇒
   implicit def toNiceObject[T <: AnyRef](x: T) = new NiceObject(x)
 
   def parameterKeyValues: Array[Object] = parameters.flatMap { f ⇒
-    Array(f.name, f.toUimaType)
+    Array(f.name, f.toUimaType match {
+      case Right(o) ⇒ o
+      case Left(l)  ⇒ throw new ResourceInitializationException(new ClassCastException(l.msg))
+    })
   }.toArray
 
   case class ParameterHolder(name: String, method: Method, metaParameter: Parameter[_]) {
