@@ -64,7 +64,7 @@ object CastFactory {
   }
 
   def register[In, Out](c: Caster[In, Out])(implicit ml: Manifest[List[In]], m: Manifest[In], mo: Manifest[Out]) =
-    convertSeq ++= Seq(c, buildListCaster(c))
+    convertSeq ++= Seq(c, buildListCaster(c), buildSeqCaster(c))
 
   protected def buildListCaster[In, Out](c: Caster[In, Out])(implicit ml: Manifest[List[In]], m: Manifest[In], mo: Manifest[Out]) =
     new Caster[List[In], Array[Out]] {
@@ -75,9 +75,20 @@ object CastFactory {
       }
     }
 
+  protected def buildSeqCaster[In, Out](c: Caster[In, Out])(implicit ml: Manifest[Seq[In]], m: Manifest[In], mo: Manifest[Out]) =
+    new Caster[Seq[In], Array[Out]] {
+      def toUimaType(in: Seq[In]) = in.map(c.toUimaType).toArray
+      def fromUimaType(in: Any) = in match {
+        case arr: Array[_] ⇒ sequence(arr.toSeq.map(c.fromUimaType))
+        case _             ⇒ None
+      }
+    }
+
   def sequence[A](l: List[Option[A]]) =
     if (l.contains(None)) None else Some(l.flatten)
 
+  def sequence[A](l: Seq[Option[A]]) =
+    if (l.contains(None)) None else Some(l.flatten)
 }
 
 object BasicCaster {
