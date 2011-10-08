@@ -102,11 +102,11 @@ abstract class Parameter[ThisType](val defaultValue: ThisType)(implicit mf: Mani
   /**
    * Checks if the parameter is mutlivalued
    */
-  override def multiValued_? = mf match {
-    case l: Manifest[List[_]]  ⇒ true
-    case s: Manifest[Seq[_]]   ⇒ true
-    case a: Manifest[Array[_]] ⇒ true
-    case _                     ⇒ false
+  override def multiValued_? = mf.erasure.toString match {
+    case "class scala.collection.immutable.List" ⇒ true
+    case "interface scala.collection.Seq"        ⇒ true
+    case s: String if (s.startsWith("class [L")) ⇒ true
+    case _                                       ⇒ false
   }
 
   def value: ThisType = data getOrElse defaultValue
@@ -115,12 +115,17 @@ abstract class Parameter[ThisType](val defaultValue: ThisType)(implicit mf: Mani
 
   def get = value
 
-  def uimaType = if (multiValued_?) _uimaType(mf.typeArguments.head) else _uimaType(mf)
+  def uimaType =
+    if (multiValued_?)
+      _uimaType(mf.typeArguments.head.erasure.toString)
+    else
+      _uimaType(mf.erasure.toString)
 
-  def _uimaType(m: Manifest[_]) = m match {
-    case a: Manifest[Int]     ⇒ "Integer"
-    case a: Manifest[Float]   ⇒ "Float"
-    case a: Manifest[Boolean] ⇒ "Boolean"
-    case _                    ⇒ "String"
+  // TODO: Make independent from defaultValue
+  def _uimaType(s: String) = s match {
+    case "int" | "class java.lang.Integer" ⇒ "Integer"
+    case "float"                           ⇒ "Float"
+    case "boolean"                         ⇒ "Boolean"
+    case _                                 ⇒ "String"
   }
 }
