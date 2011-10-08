@@ -10,7 +10,7 @@ import java.util.Locale
 import java.io.File
 import scala.util.matching.Regex
 
-class ConverterSpec extends Specification with DataTables {
+class ConverterSpec extends Specification {
   import CastFactory._
 
   // format: OFF
