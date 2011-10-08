@@ -81,7 +81,7 @@ class ParameterSpec extends Specification {
     p6.uimaType must_== "String"
     p7.uimaType must_== "String"
     p8.uimaType must_== "Float"
-    // p9.uimaType must_== "Boolean"
-    // p10.uimaType must_== "Integer"
+    p9.uimaType must_== "Boolean"
+    p10.uimaType must_== "Integer"
   }
 }

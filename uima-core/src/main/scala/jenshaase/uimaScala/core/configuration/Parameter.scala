@@ -121,7 +121,6 @@ abstract class Parameter[ThisType](val defaultValue: ThisType)(implicit mf: Mani
     else
       _uimaType(mf.erasure.toString)
 
-  // TODO: Make independent from defaultValue
   def _uimaType(s: String) = s match {
     case "int" | "class java.lang.Integer" ⇒ "Integer"
     case "float"                           ⇒ "Float"
