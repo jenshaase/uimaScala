@@ -1,13 +1,14 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core
+package jenshaase.uimaScala.core.wrapper
 
 import org.specs2.mutable.Specification
 import org.apache.uima.util.CasCreationUtils
 import org.uimafit.factory.{ TypePrioritiesFactory, TypeSystemDescriptionFactory }
 import org.apache.uima.jcas.JCas
 import org.apache.uima.jcas.tcas.Annotation
+import jenshaase.uimaScala.core._
 import util.Helper
 
 /**

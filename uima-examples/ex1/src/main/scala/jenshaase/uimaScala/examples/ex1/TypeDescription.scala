@@ -11,8 +11,10 @@ class TypeDescription extends TypeSystemDescription {
   def name = "TutorialTypeSystem"
   def basePackage = "jenshaase.uimaScala.examples.ex1.types"
 
-  override def description = Some("Type System Definition for the tutorial examples - as of Exercise 1")
+  override def description =
+    Some("Type System Definition for the tutorial examples - as of Exercise 1")
 
   def types = Seq(
-    "RoomNumber" extend UimaAnnotation features (StringFeature("building", Some("uilding containing this room"))))
+    "RoomNumber" extend UimaAnnotation
+      features (StringFeature("building", Some("building containing this room"))))
 }
