@@ -13,7 +13,7 @@
       <features>
         <featureDescription>
           <name>building</name>
-          <description>uilding containing this room</description>
+          <description>building containing this room</description>
           <rangeTypeName>uima.cas.String</rangeTypeName>
         </featureDescription>
       </features>
