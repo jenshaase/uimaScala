@@ -33,7 +33,8 @@ import xml.Node
 abstract class SCasAnnotator_ImplBase extends JCasAnnotator_ImplBase
     with Configurable
     with ConfigurationInitialization
-    with ResourceInitialization {
+    with ResourceInitialization
+    with AsAnalysisEngine {
 
   override def initialize(context: UimaContext) = {
     super.initialize(context)

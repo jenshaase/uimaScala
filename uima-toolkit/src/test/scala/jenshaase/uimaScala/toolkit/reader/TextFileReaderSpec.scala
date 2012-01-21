@@ -23,24 +23,13 @@ class TextFileReaderSpec extends Specification {
         _.path := new File("uima-toolkit/src/test/resources/reader/textFileReader/test1")).
         asCollectionReader
 
-      val it = new ReaderIterator(reader)
-      it.hasNext must beTrue
-      val doc: DocumentAnnotation = it.next.selectByIndex[DocumentAnnotation](0)
-      doc.getName must be equalTo ("file1.txt")
-      doc.getSource.endsWith("src/test/resources/reader/textFileReader/test1/file1.txt") must beTrue
-    }
+      val data = new ReaderIterator(reader).toList
 
-    "read text files from a directory" in {
-      val reader = new TextFileReader().config(
-        _.path := new File("uima-toolkit/src/test/resources/reader/textFileReader/test1")).
-        asCollectionReader
+      data.map(_.selectByIndex[DocumentAnnotation](0).getName).
+        toList.sorted must be equalTo List("file1.txt", "file2.txt")
 
-      val it = new ReaderIterator(reader)
-      it.hasNext must beTrue
-      it.next.getDocumentText must be equalTo ("file1.txt")
-      it.hasNext must beTrue
-      it.next.getDocumentText must be equalTo ("file2.txt")
-      it.hasNext must beFalse
+      data.map(_.selectByIndex[DocumentAnnotation](0).getSource.endsWith(".txt")).
+        toList must be equalTo List(true, true)
     }
 
     "read directories recursivly" in {
@@ -48,14 +37,9 @@ class TextFileReaderSpec extends Specification {
         _.path := new File("uima-toolkit/src/test/resources/reader/textFileReader/test2")).
         asCollectionReader
 
-      val it = new ReaderIterator(reader)
-      it.hasNext must beTrue
-      it.next.getDocumentText must be equalTo ("file1.txt")
-      it.hasNext must beTrue
-      it.next.getDocumentText must be equalTo ("file2.txt")
-      it.hasNext must beTrue
-      it.next.getDocumentText must be equalTo ("subfile1.txt")
-      it.hasNext must beFalse
+      new ReaderIterator(reader).
+        map(_.selectByIndex[DocumentAnnotation](0).getName).
+        toList.sorted must be equalTo List("file1.txt", "file2.txt", "subfile1.txt")
     }
 
     "read only files that match the pattern" in {
@@ -63,12 +47,9 @@ class TextFileReaderSpec extends Specification {
         _.path := new File("uima-toolkit/src/test/resources/reader/textFileReader/test3")).
         asCollectionReader
 
-      val it = new ReaderIterator(reader)
-      it.hasNext must beTrue
-      it.next.getDocumentText must be equalTo ("file1.txt")
-      it.hasNext must beTrue
-      it.next.getDocumentText must be equalTo ("file2.txt")
-      it.hasNext must beFalse
+      new ReaderIterator(reader).
+        map(_.selectByIndex[DocumentAnnotation](0).getName).
+        toList.sorted must be equalTo List("file1.txt", "file2.txt")
     }
   }
 }

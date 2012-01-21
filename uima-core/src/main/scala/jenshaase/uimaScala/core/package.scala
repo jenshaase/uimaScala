@@ -15,4 +15,6 @@ package object core {
   implicit def toScalaCas(jcas: JCas) = new JCasWrapper(jcas)
 
   implicit def configBuilder[T <: Configurable](conf: T) = new ConfigurationBuilder(conf)
+
+  implicit def collectionReaderToPipeline(reader: SCasCollectionReader_ImplBase) = new SimplePipeline(reader)
 }
