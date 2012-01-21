@@ -26,7 +26,7 @@ object UimaScalaBuild extends Build {
             parallelExecution in GlobalScope := false,
             Unidoc.unidocExclude := Seq(examples.id)
         ),
-        aggregate = Seq(core, toolkit, examples)
+        aggregate = Seq(core, toolkit, examples, plugin)
     )
     
     lazy val core = Project(
@@ -65,6 +65,15 @@ object UimaScalaBuild extends Build {
         base = file("uima-examples/ex2"),
         settings = defaultSettings ++ uimaSettings,
         dependencies = Seq(toolkit)
+    )
+
+    lazy val plugin = Project(
+        id = "uimascala-sbt-plugin",
+        base = file("uima-sbt-plugin"),
+        settings = defaultSettings ++ Seq(
+            sbtPlugin := true,
+            libraryDependencies ++= Seq(Dependency.uimatools)
+        )
     )
     
     // Settings
@@ -127,6 +136,8 @@ object UimaScalaBuild extends Build {
 object Dependency {
     
     val uimafit = "org.uimafit" % "uimafit" % "1.2.0"
+
+    val uimatools = "org.apache.uima" % "uimaj-tools" % "2.3.1"
 
     // Testing
     val specs2 = "org.specs2" %% "specs2" % "1.6.1" % "test"

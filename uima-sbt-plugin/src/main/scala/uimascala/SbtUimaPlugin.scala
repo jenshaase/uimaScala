@@ -19,10 +19,10 @@ import Types._
 import Path._
 import Keys._
 
-import xml.{XML, Node, PrettyPrinter}
+import xml.{ XML, Node, PrettyPrinter }
 
 import org.apache.uima.UIMAFramework
-import org.apache.uima.util.{CasCreationUtils, XMLInputSource}
+import org.apache.uima.util.{ CasCreationUtils, XMLInputSource }
 import org.apache.uima.cas.impl.CASImpl
 import org.apache.uima.tools.jcasgen._
 import java.io.FileWriter
@@ -45,11 +45,11 @@ object SbtUimaPlugin extends Plugin with BuildCommon {
 
   import SbtUimaKeys._
 
-  lazy val uimaSettings = inConfig(Uima) (Seq(
+  lazy val uimaSettings = inConfig(Uima)(Seq(
     // Settings
     typeSystem := Seq(),
-    typeSystemDescriptorPath <<= (resourceDirectory in Runtime){ (dir) => dir / "desc" / "types" },
-    xmlDescriptorPath <<= (resourceDirectory in Runtime){ (dir) => dir / "desc" },
+    typeSystemDescriptorPath <<= (resourceDirectory in Runtime) { (dir) ⇒ dir / "desc" / "types" },
+    xmlDescriptorPath <<= (resourceDirectory in Runtime) { (dir) ⇒ dir / "desc" },
 
     // Tasks
     definedXmlDescriptor <<= TaskData.write((compile in Runtime) map discoverXmlDescriptors) triggeredBy (compile in Runtime),
@@ -58,15 +58,14 @@ object SbtUimaPlugin extends Plugin with BuildCommon {
     jcasgen <<= run("org.apache.uima.tools.jcasgen.Jg"), // TODO: Add arguments: First arg: <xmlDescriptorPath> <xmlDescriptorPath>
 
     // Commands
-    commands += uimaTypeSystemCommand
-  ))
+    commands += uimaTypeSystemCommand))
 
   /**
    * Runs a main method. This is used to start uima guis
    */
   def run(mainClass: String, args: Seq[String] = Seq.empty): Initialize[Task[Unit]] =
     (fullClasspath in Runtime, runner, streams) map {
-      case (cp, runner, s) => runner.run(mainClass, data(cp), args, s.log)
+      case (cp, runner, s) ⇒ runner.run(mainClass, data(cp), args, s.log)
     }
 
   /**
@@ -77,7 +76,7 @@ object SbtUimaPlugin extends Plugin with BuildCommon {
     val descClass = "jenshaase.uimaScala.core.XmlDescriptor"
 
     val discovery = Discovery(Set(descClass), Set.empty)(Tests allDefs analysis)
-    discovery collect { case (df, disc) if (disc.baseClasses contains descClass) => df.name } toSeq
+    discovery collect { case (df, disc) if (disc.baseClasses contains descClass) ⇒ df.name } toSeq
   }
 
   /**
@@ -86,33 +85,33 @@ object SbtUimaPlugin extends Plugin with BuildCommon {
    * If empty all descriptions will be created
    */
   def genXmlDescriptorTask =
-    InputTask( TaskData(definedXmlDescriptor)(genXmlDescriptorParser)(Nil) ) { result =>
-      (fullClasspath in Runtime, scalaInstance, xmlDescriptorPath, streams, result, javaSource in Runtime) map { case (cp, inst, path, s, descClasses, javaPath) =>
-        val loader = ClasspathUtilities.makeLoader(data(cp), inst)
-        val formatter = new PrettyPrinter(80, 2)
-        try {
-          descClasses.foreach { descClass =>
-            val desc = Class.forName(descClass, true, loader).newInstance.asInstanceOf[
-              { def toXml: Node; def xmlType: String }];
+    InputTask(TaskData(definedXmlDescriptor)(genXmlDescriptorParser)(Nil)) { result ⇒
+      (fullClasspath in Runtime, scalaInstance, xmlDescriptorPath, streams, result, javaSource in Runtime) map {
+        case (cp, inst, path, s, descClasses, javaPath) ⇒
+          val loader = ClasspathUtilities.makeLoader(data(cp), inst)
+          val formatter = new PrettyPrinter(80, 2)
+          try {
+            descClasses.foreach { descClass ⇒
+              val desc = Class.forName(descClass, true, loader).newInstance.asInstanceOf[{ def toXml: Node; def xmlType: String }];
 
-            val filename = path / desc.xmlType / descClass+".xml"
-            writeXml(filename, desc.toXml)
-            s.log("Successful created descriptor: " + filename)
+              val filename = path / desc.xmlType / descClass + ".xml"
+              writeXml(filename, desc.toXml)
+              s.log("Successful created descriptor: " + filename)
 
-            // Generate java classes for typ system
-            if (desc.xmlType == "types") {
-              val xmlIS = new XMLInputSource(filename)
-              val tsd = UIMAFramework.getXMLParser.parseTypeSystemDescription(xmlIS)
-              val cas = CasCreationUtils.createCas(tsd, null, null)
-              
-              val jg = new Jg()
-              jg.mainForCde(null, new UimaLoggerProgressMonitor(), new LogThrowErrorImpl(), filename, javaPath.toString, tsd.getTypes, cas.asInstanceOf[CASImpl])
+              // Generate java classes for typ system
+              if (desc.xmlType == "types") {
+                val xmlIS = new XMLInputSource(filename)
+                val tsd = UIMAFramework.getXMLParser.parseTypeSystemDescription(xmlIS)
+                val cas = CasCreationUtils.createCas(tsd, null, null)
+
+                val jg = new Jg()
+                jg.mainForCde(null, new UimaLoggerProgressMonitor(), new LogThrowErrorImpl(), filename, javaPath.toString, tsd.getTypes, cas.asInstanceOf[CASImpl])
+              }
             }
+          } catch {
+            case e: ClassNotFoundException ⇒
           }
-        } catch {
-          case e: ClassNotFoundException => 
-        }
-        print("")
+          print("")
       }
     }
 
@@ -120,15 +119,15 @@ object SbtUimaPlugin extends Plugin with BuildCommon {
    * The parser for the xml descriptor class.
    * This enabled tab completion in sbt
    */
-  def genXmlDescriptorParser: (State, Seq[String]) => Parser[Seq[String]] = {
-    (state, descClasses) => (Space ~> token(NotSpace examples descClasses.toSet)).* map ( l => if(l.isEmpty) descClasses else l )
+  def genXmlDescriptorParser: (State, Seq[String]) ⇒ Parser[Seq[String]] = { (state, descClasses) ⇒
+    (Space ~> token(NotSpace examples descClasses.toSet)).* map (l ⇒ if (l.isEmpty) descClasses else l)
   }
-    
-  private val pp = new PrettyPrinter(500,2)
+
+  private val pp = new PrettyPrinter(500, 2)
   def writeXml(file: String, n: Node) = {
     new File(file).getParentFile.mkdirs
     val sb = new StringBuilder()
-    
+
     pp.format(n, sb)
 
     val fw = new FileWriter(file)
@@ -138,34 +137,33 @@ object SbtUimaPlugin extends Plugin with BuildCommon {
     fw.close()
   }
 
-  val uimaTypeSystemCommand = Command.command("uima-type-system"){ state =>
+  val uimaTypeSystemCommand = Command.command("uima-type-system") { state ⇒
     val extracted = Project.extract(state)
     val structure = extracted.structure
-    
+
     def setting[A](
-        key: SettingKey[A], 
-        configuration: Configuration = Configurations.Compile) = {
+      key: SettingKey[A],
+      configuration: Configuration = Configurations.Compile) = {
       key in (extracted.currentRef, configuration) get structure.data
     }
-    
 
     val typeSystems = setting(typeSystem).getOrElse(Seq())
     val descriptorPath = setting(typeSystemDescriptorPath).get
     val javaPath = setting(javaSource).get
 
-    typeSystems.foreach(s => {
-        // Create xml
-        val filename = descriptorPath / s.name+".xml"
-        new File(filename).getParentFile.mkdirs
-        XML.save(filename, s.get, "UTF-8", true, null)
-        
-        // Generate java code
-        val xmlIS = new XMLInputSource(filename)
-        val tsd = UIMAFramework.getXMLParser.parseTypeSystemDescription(xmlIS)
-        val cas = CasCreationUtils.createCas(tsd, null, null)
-        
-        val jg = new Jg()
-        jg.mainForCde(null, new UimaLoggerProgressMonitor(), new LogThrowErrorImpl(), filename, javaPath.toString, tsd.getTypes, cas.asInstanceOf[CASImpl])
+    typeSystems.foreach(s ⇒ {
+      // Create xml
+      val filename = descriptorPath / s.name + ".xml"
+      new File(filename).getParentFile.mkdirs
+      XML.save(filename, s.get, "UTF-8", true, null)
+
+      // Generate java code
+      val xmlIS = new XMLInputSource(filename)
+      val tsd = UIMAFramework.getXMLParser.parseTypeSystemDescription(xmlIS)
+      val cas = CasCreationUtils.createCas(tsd, null, null)
+
+      val jg = new Jg()
+      jg.mainForCde(null, new UimaLoggerProgressMonitor(), new LogThrowErrorImpl(), filename, javaPath.toString, tsd.getTypes, cas.asInstanceOf[CASImpl])
     });
 
     state
