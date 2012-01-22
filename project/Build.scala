@@ -1,38 +1,37 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package uimascala
+package com.github.jenshaase.uimascala
 
 import sbt._
 import Keys._
 
-import uimascala.SbtUimaPlugin._
-import uimascala.SbtUimaKeys._
+import SbtUimaPlugin._
+import SbtUimaKeys._
+import sbtrelease.Release._
+import scalariform.formatter.preferences._
 import com.typesafe.sbtscalariform.ScalariformPlugin
-import ScalariformPlugin.{ format, formatPreferences }
 
 object UimaScalaBuild extends Build {
 
     lazy val buildSettings = Seq(
         organization := "com.github.jenshaase.uimascala",
-        version      := "0.3-SNAPSHOT",
         scalaVersion := "2.9.1"
     )
 
     lazy val uimascala = Project(
         id = "uimascala",
         base = file("."),
-        settings = parentSettings ++ Unidoc.settings ++ uimaSettings ++ Seq(
-            parallelExecution in GlobalScope := false,
-            Unidoc.unidocExclude := Seq(examples.id)
+        settings = parentSettings ++ uimaSettings ++ Seq(
+            parallelExecution in GlobalScope := false
         ),
-        aggregate = Seq(core, toolkit, examples, plugin)
+        aggregate = Seq(core, toolkit, examples)
     )
     
     lazy val core = Project(
         id = "uimascala-core",
         base = file("uima-core"),
-        settings = defaultSettings ++ uimaSettings ++ Seq(
+        settings = defaultSettings ++ uimaSettings ++ projectReleaseSettings ++ Seq(
             libraryDependencies ++= Seq(Dependency.uimafit, Dependency.specs2)
         )
     )
@@ -40,10 +39,10 @@ object UimaScalaBuild extends Build {
     lazy val toolkit = Project(
         id = "uimascala-toolkit",
         base = file("uima-toolkit"),
-        settings = defaultSettings ++ uimaSettings ++ Seq(
+        settings = defaultSettings ++ uimaSettings ++ projectReleaseSettings ++ Seq(
             typeSystem := Seq(toolkitTypSystem)
         ),
-        dependencies = Seq(core, uri("uima-sbt-plugin"))
+        dependencies = Seq(core)
     )
     
     lazy val examples = Project(
@@ -66,21 +65,12 @@ object UimaScalaBuild extends Build {
         settings = defaultSettings ++ uimaSettings,
         dependencies = Seq(toolkit)
     )
-
-    lazy val plugin = Project(
-        id = "uimascala-sbt-plugin",
-        base = file("uima-sbt-plugin"),
-        settings = defaultSettings ++ Seq(
-            sbtPlugin := true,
-            libraryDependencies ++= Seq(Dependency.uimatools)
-        )
-    )
     
     // Settings
 
-    override lazy val settings = super.settings ++ buildSettings ++ Publish.versionSettings
+    override lazy val settings = super.settings ++ buildSettings
 
-    lazy val baseSettings = Defaults.defaultSettings ++ Publish.settings
+    lazy val baseSettings = Defaults.defaultSettings
 
     lazy val parentSettings = baseSettings ++ Seq(
         publishArtifact in Compile := false
@@ -91,13 +81,16 @@ object UimaScalaBuild extends Build {
         libraryDependencies += Dependency.specs2
     )
 
-    lazy val formatSettings = ScalariformPlugin.settings ++ Seq(
-        formatPreferences in Compile := formattingPreferences,
-        formatPreferences in Test := formattingPreferences
+    lazy val formatSettings = ScalariformPlugin.scalariformSettings ++ Seq(
+        ScalariformPlugin.ScalariformKeys.preferences in Compile := formattingPreferences,
+        ScalariformPlugin.ScalariformKeys.preferences in Test := formattingPreferences
+    )
+
+    lazy val projectReleaseSettings = releaseSettings ++ Seq(
+        publishTo := Some(Resolver.file("Local", Path.userHome / "programming" / "jenshaase.github.com" / "maven" asFile))
     )
 
     def formattingPreferences = {
-        import scalariform.formatter.preferences._
         FormattingPreferences()
             .setPreference(RewriteArrowSymbols, true)
             .setPreference(AlignParameters, true)
@@ -136,8 +129,6 @@ object UimaScalaBuild extends Build {
 object Dependency {
     
     val uimafit = "org.uimafit" % "uimafit" % "1.2.0"
-
-    val uimatools = "org.apache.uima" % "uimaj-tools" % "2.3.1"
 
     // Testing
     val specs2 = "org.specs2" %% "specs2" % "1.6.1" % "test"
