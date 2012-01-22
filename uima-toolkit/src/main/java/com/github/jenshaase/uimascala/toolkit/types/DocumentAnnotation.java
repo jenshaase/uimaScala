@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Sun Jan 22 13:22:45 CET 2012 */
+/* First created by JCasGen Sun Jan 22 13:52:21 CET 2012 */
 package com.github.jenshaase.uimascala.toolkit.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,7 +11,7 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Sun Jan 22 13:22:45 CET 2012
+ * Updated by JCasGen Sun Jan 22 13:52:21 CET 2012
  * XML source: /home/jens/programming/scala/uimaScala/uima-toolkit/src/main/resources/desc/types/com.github.jenshaase.uimascala.toolkit.description.BasicTypeDescription.xml
  * @generated */
 public class DocumentAnnotation extends Annotation {

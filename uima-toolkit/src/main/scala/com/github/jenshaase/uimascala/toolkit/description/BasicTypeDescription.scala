@@ -17,7 +17,7 @@ class BasicTypeDescription extends TypeSystemDescription {
 
   def types = Seq(
     "DocumentAnnotation" extend UimaAnnotation features (StringFeature("name"), StringFeature("source")),
-    "Token" extend UimaAnnotation,
+    "Token" extend UimaAnnotation features (StringFeature("POS"), StringFeature("lemma"), StringFeature("stem")),
     "Sentence" extend UimaAnnotation,
     "Stopword" extend UimaAnnotation)
 }

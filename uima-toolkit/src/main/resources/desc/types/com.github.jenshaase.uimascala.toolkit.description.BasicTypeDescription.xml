@@ -25,7 +25,20 @@
       <name>com.github.jenshaase.uimascala.toolkit.types.Token</name>
       <description></description>
       <supertypeName>uima.tcas.Annotation</supertypeName>
-      <features> </features>
+      <features>
+        <featureDescription>
+          <name>POS</name>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>lemma</name>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>stem</name>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
     </typeDescription>
     <typeDescription>
       <name>com.github.jenshaase.uimascala.toolkit.types.Sentence</name>
