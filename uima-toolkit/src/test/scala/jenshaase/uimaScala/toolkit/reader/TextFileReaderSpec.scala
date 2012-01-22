@@ -1,11 +1,11 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.toolkit.reader
+package com.github.jenshaase.uimascala.toolkit.reader
 
 import java.io.File
-import jenshaase.uimaScala.core._
-import jenshaase.uimaScala.toolkit.types.DocumentAnnotation
+import com.github.jenshaase.uimascala.core._
+import com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation
 import org.apache.uima.collection.CollectionReader
 import org.apache.uima.jcas.JCas
 import org.apache.uima.util.CasCreationUtils

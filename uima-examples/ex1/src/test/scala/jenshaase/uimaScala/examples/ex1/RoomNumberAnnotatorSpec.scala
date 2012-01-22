@@ -1,10 +1,10 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.examples.ex1
+package com.github.jenshaase.uimascala.examples.ex1
 
-import jenshaase.uimaScala.core._
-import jenshaase.uimaScala.examples.ex1.types._
+import com.github.jenshaase.uimascala.core._
+import com.github.jenshaase.uimascala.examples.ex1.types._
 import org.specs2.mutable.Specification
 
 class RoomNumberAnnotatorSpec extends Specification {

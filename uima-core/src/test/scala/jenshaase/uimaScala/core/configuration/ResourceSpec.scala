@@ -1,10 +1,10 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core.configuration
+package com.github.jenshaase.uimascala.configuration
 
 import java.util.regex.Pattern
-import jenshaase.uimaScala.core.configuration._
+import com.github.jenshaase.uimascala.core.configuration._
 import org.apache.uima.resource.Resource_ImplBase
 import org.apache.uima.resource.SharedResourceObject
 import org.apache.uima.resource.DataResource

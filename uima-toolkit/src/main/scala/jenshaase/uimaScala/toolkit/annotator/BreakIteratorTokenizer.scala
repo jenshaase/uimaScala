@@ -1,13 +1,13 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.toolkit.annotator
+package com.github.jenshaase.uimascala.toolkit.annotator
 
 import java.text.BreakIterator
 import java.util.Locale
-import jenshaase.uimaScala.core._
-import jenshaase.uimaScala.toolkit.configuration._
-import jenshaase.uimaScala.toolkit.types._
+import com.github.jenshaase.uimascala.core._
+import com.github.jenshaase.uimascala.toolkit.configuration._
+import com.github.jenshaase.uimascala.toolkit.types._
 import org.apache.uima.jcas.JCas
 import org.uimafit.descriptor.ConfigurationParameter
 import org.uimafit.factory.AnalysisEngineFactory

@@ -7,7 +7,7 @@
   <imports> </imports>
   <types>
     <typeDescription>
-      <name>jenshaase.uimaScala.toolkit.types.DocumentAnnotation</name>
+      <name>com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation</name>
       <description></description>
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features>
@@ -22,19 +22,19 @@
       </features>
     </typeDescription>
     <typeDescription>
-      <name>jenshaase.uimaScala.toolkit.types.Token</name>
+      <name>com.github.jenshaase.uimascala.toolkit.types.Token</name>
       <description></description>
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features> </features>
     </typeDescription>
     <typeDescription>
-      <name>jenshaase.uimaScala.toolkit.types.Sentence</name>
+      <name>com.github.jenshaase.uimascala.toolkit.types.Sentence</name>
       <description></description>
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features> </features>
     </typeDescription>
     <typeDescription>
-      <name>jenshaase.uimaScala.toolkit.types.Stopword</name>
+      <name>com.github.jenshaase.uimascala.toolkit.types.Stopword</name>
       <description></description>
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features> </features>

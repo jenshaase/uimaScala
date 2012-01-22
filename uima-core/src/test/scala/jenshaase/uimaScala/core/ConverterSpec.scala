@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core
+package com.github.jenshaase.uimascala.core
 
 import org.specs2._
 import matcher._

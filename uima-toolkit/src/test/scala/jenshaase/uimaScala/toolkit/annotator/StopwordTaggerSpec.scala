@@ -1,11 +1,11 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.toolkit.annotator
+package com.github.jenshaase.uimascala.toolkit.annotator
 
 import java.io.File
-import jenshaase.uimaScala.core._
-import jenshaase.uimaScala.toolkit.types.{ Token, Stopword }
+import com.github.jenshaase.uimascala.core._
+import com.github.jenshaase.uimascala.toolkit.types.{ Token, Stopword }
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.specs2.mutable.Specification
 import org.uimafit.factory.AnalysisEngineFactory

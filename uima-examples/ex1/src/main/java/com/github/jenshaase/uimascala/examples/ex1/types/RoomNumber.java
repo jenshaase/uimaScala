@@ -1,7 +1,7 @@
 
 
-/* First created by JCasGen Fri Nov 18 22:17:24 CET 2011 */
-package jenshaase.uimaScala.examples.ex1.types;
+/* First created by JCasGen Sun Jan 22 13:22:45 CET 2012 */
+package com.github.jenshaase.uimascala.examples.ex1.types;
 
 import org.apache.uima.jcas.JCas; 
 import org.apache.uima.jcas.JCasRegistry;
@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Fri Nov 18 22:17:24 CET 2011
- * XML source: /home/jens/programming/scala/uimaScala/uima-examples/ex1/src/main/resources/desc/types/jenshaase.uimaScala.examples.ex1.TypeDescription.xml
+ * Updated by JCasGen Sun Jan 22 13:22:45 CET 2012
+ * XML source: /home/jens/programming/scala/uimaScala/uima-examples/ex1/src/main/resources/desc/types/com.github.jenshaase.uimascala.examples.ex1.TypeDescription.xml
  * @generated */
 public class RoomNumber extends Annotation {
   /** @generated
@@ -66,14 +66,14 @@ public class RoomNumber extends Annotation {
    * @generated */
   public String getBuilding() {
     if (RoomNumber_Type.featOkTst && ((RoomNumber_Type)jcasType).casFeat_building == null)
-      jcasType.jcas.throwFeatMissing("building", "jenshaase.uimaScala.examples.ex1.types.RoomNumber");
+      jcasType.jcas.throwFeatMissing("building", "com.github.jenshaase.uimascala.examples.ex1.types.RoomNumber");
     return jcasType.ll_cas.ll_getStringValue(addr, ((RoomNumber_Type)jcasType).casFeatCode_building);}
     
   /** setter for building - sets building containing this room 
    * @generated */
   public void setBuilding(String v) {
     if (RoomNumber_Type.featOkTst && ((RoomNumber_Type)jcasType).casFeat_building == null)
-      jcasType.jcas.throwFeatMissing("building", "jenshaase.uimaScala.examples.ex1.types.RoomNumber");
+      jcasType.jcas.throwFeatMissing("building", "com.github.jenshaase.uimascala.examples.ex1.types.RoomNumber");
     jcasType.ll_cas.ll_setStringValue(addr, ((RoomNumber_Type)jcasType).casFeatCode_building, v);}    
   }
 

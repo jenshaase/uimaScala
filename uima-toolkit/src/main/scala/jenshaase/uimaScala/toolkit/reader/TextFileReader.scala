@@ -1,14 +1,14 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.toolkit.reader
+package com.github.jenshaase.uimascala.toolkit.reader
 
 import java.io.File
 import java.util.Locale
 import java.util.regex.Pattern
-import jenshaase.uimaScala.core.configuration._
-import jenshaase.uimaScala.core.SCasCollectionReader_ImplBase
-import jenshaase.uimaScala.toolkit.types.DocumentAnnotation
+import com.github.jenshaase.uimascala.core.configuration._
+import com.github.jenshaase.uimascala.core.SCasCollectionReader_ImplBase
+import com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation
 import org.apache.uima.jcas.JCas
 import org.apache.uima.UimaContext
 import org.apache.uima.util.ProgressImpl

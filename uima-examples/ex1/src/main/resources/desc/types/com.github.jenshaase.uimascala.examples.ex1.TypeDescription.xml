@@ -7,7 +7,7 @@
   <imports> </imports>
   <types>
     <typeDescription>
-      <name>jenshaase.uimaScala.examples.ex1.types.RoomNumber</name>
+      <name>com.github.jenshaase.uimascala.examples.ex1.types.RoomNumber</name>
       <description></description>
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features>

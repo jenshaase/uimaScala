@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core.wrapper
+package com.github.jenshaase.uimascala.core.wrapper
 
 import org.apache.uima.jcas.JCas
 import org.apache.uima.cas.text.AnnotationFS

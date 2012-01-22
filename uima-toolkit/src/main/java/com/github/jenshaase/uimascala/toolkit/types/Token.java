@@ -1,7 +1,7 @@
 
 
-/* First created by JCasGen Fri Nov 18 22:17:23 CET 2011 */
-package jenshaase.uimaScala.toolkit.types;
+/* First created by JCasGen Sun Jan 22 13:22:45 CET 2012 */
+package com.github.jenshaase.uimascala.toolkit.types;
 
 import org.apache.uima.jcas.JCas; 
 import org.apache.uima.jcas.JCasRegistry;
@@ -11,14 +11,14 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Fri Nov 18 22:17:23 CET 2011
- * XML source: /home/jens/programming/scala/uimaScala/uima-toolkit/src/main/resources/desc/types/jenshaase.uimaScala.toolkit.description.BasicTypeDescription.xml
+ * Updated by JCasGen Sun Jan 22 13:22:45 CET 2012
+ * XML source: /home/jens/programming/scala/uimaScala/uima-toolkit/src/main/resources/desc/types/com.github.jenshaase.uimascala.toolkit.description.BasicTypeDescription.xml
  * @generated */
-public class Stopword extends Annotation {
+public class Token extends Annotation {
   /** @generated
    * @ordered 
    */
-  public final static int typeIndexID = JCasRegistry.register(Stopword.class);
+  public final static int typeIndexID = JCasRegistry.register(Token.class);
   /** @generated
    * @ordered 
    */
@@ -28,23 +28,23 @@ public class Stopword extends Annotation {
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected Stopword() {}
+  protected Token() {}
     
   /** Internal - constructor used by generator 
    * @generated */
-  public Stopword(int addr, TOP_Type type) {
+  public Token(int addr, TOP_Type type) {
     super(addr, type);
     readObject();
   }
   
   /** @generated */
-  public Stopword(JCas jcas) {
+  public Token(JCas jcas) {
     super(jcas);
     readObject();   
   } 
 
   /** @generated */  
-  public Stopword(JCas jcas, int begin, int end) {
+  public Token(JCas jcas, int begin, int end) {
     super(jcas);
     setBegin(begin);
     setEnd(end);

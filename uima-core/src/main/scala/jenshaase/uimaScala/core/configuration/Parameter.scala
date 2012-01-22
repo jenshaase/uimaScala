@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core.configuration
+package com.github.jenshaase.uimascala.core.configuration
 
 import org.apache.uima.analysis_component.AnalysisComponent
 
@@ -71,7 +71,7 @@ case class Failure(msg: String, exception: Option[Exception] = None)
 abstract class Parameter[ThisType](val defaultValue: ThisType)(implicit mf: Manifest[ThisType])
     extends BaseParameter {
 
-  import jenshaase.uimaScala.core.CastFactory._
+  import com.github.jenshaase.uimascala.core.CastFactory._
 
   private var data: Option[ThisType] = None
 

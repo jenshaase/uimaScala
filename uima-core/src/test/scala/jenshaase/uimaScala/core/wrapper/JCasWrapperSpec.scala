@@ -1,10 +1,10 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core.wrapper
+package com.github.jenshaase.uimascala.core.wrapper
 
 import org.specs2.mutable.Specification
-import jenshaase.uimaScala.core._
+import com.github.jenshaase.uimascala.core._
 import util.Helper
 import org.apache.uima.jcas.tcas.{ DocumentAnnotation, Annotation }
 import org.apache.uima.jcas.JCas

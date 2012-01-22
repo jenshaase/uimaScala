@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.toolkit.annotator
+package com.github.jenshaase.uimascala.toolkit.annotator
 
 import java.io.File
-import jenshaase.uimaScala.core._
-import jenshaase.uimaScala.core.configuration._
-import jenshaase.uimaScala.toolkit.types._
+import com.github.jenshaase.uimascala.core._
+import com.github.jenshaase.uimascala.core.configuration._
+import com.github.jenshaase.uimascala.toolkit.types._
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.jcas.JCas
 import org.apache.uima.UimaContext

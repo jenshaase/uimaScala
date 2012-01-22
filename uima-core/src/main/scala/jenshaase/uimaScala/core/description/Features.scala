@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core.description
+package com.github.jenshaase.uimascala.core.description
 
 import UimaTyp._
 import xml.Node

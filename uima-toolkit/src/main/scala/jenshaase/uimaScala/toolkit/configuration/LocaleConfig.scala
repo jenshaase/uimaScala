@@ -1,11 +1,11 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.toolkit.configuration
+package com.github.jenshaase.uimascala.toolkit.configuration
 
 import java.util.Locale
-import jenshaase.uimaScala.core.configuration._
-import jenshaase.uimaScala.core.SCasAnnotator_ImplBase
+import com.github.jenshaase.uimascala.core.configuration._
+import com.github.jenshaase.uimascala.core.SCasAnnotator_ImplBase
 import org.apache.uima.jcas.JCas
 import org.uimafit.descriptor.ConfigurationParameter
 

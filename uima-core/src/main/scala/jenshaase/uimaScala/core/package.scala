@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala
+package com.github.jenshaase.uimascala
 
 import org.apache.uima.jcas.tcas.Annotation
 import org.apache.uima.jcas.JCas
-import jenshaase.uimaScala.core.wrapper._
-import jenshaase.uimaScala.core.configuration._
+import com.github.jenshaase.uimascala.core.wrapper._
+import com.github.jenshaase.uimascala.core.configuration._
 
 package object core {
 

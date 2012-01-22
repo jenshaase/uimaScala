@@ -1,10 +1,10 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.examples.ex1
+package com.github.jenshaase.uimascala.examples.ex1
 
-import jenshaase.uimaScala.core.SCasAnnotator_ImplBase
-import jenshaase.uimaScala.examples.ex1.types._
+import com.github.jenshaase.uimascala.core.SCasAnnotator_ImplBase
+import com.github.jenshaase.uimascala.examples.ex1.types._
 import org.apache.uima.jcas.JCas
 
 class RoomNumberAnnotator extends SCasAnnotator_ImplBase {

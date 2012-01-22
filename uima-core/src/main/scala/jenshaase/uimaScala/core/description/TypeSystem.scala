@@ -1,10 +1,10 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core.description
+package com.github.jenshaase.uimascala.core.description
 
 import UimaTyp._
-import jenshaase.uimaScala.core.XmlDescriptor
+import com.github.jenshaase.uimascala.core.XmlDescriptor
 import xml.Node
 
 trait TypeSystemDescription extends XmlDescriptor {

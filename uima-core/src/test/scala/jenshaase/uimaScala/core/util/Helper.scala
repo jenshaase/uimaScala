@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core.util
+package com.github.jenshaase.uimascala.core.util
 
 import org.apache.uima.jcas.JCas
 import org.apache.uima.util.CasCreationUtils

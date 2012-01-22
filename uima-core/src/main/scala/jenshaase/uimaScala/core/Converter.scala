@@ -1,14 +1,14 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core
+package com.github.jenshaase.uimascala.core
 
 import PartialFunction._
 import java.util.regex.Pattern
 import java.util.Locale
 import java.io.File
 import util.matching.Regex
-import jenshaase.uimaScala.core.configuration._
+import com.github.jenshaase.uimascala.core.configuration._
 
 abstract class Caster[In, Out](implicit in: Manifest[In], out: Manifest[Out]) {
   def convertToUimaType[X](c: X)(implicit m: Manifest[X]): Option[Any] = {

@@ -1,6 +1,6 @@
 
-/* First created by JCasGen Fri Nov 18 22:17:23 CET 2011 */
-package jenshaase.uimaScala.toolkit.types;
+/* First created by JCasGen Sun Jan 22 13:22:45 CET 2012 */
+package com.github.jenshaase.uimascala.toolkit.types;
 
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;
@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Fri Nov 18 22:17:23 CET 2011
+ * Updated by JCasGen Sun Jan 22 13:22:45 CET 2012
  * @generated */
 public class DocumentAnnotation_Type extends Annotation_Type {
   /** @generated */
@@ -39,7 +39,7 @@ public class DocumentAnnotation_Type extends Annotation_Type {
   public final static int typeIndexID = DocumentAnnotation.typeIndexID;
   /** @generated 
      @modifiable */
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
  
   /** @generated */
   final Feature casFeat_name;
@@ -48,13 +48,13 @@ public class DocumentAnnotation_Type extends Annotation_Type {
   /** @generated */ 
   public String getName(int addr) {
         if (featOkTst && casFeat_name == null)
-      jcas.throwFeatMissing("name", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
+      jcas.throwFeatMissing("name", "com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
     return ll_cas.ll_getStringValue(addr, casFeatCode_name);
   }
   /** @generated */    
   public void setName(int addr, String v) {
         if (featOkTst && casFeat_name == null)
-      jcas.throwFeatMissing("name", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
+      jcas.throwFeatMissing("name", "com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
     ll_cas.ll_setStringValue(addr, casFeatCode_name, v);}
     
   
@@ -66,13 +66,13 @@ public class DocumentAnnotation_Type extends Annotation_Type {
   /** @generated */ 
   public String getSource(int addr) {
         if (featOkTst && casFeat_source == null)
-      jcas.throwFeatMissing("source", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
+      jcas.throwFeatMissing("source", "com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
     return ll_cas.ll_getStringValue(addr, casFeatCode_source);
   }
   /** @generated */    
   public void setSource(int addr, String v) {
         if (featOkTst && casFeat_source == null)
-      jcas.throwFeatMissing("source", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
+      jcas.throwFeatMissing("source", "com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
     ll_cas.ll_setStringValue(addr, casFeatCode_source, v);}
     
   

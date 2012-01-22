@@ -1,7 +1,7 @@
 
 
-/* First created by JCasGen Fri Nov 18 22:17:23 CET 2011 */
-package jenshaase.uimaScala.toolkit.types;
+/* First created by JCasGen Sun Jan 22 13:22:45 CET 2012 */
+package com.github.jenshaase.uimascala.toolkit.types;
 
 import org.apache.uima.jcas.JCas; 
 import org.apache.uima.jcas.JCasRegistry;
@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Fri Nov 18 22:17:23 CET 2011
- * XML source: /home/jens/programming/scala/uimaScala/uima-toolkit/src/main/resources/desc/types/jenshaase.uimaScala.toolkit.description.BasicTypeDescription.xml
+ * Updated by JCasGen Sun Jan 22 13:22:45 CET 2012
+ * XML source: /home/jens/programming/scala/uimaScala/uima-toolkit/src/main/resources/desc/types/com.github.jenshaase.uimascala.toolkit.description.BasicTypeDescription.xml
  * @generated */
 public class DocumentAnnotation extends Annotation {
   /** @generated
@@ -66,14 +66,14 @@ public class DocumentAnnotation extends Annotation {
    * @generated */
   public String getName() {
     if (DocumentAnnotation_Type.featOkTst && ((DocumentAnnotation_Type)jcasType).casFeat_name == null)
-      jcasType.jcas.throwFeatMissing("name", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
+      jcasType.jcas.throwFeatMissing("name", "com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
     return jcasType.ll_cas.ll_getStringValue(addr, ((DocumentAnnotation_Type)jcasType).casFeatCode_name);}
     
   /** setter for name - sets  
    * @generated */
   public void setName(String v) {
     if (DocumentAnnotation_Type.featOkTst && ((DocumentAnnotation_Type)jcasType).casFeat_name == null)
-      jcasType.jcas.throwFeatMissing("name", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
+      jcasType.jcas.throwFeatMissing("name", "com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
     jcasType.ll_cas.ll_setStringValue(addr, ((DocumentAnnotation_Type)jcasType).casFeatCode_name, v);}    
    
     
@@ -84,14 +84,14 @@ public class DocumentAnnotation extends Annotation {
    * @generated */
   public String getSource() {
     if (DocumentAnnotation_Type.featOkTst && ((DocumentAnnotation_Type)jcasType).casFeat_source == null)
-      jcasType.jcas.throwFeatMissing("source", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
+      jcasType.jcas.throwFeatMissing("source", "com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
     return jcasType.ll_cas.ll_getStringValue(addr, ((DocumentAnnotation_Type)jcasType).casFeatCode_source);}
     
   /** setter for source - sets  
    * @generated */
   public void setSource(String v) {
     if (DocumentAnnotation_Type.featOkTst && ((DocumentAnnotation_Type)jcasType).casFeat_source == null)
-      jcasType.jcas.throwFeatMissing("source", "jenshaase.uimaScala.toolkit.types.DocumentAnnotation");
+      jcasType.jcas.throwFeatMissing("source", "com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
     jcasType.ll_cas.ll_setStringValue(addr, ((DocumentAnnotation_Type)jcasType).casFeatCode_source, v);}    
   }
 

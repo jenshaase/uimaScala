@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core.configuration
+package com.github.jenshaase.uimascala.core.configuration
 
 import java.lang.reflect.Method
 import org.apache.uima.resource.ResourceAccessException

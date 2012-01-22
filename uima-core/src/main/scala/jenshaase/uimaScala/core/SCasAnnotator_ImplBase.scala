@@ -1,14 +1,14 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core
+package com.github.jenshaase.uimascala.core
 
 import configuration.Parameter
 import java.io.File
 import java.lang.reflect.Method
 import java.net.URL
-import jenshaase.uimaScala.core.configuration._
-import jenshaase.uimaScala.core.wrapper._
+import com.github.jenshaase.uimascala.core.configuration._
+import com.github.jenshaase.uimascala.core.wrapper._
 import org.apache.uima.analysis_component.AnalysisComponent
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase
 import org.apache.uima.analysis_engine.AnalysisEngineDescription

@@ -1,9 +1,9 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core
+package com.github.jenshaase.uimascala.core
 
-import jenshaase.uimaScala.core.configuration._
+import com.github.jenshaase.uimascala.core.configuration._
 import org.apache.uima.cas.CAS
 import org.apache.uima.collection.CollectionReader_ImplBase
 import org.apache.uima.jcas.JCas

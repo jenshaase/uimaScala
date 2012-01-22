@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core.configuration
+package com.github.jenshaase.uimascala.core.configuration
 
 import org.specs2.Specification
 import org.apache.uima.resource.SharedResourceObject

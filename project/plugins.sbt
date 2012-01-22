@@ -1,6 +1,6 @@
 resolvers += "uimaScala plugin repo" at "http://jenshaase.github.com/maven"
 
-addSbtPlugin("com.github.jenshaase.uimascala" % "uimascala-sbt-plugin" % "0.3.0")
+addSbtPlugin("com.github.jenshaase.uimascala" % "uimascala-sbt-plugin" % "0.3.1-SNAPSHOT")
 
 resolvers += "gseitz@github" at "http://gseitz.github.com/maven/"
 

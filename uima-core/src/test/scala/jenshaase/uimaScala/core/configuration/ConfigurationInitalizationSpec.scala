@@ -1,10 +1,10 @@
 /**
  * Copyright (C) 2011 Jens Haase
  */
-package jenshaase.uimaScala.core.configuration
+package com.github.jenshaase.uimascala.core.configuration
 
 import org.specs2.Specification
-import jenshaase.uimaScala.core.configuration._
+import com.github.jenshaase.uimascala.core.configuration._
 
 class ConfigurationInitalizationSpec extends Specification {
   def is =
