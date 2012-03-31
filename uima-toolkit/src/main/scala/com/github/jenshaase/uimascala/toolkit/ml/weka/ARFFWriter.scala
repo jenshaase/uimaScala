@@ -6,9 +6,10 @@ package com.github.jenshaase.uimascala.toolkit.ml.weka
 import weka.core.{ Instances, Attribute, SparseInstance, Instance }
 import java.io.{ BufferedWriter, FileWriter, File }
 import com.github.jenshaase.uimascala.toolkit.ml.weka.AttributeConverter._
+import com.github.jenshaase.uimascala.toolkit.ml.{ Writer, Feature }
 import scala.collection.JavaConversions._
 
-class ARFFWriter(file: File, relation: String, attributes: List[WekaAttribute], classAttribute: WekaAttribute) {
+class ARFFWriter(file: File, relation: String, attributes: List[WekaAttribute], classAttribute: WekaAttribute) extends Writer {
 
   val allAttributes = attributes :+ classAttribute
 
@@ -27,7 +28,7 @@ class ARFFWriter(file: File, relation: String, attributes: List[WekaAttribute], 
     case n @ NorminalAttribute(name, _, _) ⇒ name -> n
   }.toMap
 
-  def write(features: Seq[WekaFeature[_]], outcome: WekaFeature[_]) = {
+  def write(features: Iterable[Feature[_]], outcome: Feature[_]) = {
     val inst = new SparseInstance(instances.numAttributes())
     inst.setDataset(instances)
 
@@ -40,9 +41,9 @@ class ARFFWriter(file: File, relation: String, attributes: List[WekaAttribute], 
     writer.write(inst.toString + "\n")
   }
 
-  def finish = writer.close()
+  def finish() = writer.close()
 
-  private def setValue(inst: Instance, f: WekaFeature[_]) = {
+  private def setValue(inst: Instance, f: Feature[_]) = {
     val index = instances.attribute(f.name).index
 
     f match {
