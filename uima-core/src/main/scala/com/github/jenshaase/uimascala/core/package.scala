@@ -16,5 +16,5 @@ package object core {
 
   implicit def configBuilder[T <: Configurable](conf: T) = new ConfigurationBuilder(conf)
 
-  implicit def collectionReaderToPipeline(reader: SCasCollectionReader_ImplBase) = new SimplePipeline(reader)
+  implicit def collectionReaderToPipeline(reader: SCasCollectionReader_ImplBase) = new SimplePipeline(reader.asCollectionReader)
 }

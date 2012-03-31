@@ -17,7 +17,10 @@ class SimplePipelineSpecs extends Specification {
 
         success
       } catch {
-        case _ ⇒ failure
+        case e ⇒ {
+          e.printStackTrace()
+          failure
+        }
       }
     }
 

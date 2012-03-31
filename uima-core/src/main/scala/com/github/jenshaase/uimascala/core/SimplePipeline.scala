@@ -3,22 +3,31 @@
  */
 package com.github.jenshaase.uimascala.core
 
-class SimplePipeline(reader: SCasCollectionReader_ImplBase) {
+import org.apache.uima.analysis_engine.AnalysisEngine
+import org.apache.uima.collection.CollectionReader
 
-  private var descs: Seq[AsAnalysisEngine] = Seq.empty
+class SimplePipeline(reader: CollectionReader) {
 
-  def ~>(in: AsAnalysisEngine) = {
+  private var descs: Seq[AnalysisEngine] = Seq.empty
+
+  def ~>(in: AsAnalysisEngine): SimplePipeline =
+    ~>(in.asAnalysisEngine)
+
+  def ~>(in: AnalysisEngine): SimplePipeline = {
     descs = descs :+ in
     this
   }
 
   def run() = {
-    org.uimafit.pipeline.SimplePipeline.runPipeline(reader.asCollectionReader, descs.map(_.asAnalysisEngine): _*)
+    org.uimafit.pipeline.SimplePipeline.runPipeline(reader, descs: _*)
   }
 }
 
 object SimplePipeline {
 
-  def apply(reader: SCasCollectionReader_ImplBase) =
+  def apply(reader: CollectionReader) =
     new SimplePipeline(reader)
+
+  def apply(reader: SCasCollectionReader_ImplBase) =
+    new SimplePipeline(reader.asCollectionReader)
 }
