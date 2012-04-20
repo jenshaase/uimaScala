@@ -41,20 +41,22 @@ class WekaConverterSpec extends Specification {
       attr.isDate must beTrue
       attr.name must_== "test"
     }
-  }
 
-  "create a Weka instance from a list of features" in {
-    val meta = new Meta("test", List(
-      NorminalAttribute("a", Set("a", "b")),
-      FloatAttribute("b"),
-      ClassAttribute("c", Set("t", "f"))))
+    "create a Weka instance from a list of features" in {
+      val meta = new Meta("test", List(
+        NorminalAttribute("a", Set("a", "b")),
+        FloatAttribute("b"),
+        NorminalAttribute("c", Set("e", "f"), "X"),
+        ClassAttribute("d", Set("t", "f"))))
 
-    val features = List(NorminalFeature("a", "a"), FloatFeature("b", 10f))
+      val features = List(NorminalFeature("a", "a"), FloatFeature("b", 10f), NorminalFeature("c", "z"))
 
-    val inst = WekaConverter.featuresToInstance(features, meta)
+      val inst = WekaConverter.featuresToInstance(features, meta)
 
-    inst.classIsMissing must beTrue
-    inst.stringValue(0) must_== "a"
-    inst.value(1) must_== 10d
+      inst.classIsMissing must beTrue
+      inst.stringValue(0) must_== "a"
+      inst.value(1) must_== 10d
+      inst.stringValue(2) must_== "X"
+    }
   }
 }
