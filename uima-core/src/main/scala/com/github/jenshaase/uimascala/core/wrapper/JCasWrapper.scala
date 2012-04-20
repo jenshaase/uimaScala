@@ -79,4 +79,21 @@ class JCasWrapper(cas: JCas) {
    */
   def getView(name: String, create: Boolean) =
     JCasUtil.getView(cas, name, create)
+
+  def selectRelative[T <: Annotation](annotaion: Annotation, index: Int)(implicit mf: Manifest[T]): Option[T] = {
+    if (index > 0) {
+      val foll = selectFollowing[T](annotaion, index)(mf)
+      if (foll.size >= index) Some(foll(index - 1)) else None
+    } else if (index < 0) {
+      val prec = selectPreceding[T](annotaion, -index)(mf)
+      if (prec.size >= -index) Some(prec(-index - 1)) else None
+    } else {
+      if (annotaion.isInstanceOf[T]) {
+        Some(annotaion.asInstanceOf[T])
+      } else {
+        val covered = selectCovered[T](annotaion)(mf)
+        if (covered.size > 0) Some(covered.get(0)) else None
+      }
+    }
+  }
 }

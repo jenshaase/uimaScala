@@ -5,16 +5,12 @@ package com.github.jenshaase.uimascala.toolkit.utils
 
 import scala.collection.MapProxy
 
-class FreqDist[T](val elems: Iterable[T]) extends MapProxy[T, Int] {
+class FreqDist[T](val map: Map[T, Int]) extends MapProxy[T, Int] {
 
-  def this() = this(Seq.empty)
+  def self = map
 
-  def self = elems.map { e ⇒ (e, 1) }.groupBy(_._1).map { kv ⇒
-    (kv._1, kv._2.size)
-  }
-
-  def inc(key: T, count: Int = 1) =
-    self + (key -> (getOrElse(key, 0) + count))
+  def inc(key: T, count: Int = 1): FreqDist[T] =
+    new FreqDist[T](self + (key -> (getOrElse(key, 0) + count)))
 
   def hapaxes = filter(_._2 == 1).map(_._1)
 
@@ -24,7 +20,9 @@ class FreqDist[T](val elems: Iterable[T]) extends MapProxy[T, Int] {
 }
 
 object FreqDist {
-  def empty[T] = new FreqDist[T]()
+  def empty[T] = new FreqDist[T](Map.empty)
 
-  def apply[T](elems: T*) = new FreqDist[T](elems)
+  def apply[T](elems: T*) = new FreqDist[T](elems.map { e ⇒ (e, 1) }.groupBy(_._1).map { kv ⇒
+    (kv._1, kv._2.size)
+  })
 }

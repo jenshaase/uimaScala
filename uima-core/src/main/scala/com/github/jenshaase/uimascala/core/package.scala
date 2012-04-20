@@ -7,6 +7,7 @@ import org.apache.uima.jcas.tcas.Annotation
 import org.apache.uima.jcas.JCas
 import com.github.jenshaase.uimascala.core.wrapper._
 import com.github.jenshaase.uimascala.core.configuration._
+import org.apache.uima.collection.CollectionReader
 
 package object core {
 
@@ -17,4 +18,6 @@ package object core {
   implicit def configBuilder[T <: Configurable](conf: T) = new ConfigurationBuilder(conf)
 
   implicit def collectionReaderToPipeline(reader: SCasCollectionReader_ImplBase) = new SimplePipeline(reader.asCollectionReader)
+
+  implicit def collectionReaderToPipeline(reader: CollectionReader) = new SimplePipeline(reader)
 }

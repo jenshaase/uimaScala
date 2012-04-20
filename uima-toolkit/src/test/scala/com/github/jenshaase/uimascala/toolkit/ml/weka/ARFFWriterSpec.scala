@@ -15,21 +15,22 @@ class ARFFWriterSpecs extends Specification {
       val target = new File("target/test/arff/test.arff")
       val test = new File("uima-toolkit/src/test/resources/arff/test.arff");
 
-      val writer = new ARFFWriter(new File("target/test/arff/test.arff"), "test", List(
-        NorminalAttribute("a1", Set("a", "b", "c"), "XXX"),
-        IntAttribute("a2")), NorminalAttribute("out", Set("t", "f")))
+      val writer = new ARFFWriter(new File("target/test/arff/test.arff"),
+        Meta("test", List(
+          NorminalAttribute("a1", Set("a", "b", "c"), "XXX"),
+          IntAttribute("a2"), ClassAttribute("out", Set("t", "f")))))
 
       writer.write(Seq(
         NorminalFeature("a1", "a"),
-        IntFeature("a2", 10)), NorminalFeature("out", "t"))
+        IntFeature("a2", 10)), ClassFeature("out", "t"))
 
       writer.write(Seq(
         NorminalFeature("a1", "z"),
-        IntFeature("a2", 20)), NorminalFeature("out", "f"))
+        IntFeature("a2", 20)), ClassFeature("out", "f"))
 
       writer.write(Seq(
         IntFeature("a2", 20),
-        NorminalFeature("a1", "c")), NorminalFeature("out", "f"))
+        NorminalFeature("a1", "c")), ClassFeature("out", "f"))
 
       writer.finish
 

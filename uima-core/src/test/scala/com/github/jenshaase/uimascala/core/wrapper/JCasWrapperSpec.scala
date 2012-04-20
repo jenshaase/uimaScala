@@ -114,5 +114,21 @@ class JCasWrapperSpec extends Specification with Helper {
 
       cas.exists[Annotation] must beTrue
     }
+
+    "select relative to a annotation" in {
+      val cas = newJCas
+      cas.setDocumentText("This is a text")
+
+      val a1 = new Annotation(cas, 0, 4)
+      a1.addToIndexes
+      val a2 = new Annotation(cas, 5, 7)
+      a2.addToIndexes
+      val a3 = new Annotation(cas, 8, 9)
+      a3.addToIndexes
+
+      // cas.selectRelative[Annotation](a2, -1) must beSome.which(_.getCoveredText must be equalTo ("This"))
+      // cas.selectRelative[Annotation](a2, 1) must beSome.which(_.getCoveredText must be equalTo ("a"))
+      cas.selectRelative[Annotation](a2, 0) must beSome.which(_.getCoveredText must be equalTo ("is"))
+    }
   }
 }

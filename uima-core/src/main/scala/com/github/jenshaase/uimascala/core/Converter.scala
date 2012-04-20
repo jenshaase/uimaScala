@@ -16,7 +16,14 @@ abstract class Caster[In, Out](implicit in: Manifest[In], out: Manifest[Out]) {
       case (in, actual) ⇒ in >:> actual
     }
 
-    if (in >:> m && sameArgs) Some(toUimaType(c.asInstanceOf[In]))
+    // Special case for options
+    val isOption = (in.erasure.toString, m.erasure.toString) match {
+      case ("class scala.Option", "class scala.Some") ⇒ true
+      case ("class scala.Option", "class scala.None$") ⇒ true
+      case _ ⇒ false
+    }
+
+    if ((isOption || in >:> m) && sameArgs) Some(toUimaType(c.asInstanceOf[In]))
     else None
   }
 
@@ -25,7 +32,14 @@ abstract class Caster[In, Out](implicit in: Manifest[In], out: Manifest[Out]) {
       case (in, actual) ⇒ in >:> actual
     }
 
-    if (in >:> m && sameArgs) fromUimaType(c)
+    // Special case for options
+    val isOption = (in.erasure.toString, m.erasure.toString) match {
+      case ("class scala.Option", "class scala.Some") ⇒ true
+      case ("class scala.Option", "class scala.None$") ⇒ true
+      case _ ⇒ false
+    }
+
+    if ((isOption || in >:> m) && sameArgs) fromUimaType(c)
     else None
   }
 
@@ -42,6 +56,7 @@ object CastFactory {
   register(stringCaster)
   register(intCaster)
   register(floatCaster)
+  register(doubleCaster)
   register(booleanCaster)
   register(localeCaster)
   register(regexCaster)
@@ -64,7 +79,7 @@ object CastFactory {
   }
 
   def register[In, Out](c: Caster[In, Out])(implicit ml: Manifest[List[In]], m: Manifest[In], mo: Manifest[Out]) =
-    convertSeq ++= Seq(c, buildListCaster(c), buildSeqCaster(c))
+    convertSeq ++= Seq(c, buildListCaster(c), buildSeqCaster(c), buildOptionCaster(c))
 
   protected def buildListCaster[In, Out](c: Caster[In, Out])(implicit ml: Manifest[List[In]], m: Manifest[In], mo: Manifest[Out]) =
     new Caster[List[In], Array[Out]] {
@@ -82,6 +97,17 @@ object CastFactory {
         case arr: Array[_] ⇒ sequence(arr.toSeq.map(c.fromUimaType))
         case _             ⇒ None
       }
+    }
+
+  protected def buildOptionCaster[In, Out](c: Caster[In, Out])(implicit ml: Manifest[Option[In]], m: Manifest[In], mo: Manifest[Out]) =
+    new Caster[Option[In], Out] {
+      def toUimaType(in: Option[In]) = in.map(c.toUimaType).getOrElse(null.asInstanceOf[Out])
+      def fromUimaType(in: Any) =
+        if (in != null) c.fromUimaType(in.asInstanceOf[In]) match {
+          case Some(v) ⇒ Some(Some(v))
+          case None    ⇒ None
+        }
+        else Some(None)
     }
 
   def sequence[A](l: List[Option[A]]) =
@@ -118,6 +144,15 @@ object BasicCaster {
     def fromUimaType(in: Any) = in match {
       case f: Float ⇒ Some(f)
       case _        ⇒ None
+    }
+  }
+
+  val doubleCaster = new Caster[Double, Float] {
+    def toUimaType(in: Double): Float = in.toFloat
+    def fromUimaType(in: Any) = in match {
+      case f: Float  ⇒ Some(f.toDouble)
+      case d: Double ⇒ Some(d)
+      case _         ⇒ None
     }
   }
 

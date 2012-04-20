@@ -2,7 +2,7 @@
 
 @attribute a1 {a,b,c,XXX}
 @attribute a2 numeric
-@attribute out {t,f,XXX}
+@attribute out {t,f}
 
 @data
 {1 10}

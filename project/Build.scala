@@ -131,5 +131,5 @@ object Dependency {
     val uimafit = "org.uimafit" % "uimafit" % "1.3.0"
 
     // Testing
-    val specs2 = "org.specs2" %% "specs2" % "1.8.2" % "test"
+    val specs2 = "org.specs2" %% "specs2" % "1.9" % "test"
 }
