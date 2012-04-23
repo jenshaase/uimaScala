@@ -34,7 +34,7 @@ class WekaConverterSpec extends Specification {
       attr.name must_== "test"
     }
 
-    "convert NumericAttribute to Weka Attribute" in {
+    "convert DateAttribute to Weka Attribute" in {
       val n = DateAttribute("test")
       val attr = WekaConverter.convertAttribute(n)
 

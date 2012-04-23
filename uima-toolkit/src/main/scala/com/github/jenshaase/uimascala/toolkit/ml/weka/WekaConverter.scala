@@ -30,7 +30,7 @@ object WekaConverter {
   }
 
   private def applyValue(inst: Instance, f: Feature[_], meta: Meta) = {
-    val index = meta.createInstances.attribute(f.name).index
+    val index = inst.dataset().attribute(f.getName()).index();
 
     f match {
       case n: NorminalFeature         ⇒ inst.setValue(index, norminalValue(n, meta))
