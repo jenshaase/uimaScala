@@ -8,15 +8,16 @@ import Keys._
 
 import SbtUimaPlugin._
 import SbtUimaKeys._
-import sbtrelease.Release._
+import sbtrelease.ReleasePlugin._
 import scalariform.formatter.preferences._
-import com.typesafe.sbtscalariform.ScalariformPlugin
+import com.typesafe.sbt.SbtScalariform.scalariformSettings
+import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 
 object UimaScalaBuild extends Build {
 
     lazy val buildSettings = Seq(
         organization := "com.github.jenshaase.uimascala",
-        scalaVersion := "2.9.1"
+        scalaVersion := "2.9.2"
     )
 
     lazy val uimascala = Project(
@@ -81,13 +82,13 @@ object UimaScalaBuild extends Build {
         libraryDependencies += Dependency.specs2
     )
 
-    lazy val formatSettings = ScalariformPlugin.scalariformSettings ++ Seq(
-        ScalariformPlugin.ScalariformKeys.preferences in Compile := formattingPreferences,
-        ScalariformPlugin.ScalariformKeys.preferences in Test := formattingPreferences
+    lazy val formatSettings = scalariformSettings ++ Seq(
+        ScalariformKeys.preferences in Compile := formattingPreferences,
+        ScalariformKeys.preferences in Test := formattingPreferences
     )
 
     lazy val projectReleaseSettings = releaseSettings ++ Seq(
-        publishTo := Some(Resolver.file("Local", Path.userHome / "programming" / "jenshaase.github.com" / "maven" asFile))
+        publishTo := Some(Resolver.file("Local", Path.userHome / "dev" / "jenshaase.github.com" / "maven" asFile))
     )
 
     def formattingPreferences = {
