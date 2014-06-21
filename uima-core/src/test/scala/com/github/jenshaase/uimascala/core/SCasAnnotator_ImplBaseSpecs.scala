@@ -6,7 +6,7 @@ package com.github.jenshaase.uimascala.core
 import org.specs2.mutable.Specification
 import com.github.jenshaase.uimascala.core.configuration._
 import org.apache.uima.jcas.JCas
-import org.uimafit.factory.AnalysisEngineFactory
+import org.apache.uima.fit.factory.AnalysisEngineFactory
 import org.apache.uima.resource.Resource_ImplBase
 import org.apache.uima.resource.SharedResourceObject
 import org.apache.uima.resource.DataResource

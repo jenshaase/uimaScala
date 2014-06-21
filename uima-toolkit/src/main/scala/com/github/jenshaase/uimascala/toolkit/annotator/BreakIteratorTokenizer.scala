@@ -7,10 +7,10 @@ import java.text.BreakIterator
 import java.util.Locale
 import com.github.jenshaase.uimascala.core._
 import com.github.jenshaase.uimascala.toolkit.configuration._
-import com.github.jenshaase.uimascala.toolkit.types._
+import com.github.jenshaase.uimascala.toolkit.description._
 import org.apache.uima.jcas.JCas
-import org.uimafit.descriptor.ConfigurationParameter
-import org.uimafit.factory.AnalysisEngineFactory
+import org.apache.uima.fit.descriptor.ConfigurationParameter
+import org.apache.uima.fit.factory.AnalysisEngineFactory
 
 /**
  * @author Jens Haase <je.haase@googlemail.com>

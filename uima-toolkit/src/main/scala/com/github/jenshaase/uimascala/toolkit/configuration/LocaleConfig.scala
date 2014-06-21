@@ -7,7 +7,7 @@ import java.util.Locale
 import com.github.jenshaase.uimascala.core.configuration._
 import com.github.jenshaase.uimascala.core.SCasAnnotator_ImplBase
 import org.apache.uima.jcas.JCas
-import org.uimafit.descriptor.ConfigurationParameter
+import org.apache.uima.fit.descriptor.ConfigurationParameter
 
 /**
  * @author Jens Haase <je.haase@googlemail.com>

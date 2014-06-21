@@ -5,11 +5,11 @@ package com.github.jenshaase.uimascala.toolkit.annotator
 
 import java.util.Locale
 import com.github.jenshaase.uimascala.core._
-import com.github.jenshaase.uimascala.toolkit.types.{ Token, Sentence }
+import com.github.jenshaase.uimascala.toolkit.description.{ Token, Sentence }
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.specs2.mutable.Specification
-import org.uimafit.factory.AnalysisEngineFactory
-import org.uimafit.util.JCasUtil
+import org.apache.uima.fit.factory.AnalysisEngineFactory
+import org.apache.uima.fit.util.JCasUtil
 
 /**
  * @author Jens Haase <je.haase@googlemail.com>

@@ -1,7 +1,7 @@
 
 
-/* First created by JCasGen Sun Jan 22 13:52:21 CET 2012 */
-package com.github.jenshaase.uimascala.toolkit.types;
+/* First created by JCasGen Sat Jun 21 13:02:57 CEST 2014 */
+package com.github.jenshaase.uimascala.toolkit.description;
 
 import org.apache.uima.jcas.JCas; 
 import org.apache.uima.jcas.JCasRegistry;
@@ -11,39 +11,53 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Sun Jan 22 13:52:21 CET 2012
- * XML source: /home/jens/programming/scala/uimaScala/uima-toolkit/src/main/resources/desc/types/com.github.jenshaase.uimascala.toolkit.description.BasicTypeDescription.xml
+ * Updated by JCasGen Sat Jun 21 13:02:57 CEST 2014
+ * XML source: /home/jens/dev/scala/uimaScala/uima-toolkit/src/main/resources/desc/types/BasicTypeDescription.xml
  * @generated */
 public class Token extends Annotation {
   /** @generated
    * @ordered 
    */
+  @SuppressWarnings ("hiding")
   public final static int typeIndexID = JCasRegistry.register(Token.class);
   /** @generated
    * @ordered 
    */
+  @SuppressWarnings ("hiding")
   public final static int type = typeIndexID;
-  /** @generated  */
+  /** @generated
+   * @return index of the type  
+   */
+  @Override
   public              int getTypeIndexID() {return typeIndexID;}
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected Token() {}
+  protected Token() {/* intentionally empty block */}
     
   /** Internal - constructor used by generator 
-   * @generated */
+   * @generated
+   * @param addr low level Feature Structure reference
+   * @param type the type of this Feature Structure 
+   */
   public Token(int addr, TOP_Type type) {
     super(addr, type);
     readObject();
   }
   
-  /** @generated */
+  /** @generated
+   * @param jcas JCas to which this Feature Structure belongs 
+   */
   public Token(JCas jcas) {
     super(jcas);
     readObject();   
   } 
 
-  /** @generated */  
+  /** @generated
+   * @param jcas JCas to which this Feature Structure belongs
+   * @param begin offset to the begin spot in the SofA
+   * @param end offset to the end spot in the SofA 
+  */  
   public Token(JCas jcas, int begin, int end) {
     super(jcas);
     setBegin(begin);
@@ -51,11 +65,14 @@ public class Token extends Annotation {
     readObject();
   }   
 
-  /** <!-- begin-user-doc -->
-    * Write your own initialization here
-    * <!-- end-user-doc -->
-  @generated modifiable */
-  private void readObject() {}
+  /** 
+   * <!-- begin-user-doc -->
+   * Write your own initialization here
+   * <!-- end-user-doc -->
+   *
+   * @generated modifiable 
+   */
+  private void readObject() {/*default - does nothing empty block */}
      
  
     
@@ -63,17 +80,21 @@ public class Token extends Annotation {
   //* Feature: POS
 
   /** getter for POS - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public String getPOS() {
     if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_POS == null)
-      jcasType.jcas.throwFeatMissing("POS", "com.github.jenshaase.uimascala.toolkit.types.Token");
+      jcasType.jcas.throwFeatMissing("POS", "com.github.jenshaase.uimascala.toolkit.description.Token");
     return jcasType.ll_cas.ll_getStringValue(addr, ((Token_Type)jcasType).casFeatCode_POS);}
     
   /** setter for POS - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setPOS(String v) {
     if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_POS == null)
-      jcasType.jcas.throwFeatMissing("POS", "com.github.jenshaase.uimascala.toolkit.types.Token");
+      jcasType.jcas.throwFeatMissing("POS", "com.github.jenshaase.uimascala.toolkit.description.Token");
     jcasType.ll_cas.ll_setStringValue(addr, ((Token_Type)jcasType).casFeatCode_POS, v);}    
    
     
@@ -81,17 +102,21 @@ public class Token extends Annotation {
   //* Feature: lemma
 
   /** getter for lemma - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public String getLemma() {
     if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_lemma == null)
-      jcasType.jcas.throwFeatMissing("lemma", "com.github.jenshaase.uimascala.toolkit.types.Token");
+      jcasType.jcas.throwFeatMissing("lemma", "com.github.jenshaase.uimascala.toolkit.description.Token");
     return jcasType.ll_cas.ll_getStringValue(addr, ((Token_Type)jcasType).casFeatCode_lemma);}
     
   /** setter for lemma - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setLemma(String v) {
     if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_lemma == null)
-      jcasType.jcas.throwFeatMissing("lemma", "com.github.jenshaase.uimascala.toolkit.types.Token");
+      jcasType.jcas.throwFeatMissing("lemma", "com.github.jenshaase.uimascala.toolkit.description.Token");
     jcasType.ll_cas.ll_setStringValue(addr, ((Token_Type)jcasType).casFeatCode_lemma, v);}    
    
     
@@ -99,17 +124,21 @@ public class Token extends Annotation {
   //* Feature: stem
 
   /** getter for stem - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public String getStem() {
     if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_stem == null)
-      jcasType.jcas.throwFeatMissing("stem", "com.github.jenshaase.uimascala.toolkit.types.Token");
+      jcasType.jcas.throwFeatMissing("stem", "com.github.jenshaase.uimascala.toolkit.description.Token");
     return jcasType.ll_cas.ll_getStringValue(addr, ((Token_Type)jcasType).casFeatCode_stem);}
     
   /** setter for stem - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setStem(String v) {
     if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_stem == null)
-      jcasType.jcas.throwFeatMissing("stem", "com.github.jenshaase.uimascala.toolkit.types.Token");
+      jcasType.jcas.throwFeatMissing("stem", "com.github.jenshaase.uimascala.toolkit.description.Token");
     jcasType.ll_cas.ll_setStringValue(addr, ((Token_Type)jcasType).casFeatCode_stem, v);}    
   }
 

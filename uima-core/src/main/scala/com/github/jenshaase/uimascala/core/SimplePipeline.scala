@@ -19,7 +19,7 @@ class SimplePipeline(reader: CollectionReader) {
   }
 
   def run() = {
-    org.uimafit.pipeline.SimplePipeline.runPipeline(reader, descs: _*)
+    org.apache.uima.fit.pipeline.SimplePipeline.runPipeline(reader, descs: _*)
   }
 }
 

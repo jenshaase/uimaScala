@@ -1,19 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
-  <name>TutorialTypeSystem</name>
-  <description>Type System Definition for the tutorial examples - as of Exercise 1</description>
-  <version></version>
-  <vendor></vendor>
-  <imports> </imports>
+  <name>TypeSystem</name>
   <types>
     <typeDescription>
-      <name>com.github.jenshaase.uimascala.examples.ex1.types.RoomNumber</name>
+      <name>com.github.jenshaase.uimascala.examples.ex1.RoomNumber</name>
       <description></description>
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features>
         <featureDescription>
           <name>building</name>
-          <description>building containing this room</description>
           <rangeTypeName>uima.cas.String</rangeTypeName>
         </featureDescription>
       </features>

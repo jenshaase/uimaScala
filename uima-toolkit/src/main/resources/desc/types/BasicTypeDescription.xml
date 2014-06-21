@@ -1,13 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
-  <name>uimascalaToolkitBasic</name>
-  <description>Basic type description for this toolkit</description>
-  <version>0.3-SNAPSHOT</version>
-  <vendor></vendor>
-  <imports> </imports>
+  <name>BasicTypeDescription</name>
   <types>
     <typeDescription>
-      <name>com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation</name>
+      <name>com.github.jenshaase.uimascala.toolkit.description.DocumentAnnotation</name>
       <description></description>
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features>
@@ -22,7 +18,7 @@
       </features>
     </typeDescription>
     <typeDescription>
-      <name>com.github.jenshaase.uimascala.toolkit.types.Token</name>
+      <name>com.github.jenshaase.uimascala.toolkit.description.Token</name>
       <description></description>
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features>
@@ -41,13 +37,13 @@
       </features>
     </typeDescription>
     <typeDescription>
-      <name>com.github.jenshaase.uimascala.toolkit.types.Sentence</name>
+      <name>com.github.jenshaase.uimascala.toolkit.description.Sentence</name>
       <description></description>
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features> </features>
     </typeDescription>
     <typeDescription>
-      <name>com.github.jenshaase.uimascala.toolkit.types.Stopword</name>
+      <name>com.github.jenshaase.uimascala.toolkit.description.Stopword</name>
       <description></description>
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features> </features>

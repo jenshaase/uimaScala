@@ -5,7 +5,7 @@ package com.github.jenshaase.uimascala.core.wrapper
 
 import org.specs2.mutable.Specification
 import org.apache.uima.util.CasCreationUtils
-import org.uimafit.factory.{ TypePrioritiesFactory, TypeSystemDescriptionFactory }
+import org.apache.uima.fit.factory.{ TypePrioritiesFactory, TypeSystemDescriptionFactory }
 import org.apache.uima.jcas.JCas
 import org.apache.uima.jcas.tcas.Annotation
 import com.github.jenshaase.uimascala.core._

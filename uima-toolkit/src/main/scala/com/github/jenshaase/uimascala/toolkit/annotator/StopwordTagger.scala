@@ -6,12 +6,12 @@ package com.github.jenshaase.uimascala.toolkit.annotator
 import java.io.File
 import com.github.jenshaase.uimascala.core._
 import com.github.jenshaase.uimascala.core.configuration._
-import com.github.jenshaase.uimascala.toolkit.types._
+import com.github.jenshaase.uimascala.toolkit.description._
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.jcas.JCas
 import org.apache.uima.UimaContext
-import org.uimafit.descriptor.ConfigurationParameter
-import org.uimafit.factory.AnalysisEngineFactory
+import org.apache.uima.fit.descriptor.ConfigurationParameter
+import org.apache.uima.fit.factory.AnalysisEngineFactory
 import scala.io.Source
 
 class StopwordTagger extends SCasAnnotator_ImplBase {

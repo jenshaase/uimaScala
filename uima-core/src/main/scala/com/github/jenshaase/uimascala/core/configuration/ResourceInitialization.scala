@@ -7,7 +7,7 @@ import java.lang.reflect.Method
 import org.apache.uima.resource.ResourceAccessException
 import org.apache.uima.resource.ResourceInitializationException
 import org.apache.uima.UimaContext
-import org.uimafit.descriptor.ExternalResourceLocator
+import org.apache.uima.fit.descriptor.ExternalResourceLocator
 import scala.collection.mutable.ListBuffer
 
 trait ResourceInitialization { this: Configurable ⇒

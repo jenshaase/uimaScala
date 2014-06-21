@@ -6,7 +6,7 @@ package com.github.jenshaase.uimascala.core.configuration
 import java.net.URL
 import java.io.File
 import org.apache.uima.resource.ResourceSpecifier
-import org.uimafit.factory.ExternalResourceFactory
+import org.apache.uima.fit.factory.ExternalResourceFactory
 import org.apache.uima.resource.SharedResourceObject
 
 trait BaseResource {

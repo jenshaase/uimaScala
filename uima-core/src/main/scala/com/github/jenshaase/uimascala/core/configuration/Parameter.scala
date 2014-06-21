@@ -85,8 +85,10 @@ abstract class Parameter[ThisType](val defaultValue: ThisType)(implicit mf: Mani
    * Set the parameter value by an object
    */
   def setFromUimaType(in: Any): Either[Failure, ThisType] = fromUima[ThisType](in) match {
-    case Right(Some(d: ThisType)) ⇒ { :=(d); Right(d) }
-    case Right(None)              ⇒ Left(Failure("Value could not be casted: " + in.toString))
+    case Right(Some(d)) if d.isInstanceOf[ThisType] ⇒ {
+      :=(d.asInstanceOf[ThisType]); Right(d)
+    }
+    case Right(_)              ⇒ Left(Failure("Value could not be casted: " + in.toString))
     case Left(l)                  ⇒ Left(l)
   }
 

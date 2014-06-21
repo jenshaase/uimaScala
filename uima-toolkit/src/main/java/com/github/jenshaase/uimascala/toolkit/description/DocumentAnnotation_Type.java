@@ -1,6 +1,6 @@
 
-/* First created by JCasGen Sun Jan 22 13:52:21 CET 2012 */
-package com.github.jenshaase.uimascala.toolkit.types;
+/* First created by JCasGen Sat Jun 21 13:02:57 CEST 2014 */
+package com.github.jenshaase.uimascala.toolkit.description;
 
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;
@@ -14,10 +14,13 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Sun Jan 22 13:52:21 CET 2012
+ * Updated by JCasGen Sat Jun 21 13:02:57 CEST 2014
  * @generated */
 public class DocumentAnnotation_Type extends Annotation_Type {
-  /** @generated */
+  /** @generated 
+   * @return the generator for this type
+   */
+  @Override
   protected FSGenerator getFSGenerator() {return fsGenerator;}
   /** @generated */
   private final FSGenerator fsGenerator = 
@@ -36,25 +39,33 @@ public class DocumentAnnotation_Type extends Annotation_Type {
   	  }
     };
   /** @generated */
+  @SuppressWarnings ("hiding")
   public final static int typeIndexID = DocumentAnnotation.typeIndexID;
   /** @generated 
      @modifiable */
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
+  @SuppressWarnings ("hiding")
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.github.jenshaase.uimascala.toolkit.description.DocumentAnnotation");
  
   /** @generated */
   final Feature casFeat_name;
   /** @generated */
   final int     casFeatCode_name;
-  /** @generated */ 
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
   public String getName(int addr) {
         if (featOkTst && casFeat_name == null)
-      jcas.throwFeatMissing("name", "com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
+      jcas.throwFeatMissing("name", "com.github.jenshaase.uimascala.toolkit.description.DocumentAnnotation");
     return ll_cas.ll_getStringValue(addr, casFeatCode_name);
   }
-  /** @generated */    
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
   public void setName(int addr, String v) {
         if (featOkTst && casFeat_name == null)
-      jcas.throwFeatMissing("name", "com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
+      jcas.throwFeatMissing("name", "com.github.jenshaase.uimascala.toolkit.description.DocumentAnnotation");
     ll_cas.ll_setStringValue(addr, casFeatCode_name, v);}
     
   
@@ -63,16 +74,22 @@ public class DocumentAnnotation_Type extends Annotation_Type {
   final Feature casFeat_source;
   /** @generated */
   final int     casFeatCode_source;
-  /** @generated */ 
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
   public String getSource(int addr) {
         if (featOkTst && casFeat_source == null)
-      jcas.throwFeatMissing("source", "com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
+      jcas.throwFeatMissing("source", "com.github.jenshaase.uimascala.toolkit.description.DocumentAnnotation");
     return ll_cas.ll_getStringValue(addr, casFeatCode_source);
   }
-  /** @generated */    
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
   public void setSource(int addr, String v) {
         if (featOkTst && casFeat_source == null)
-      jcas.throwFeatMissing("source", "com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation");
+      jcas.throwFeatMissing("source", "com.github.jenshaase.uimascala.toolkit.description.DocumentAnnotation");
     ll_cas.ll_setStringValue(addr, casFeatCode_source, v);}
     
   
@@ -80,7 +97,10 @@ public class DocumentAnnotation_Type extends Annotation_Type {
 
 
   /** initialize variables to correspond with Cas Type and Features
-	* @generated */
+	 * @generated
+	 * @param jcas JCas
+	 * @param casType Type 
+	 */
   public DocumentAnnotation_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());

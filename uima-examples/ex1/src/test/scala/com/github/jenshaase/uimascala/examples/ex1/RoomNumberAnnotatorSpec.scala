@@ -4,7 +4,6 @@
 package com.github.jenshaase.uimascala.examples.ex1
 
 import com.github.jenshaase.uimascala.core._
-import com.github.jenshaase.uimascala.examples.ex1.types._
 import org.specs2.mutable.Specification
 
 class RoomNumberAnnotatorSpec extends Specification {

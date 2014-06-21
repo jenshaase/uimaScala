@@ -1,6 +1,6 @@
 
-/* First created by JCasGen Sun Jan 22 13:52:21 CET 2012 */
-package com.github.jenshaase.uimascala.examples.ex1.types;
+/* First created by JCasGen Sat Jun 21 13:03:00 CEST 2014 */
+package com.github.jenshaase.uimascala.examples.ex1;
 
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;
@@ -14,10 +14,13 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Sun Jan 22 13:52:21 CET 2012
+ * Updated by JCasGen Sat Jun 21 13:03:00 CEST 2014
  * @generated */
 public class RoomNumber_Type extends Annotation_Type {
-  /** @generated */
+  /** @generated 
+   * @return the generator for this type
+   */
+  @Override
   protected FSGenerator getFSGenerator() {return fsGenerator;}
   /** @generated */
   private final FSGenerator fsGenerator = 
@@ -36,25 +39,33 @@ public class RoomNumber_Type extends Annotation_Type {
   	  }
     };
   /** @generated */
+  @SuppressWarnings ("hiding")
   public final static int typeIndexID = RoomNumber.typeIndexID;
   /** @generated 
      @modifiable */
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.github.jenshaase.uimascala.examples.ex1.types.RoomNumber");
+  @SuppressWarnings ("hiding")
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.github.jenshaase.uimascala.examples.ex1.RoomNumber");
  
   /** @generated */
   final Feature casFeat_building;
   /** @generated */
   final int     casFeatCode_building;
-  /** @generated */ 
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
   public String getBuilding(int addr) {
         if (featOkTst && casFeat_building == null)
-      jcas.throwFeatMissing("building", "com.github.jenshaase.uimascala.examples.ex1.types.RoomNumber");
+      jcas.throwFeatMissing("building", "com.github.jenshaase.uimascala.examples.ex1.RoomNumber");
     return ll_cas.ll_getStringValue(addr, casFeatCode_building);
   }
-  /** @generated */    
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
   public void setBuilding(int addr, String v) {
         if (featOkTst && casFeat_building == null)
-      jcas.throwFeatMissing("building", "com.github.jenshaase.uimascala.examples.ex1.types.RoomNumber");
+      jcas.throwFeatMissing("building", "com.github.jenshaase.uimascala.examples.ex1.RoomNumber");
     ll_cas.ll_setStringValue(addr, casFeatCode_building, v);}
     
   
@@ -62,7 +73,10 @@ public class RoomNumber_Type extends Annotation_Type {
 
 
   /** initialize variables to correspond with Cas Type and Features
-	* @generated */
+	 * @generated
+	 * @param jcas JCas
+	 * @param casType Type 
+	 */
   public RoomNumber_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());

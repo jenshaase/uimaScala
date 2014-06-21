@@ -8,7 +8,7 @@ import java.util.Locale
 import java.util.regex.Pattern
 import com.github.jenshaase.uimascala.core.configuration._
 import com.github.jenshaase.uimascala.core.SCasCollectionReader_ImplBase
-import com.github.jenshaase.uimascala.toolkit.types.DocumentAnnotation
+import com.github.jenshaase.uimascala.toolkit.description.DocumentAnnotation
 import org.apache.uima.jcas.JCas
 import org.apache.uima.UimaContext
 import org.apache.uima.util.ProgressImpl

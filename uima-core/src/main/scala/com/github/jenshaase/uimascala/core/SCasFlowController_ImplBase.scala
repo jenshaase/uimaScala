@@ -6,8 +6,8 @@ package com.github.jenshaase.uimascala.core
 import configuration._
 import org.apache.uima.flow.FlowControllerContext
 import org.apache.uima.flow.JCasFlowController_ImplBase
-import org.uimafit.factory.AnalysisEngineFactory
-import org.uimafit.factory.FlowControllerFactory
+import org.apache.uima.fit.factory.AnalysisEngineFactory
+import org.apache.uima.fit.factory.FlowControllerFactory
 
 abstract class SCasFlowController_ImplBase extends JCasFlowController_ImplBase
     with Configurable

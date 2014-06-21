@@ -5,10 +5,10 @@ package com.github.jenshaase.uimascala.toolkit.annotator
 
 import java.io.File
 import com.github.jenshaase.uimascala.core._
-import com.github.jenshaase.uimascala.toolkit.types.{ Token, Stopword }
+import com.github.jenshaase.uimascala.toolkit.description.{ Token, Stopword }
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.specs2.mutable.Specification
-import org.uimafit.factory.AnalysisEngineFactory
+import org.apache.uima.fit.factory.AnalysisEngineFactory
 
 class StopwordTaggerSpec extends Specification {
 

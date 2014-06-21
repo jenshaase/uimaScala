@@ -6,8 +6,8 @@ package com.github.jenshaase.uimascala.core
 import configuration._
 import org.apache.uima.analysis_component.JCasMultiplier_ImplBase
 import org.apache.uima.UimaContext
-import org.uimafit.factory.AnalysisEngineFactory
-import org.uimafit.factory.ExternalResourceFactory
+import org.apache.uima.fit.factory.AnalysisEngineFactory
+import org.apache.uima.fit.factory.ExternalResourceFactory
 
 abstract class SCasMultiplier_ImplBase extends JCasMultiplier_ImplBase
     with Configurable
@@ -25,7 +25,7 @@ abstract class SCasMultiplier_ImplBase extends JCasMultiplier_ImplBase
     val aed = AnalysisEngineFactory.createPrimitiveDescription(this.niceClass, parameterKeyValues: _*)
 
     aed.setExternalResourceDependencies(resources.map(r ⇒
-      ExternalResourceFactory.createExternalResourceDependency(r.name, r.className, !r.mandatory_?)).toArray)
+      ExternalResourceFactory.createExternalResourceDependency(r.name, r.className, !r.mandatory_?, r.description)).toArray)
     resources.foreach { r ⇒
       r.createBinding(aed)
     }
