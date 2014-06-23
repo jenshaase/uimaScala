@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <name>TypeSystem</name>
+  <types>
+    <typeDescription>
+      <name>com.github.jenshaase.uimascala.examples.ex1.RoomNumber</name>
+      <description></description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>building</name>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

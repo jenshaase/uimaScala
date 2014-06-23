@@ -7,7 +7,7 @@ import scala.xml.{Node, PrettyPrinter}
 import java.io.{FileWriter, File}
 import scala.annotation.StaticAnnotation
 import scala.language.experimental.macros
-import scala.reflect.macros.blackbox.Context
+import scala.reflect.macros.blackbox.Context // 2.11 only
 
 import org.apache.uima.UIMAFramework
 import org.apache.uima.util.{ CasCreationUtils, XMLInputSource }
