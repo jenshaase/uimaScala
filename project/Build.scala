@@ -97,7 +97,7 @@ object UimaScalaBuild extends Build {
   )
 
   lazy val projectReleaseSettings = releaseSettings ++ Seq(
-    publishTo := Some(Resolver.file("Local", Path.userHome / "dev" / "jenshaase.github.com" / "maven" asFile))
+    //publishTo := Some(Resolver.file("Local", Path.userHome / "dev" / "jenshaase.github.com" / "maven" asFile))
   )
 }
 
