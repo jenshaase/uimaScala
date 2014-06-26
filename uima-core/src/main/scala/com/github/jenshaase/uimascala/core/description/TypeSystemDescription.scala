@@ -66,8 +66,6 @@ object TypeSystemDescriptionGenerator {
           q"""val $name = throw new RuntimeException("Please use " +  $path)"""
         }
 
-        objects.foreach{ x => println(show(x)) }
-
         c.Expr[Any](
           q"""object $name {
             ..$objects
