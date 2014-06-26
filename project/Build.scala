@@ -84,7 +84,10 @@ object UimaScalaBuild extends Build {
 
   override lazy val settings = super.settings ++ buildSettings
 
-  lazy val baseSettings = Defaults.defaultSettings
+  lazy val baseSettings = Defaults.defaultSettings ++ Seq(
+    homepage := Some( url( "https://github.com/jenshaase/uimascala" ) ),
+    licenses := Seq( "Apache 2.0" -> url( "http://www.opensource.org/licenses/Apache-2.0" ) )
+  )
 
   lazy val parentSettings = baseSettings ++ Seq(
     publishArtifact in Compile := false
@@ -104,8 +107,18 @@ object UimaScalaBuild extends Build {
       else
         Some( "releases"  at nexus + "service/local/staging/deploy/maven2" )
     },
-    publishMavenStyle := true
-    //publishTo := Some(Resolver.file("Local", Path.userHome / "dev" / "jenshaase.github.com" / "maven" asFile))
+    publishMavenStyle := true,
+    pomExtra := (
+      <scm>
+        <url>git@github.com:jenshaase/uimascala.git</url>
+        <connection>scm:git:git@github.com:jenshaase/uimascala.git</connection>
+      </scm>
+      <developers>
+        <developer>
+          <id>jenshaase</id>
+          <name>Jens Haase</name>
+        </developer>
+      </developers>)
   )
 }
 
