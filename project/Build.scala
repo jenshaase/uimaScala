@@ -99,27 +99,54 @@ object UimaScalaBuild extends Build {
     libraryDependencies += Dependency.specs2
   )
 
-  lazy val projectReleaseSettings = releaseSettings ++ Seq(
-    publishTo := {
-      val nexus = "https://oss.sonatype.org/"
-      if ( version.value.trim.endsWith( "SNAPSHOT" ) )
-        Some( "snapshots" at nexus + "content/repositories/snapshots" )
-      else
-        Some( "releases"  at nexus + "service/local/staging/deploy/maven2" )
-    },
-    publishMavenStyle := true,
-    pomExtra := (
-      <scm>
-        <url>git@github.com:jenshaase/uimascala.git</url>
-        <connection>scm:git:git@github.com:jenshaase/uimascala.git</connection>
-      </scm>
-      <developers>
-        <developer>
-          <id>jenshaase</id>
-          <name>Jens Haase</name>
-        </developer>
-      </developers>)
-  )
+  lazy val projectReleaseSettings = {
+    import sbtrelease.ReleaseStep
+    import sbtrelease.ReleasePlugin.ReleaseKeys._
+    import sbtrelease.ReleaseStateTransformations._
+    import com.typesafe.sbt.pgp.PgpKeys._
+
+    // Hook up release and GPG plugins
+    lazy val publishSignedAction = { st: State =>
+      val extracted = Project.extract( st )
+      val ref = extracted.get( thisProjectRef )
+      extracted.runAggregated( publishSigned in Global in ref, st )
+    }
+
+
+    releaseSettings ++ Seq(
+      releaseProcess := Seq[ReleaseStep](
+        checkSnapshotDependencies,
+        inquireVersions,
+        runTest,
+        setReleaseVersion,
+        commitReleaseVersion,
+        tagRelease,
+        publishArtifacts.copy( action = publishSignedAction ),
+        setNextVersion,
+        commitNextVersion,
+        pushChanges
+      ),
+      publishTo := {
+        val nexus = "https://oss.sonatype.org/"
+        if ( version.value.trim.endsWith( "SNAPSHOT" ) )
+          Some( "snapshots" at nexus + "content/repositories/snapshots" )
+        else
+          Some( "releases"  at nexus + "service/local/staging/deploy/maven2" )
+      },
+      publishMavenStyle := true,
+      pomExtra := (
+        <scm>
+          <url>git@github.com:jenshaase/uimascala.git</url>
+          <connection>scm:git:git@github.com:jenshaase/uimascala.git</connection>
+        </scm>
+        <developers>
+          <developer>
+            <id>jenshaase</id>
+            <name>Jens Haase</name>
+          </developer>
+        </developers>)
+    )
+  }
 }
 
 
