@@ -17,7 +17,9 @@ package object core {
 
   implicit def configBuilder[T <: Configurable](conf: T) = new ConfigurationBuilder(conf)
 
+  @deprecated("See com.github.jenshaase.uimascala.core.SimplePipeline", "0.5.0")
   implicit def collectionReaderToPipeline(reader: SCasCollectionReader_ImplBase) = new SimplePipeline(reader.asCollectionReader)
 
+  @deprecated("See com.github.jenshaase.uimascala.core.SimplePipeline", "0.5.0")
   implicit def collectionReaderToPipeline(reader: CollectionReader) = new SimplePipeline(reader)
 }

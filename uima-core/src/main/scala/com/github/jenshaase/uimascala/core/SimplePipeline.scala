@@ -6,6 +6,7 @@ package com.github.jenshaase.uimascala.core
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.collection.CollectionReader
 
+@deprecated("Use org.apache.uima.fit.pipeline.SimplePipeline or uimascala-stream", "0.5.0")
 class SimplePipeline(reader: CollectionReader) {
 
   private var descs: Seq[AnalysisEngine] = Seq.empty

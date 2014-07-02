@@ -31,6 +31,7 @@ object UimaScalaBuild extends Build {
       libraryDependencies ++= Seq(
         Dependency.uimafit,
         Dependency.uimaTools,
+        Dependency.scalazStream,
         Dependency.specs2
       ),
       libraryDependencies <+= (scalaVersion)(
@@ -159,6 +160,8 @@ object Dependency {
   
   val uimafit = "org.apache.uima" % "uimafit-core" % "2.1.0"
   val uimaTools = "org.apache.uima" % "uimaj-tools" % "2.6.0"
+
+  val scalazStream = "org.scalaz.stream" %% "scalaz-stream" % "0.4.1"
 
   // Testing
   val specs2 = "org.specs2" %% "specs2" % "2.3.12" % "test"

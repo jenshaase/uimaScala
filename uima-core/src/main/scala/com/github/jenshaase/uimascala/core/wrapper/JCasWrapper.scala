@@ -28,12 +28,11 @@ class JCasWrapper(cas: JCas) {
     obj
   }
 
-  def annotate[T <: Annotation](begin: Int, end: Int)(f: (T => Unit)*)(implicit cf: ClassTag[T]): T = {
+  def annotate[T <: Annotation](begin: Int, end: Int)(implicit cf: ClassTag[T]): T = {
     val constructor = cf.runtimeClass.getConstructor(classOf[JCas])
     val obj = constructor.newInstance(cas).asInstanceOf[T]
     obj.setBegin(begin)
     obj.setEnd(end)
-    f.foreach { f => f(obj) }
     obj.addToIndexes()
     obj
   }
