@@ -32,6 +32,9 @@ package object stream {
   def annotate(a: AnalysisEngineDescription): AnnotatorProcess =
     annotate(createEngine(a))
 
+  def annotate(a: AsAnalysisEngine): AnnotatorProcess =
+    annotate(a.asAnalysisEngine)
+
   def initCas[I](f: ((I, JCas) => Any)): Process1[I, JCas] =
     Process.await1[I].map { something =>
       val cas = CasCreationUtils.createCas(
