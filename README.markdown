@@ -40,6 +40,15 @@ libraryDependencies += "com.github.jenshaase.uimascala" %% "uimascala-core" % "0
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.0.1" cross CrossVersion.full)
 ~~~
 
+Next you need to tell UIMA where to find the description
+files. Therefore add the file `types.txt` to the folder
+`src/main/resources/META-INF/org.apache.uima.fit`. Add following
+content:
+
+~~~
+classpath*:desc/types/**/*.xml
+~~~
+
 ## A simple annotator
 
 Annotators in UIMA will process a document. Most of the time they are
