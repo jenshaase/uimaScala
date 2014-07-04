@@ -7,7 +7,7 @@ import scala.xml.{Node, PrettyPrinter}
 import java.io.{FileWriter, File}
 import scala.annotation.StaticAnnotation
 import scala.language.experimental.macros
-import scala.reflect.macros.blackbox.Context // 2.11 only
+import scala.reflect.macros.Context
 
 import org.apache.uima.UIMAFramework
 import org.apache.uima.util.{ CasCreationUtils, XMLInputSource }
@@ -27,8 +27,8 @@ object TypeSystemDescriptionGenerator {
 
     // Get package name of annotation
     // See: https://groups.google.com/forum/#!topic/scala-user/BAFaP1fpVS8
-    val freshName = c.freshName(TermName("Probe$"))
-    val q"{ $attributedDef; () }" = c.typecheck(q"{ object $freshName; () }")
+    val freshName = c.fresh(newTermName("Probe$"))
+    val q"{ $attributedDef; }" = c.typeCheck(q"{ object $freshName; }")
     val baseName: String = attributedDef.symbol.owner.fullName
 
     val basePath = {
@@ -41,8 +41,12 @@ object TypeSystemDescriptionGenerator {
         val types = body.collect {
           case q"val $name = Annotation { ..$config }" =>
             val features = config collect {
-              case q"val $name = Feature[${Ident(TypeName(typ))}]" => (name, typ, None)
-              case q"val $name = Feature[${AppliedTypeTree(Ident(TypeName(collType)), List(Ident(TypeName(typ))))}]" => (name, typ, Some(collType))
+              case q"val $name = Feature[$typ]" =>
+                typ match {
+                  case Ident(x: TypeName) => (name, x.decoded, None)
+                  case AppliedTypeTree(Ident(collType: TypeName), List(Ident(typ: TypeName))) =>
+                    (name, typ.decoded, Some(collType.decoded))
+                }
             }
             (name, features)
         }

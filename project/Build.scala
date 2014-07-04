@@ -12,7 +12,8 @@ object UimaScalaBuild extends Build {
 
   lazy val buildSettings = Seq(
     organization := "com.github.jenshaase.uimascala",
-    scalaVersion := "2.11.1"
+    scalaVersion := "2.11.1",
+    crossScalaVersions := Seq("2.11.1", "2.10.4")
   )
 
   lazy val uimascala = Project(
