@@ -29,6 +29,7 @@ object UimaScalaBuild extends Build {
     id = "uimascala-core",
     base = file("uima-core"),
     settings = defaultSettings ++ projectReleaseSettings ++ Seq(
+      resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases",
       libraryDependencies ++= Seq(
         Dependency.uimafit,
         Dependency.uimaTools,
