@@ -1,4 +1,4 @@
-# UimaScala
+# UimaScala [![Build Status](https://travis-ci.org/jenshaase/uimaScala.svg?branch=master)](https://travis-ci.org/jenshaase/uimaScala)
 
 ## About
 
