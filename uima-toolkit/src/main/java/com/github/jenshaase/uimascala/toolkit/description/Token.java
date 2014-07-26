@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Wed Jun 25 16:27:47 CEST 2014 */
+/* First created by JCasGen Sat Jul 26 10:15:09 CEST 2014 */
 package com.github.jenshaase.uimascala.toolkit.description;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,7 +11,7 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Wed Jun 25 16:27:47 CEST 2014
+ * Updated by JCasGen Sat Jul 26 10:15:09 CEST 2014
  * XML source: /home/jens/dev/scala/uimaScala/uima-toolkit/src/main/resources/desc/types/BasicTypeDescription.xml
  * @generated */
 public class Token extends Annotation {

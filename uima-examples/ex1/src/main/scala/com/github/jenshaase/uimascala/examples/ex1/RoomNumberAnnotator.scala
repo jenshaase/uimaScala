@@ -24,9 +24,8 @@ class RoomNumberAnnotator extends SCasAnnotator_ImplBase {
     }
 
     hawthronePattern.findAllIn(docText).matchData.foreach { m ⇒
-      cas.annotate[RoomNumber](m.start, m.end)(
-        _.setBuilding("Hawthrone")
-      )
+      val a = cas.annotate[RoomNumber](m.start, m.end)
+      a.setBuilding("Hawthrone")
     }
   }
 }
