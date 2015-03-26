@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Sat Jul 26 10:15:09 CEST 2014 */
+/* First created by JCasGen Thu Mar 26 08:42:13 CET 2015 */
 package com.github.jenshaase.uimascala.toolkit.description;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Sat Jul 26 10:15:09 CEST 2014
- * XML source: /home/jens/dev/scala/uimaScala/uima-toolkit/src/main/resources/desc/types/BasicTypeDescription.xml
+ * Updated by JCasGen Thu Mar 26 08:42:13 CET 2015
+ * XML source: /media/usb0/dev/scala/uimaScala/uima-toolkit/src/main/resources/desc/types/BasicTypeDescription.xml
  * @generated */
 public class Sentence extends Annotation {
   /** @generated
