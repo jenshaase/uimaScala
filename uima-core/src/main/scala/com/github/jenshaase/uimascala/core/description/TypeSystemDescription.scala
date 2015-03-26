@@ -61,8 +61,11 @@ object TypeSystemDescriptionGenerator {
         val tsd = UIMAFramework.getXMLParser.parseTypeSystemDescription(xmlIS)
         val cas = CasCreationUtils.createCas(tsd, null, null)
         val jg = new Jg()
-        jg.mainForCde(null, new UimaLoggerProgressMonitor(), new LogThrowErrorImpl(),
-          filename, basePath + "src/main/java", tsd.getTypes, cas.asInstanceOf[CASImpl])
+        /*jg.mainForCde(null, new UimaLoggerProgressMonitor(), new LogThrowErrorImpl(),
+          filename, basePath + "src/main/java", tsd.getTypes, cas.asInstanceOf[CASImpl])*/
+        jg.mainGenerateAllTypesFromTemplates(null, new UimaLoggerProgressMonitor(), new LogThrowErrorImpl(),
+          filename, basePath + "src/main/java", tsd.getTypes, cas.asInstanceOf[CASImpl],
+          classOf[UimaScalaTypeTemplate], classOf[UimaScala_TypeTemplate], "", false, null)
 
         // Objects to access Helpers
         val objects = types map { case (name, _) =>
