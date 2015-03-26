@@ -1,5 +1,3 @@
-
-/* First created by JCasGen Thu Mar 26 08:42:13 CET 2015 */
 package com.github.jenshaase.uimascala.toolkit.description;
 
 import org.apache.uima.jcas.JCas;
@@ -14,7 +12,6 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Thu Mar 26 08:42:13 CET 2015
  * @generated */
 public class DocumentAnnotation_Type extends Annotation_Type {
   /** @generated 
