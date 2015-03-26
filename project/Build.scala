@@ -12,8 +12,8 @@ object UimaScalaBuild extends Build {
 
   lazy val buildSettings = Seq(
     organization := "com.github.jenshaase.uimascala",
-    scalaVersion := "2.11.1",
-    crossScalaVersions := Seq("2.11.1", "2.10.4")
+    scalaVersion := "2.11.6",
+    crossScalaVersions := Seq("2.11.6", "2.10.5")
   )
 
   lazy val uimascala = Project(
@@ -155,16 +155,16 @@ object UimaScalaBuild extends Build {
 
 object Dependency {
 
-  val paradiseVersion = "2.0.0"
+  val paradiseVersion = "2.0.1"
   val paradise = "org.scalamacros" % "paradise" % paradiseVersion cross CrossVersion.full
 
   val scalaXml = "org.scala-lang.modules" %% "scala-xml" % "1.0.2"
   
   val uimafit = "org.apache.uima" % "uimafit-core" % "2.1.0"
-  val uimaTools = "org.apache.uima" % "uimaj-tools" % "2.6.0"
+  val uimaTools = "org.apache.uima" % "uimaj-tools" % "2.7.0"
 
-  val scalazStream = "org.scalaz.stream" %% "scalaz-stream" % "0.4.1"
+  val scalazStream = "org.scalaz.stream" %% "scalaz-stream" % "0.7a"
 
   // Testing
-  val specs2 = "org.specs2" %% "specs2" % "2.3.12" % "test"
+  val specs2 = "org.specs2" %% "specs2-core" % "3.2" % "test"
 }
