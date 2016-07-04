@@ -7,6 +7,7 @@ import sbt._
 import Keys._
 
 import sbtrelease.ReleasePlugin._
+import com.github.jenshaase.uimascala.UimaSbtPlugin._
 
 object UimaScalaBuild extends Build {
 
@@ -32,31 +33,15 @@ object UimaScalaBuild extends Build {
       resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases",
       libraryDependencies ++= Seq(
         Dependency.uimafit,
-        Dependency.uimaTools,
         Dependency.scalazStream,
         Dependency.specs2
-      ),
-      libraryDependencies <+= (scalaVersion)(
-        "org.scala-lang" % "scala-reflect" % _
-      ),
-      libraryDependencies ++= (
-        if (scalaVersion.value.startsWith("2.10")) List(Dependency.paradise) else Nil
-      ),
-      libraryDependencies ++= (
-        if (scalaVersion.value.startsWith("2.11")) List(Dependency.scalaXml) else Nil
-      ),
-      addCompilerPlugin(Dependency.paradise)
+      )
     )
   )
 
-  lazy val toolkit = Project(
-    id = "uimascala-toolkit",
-    base = file("uima-toolkit"),
-    settings = defaultSettings ++ projectReleaseSettings ++ Seq(
-      addCompilerPlugin(Dependency.paradise)
-    ),
-    dependencies = Seq(core)
-  )
+  lazy val toolkit = Project("uimascala-toolkit", base = file("uima-toolkit"))
+    .settings((defaultSettings ++ projectReleaseSettings ++ uimaScalaSettings))
+    .dependsOn(core)
   
   lazy val examples = Project(
     id = "uimascala-examples",
@@ -65,23 +50,13 @@ object UimaScalaBuild extends Build {
     aggregate = Seq(examples_ex1, examples_ex2)
   )
 
-  lazy val examples_ex1 = Project(
-    id = "uimascala-examples-ex1",
-    base = file("uima-examples/ex1"),
-    settings = defaultSettings ++ Seq(
-      addCompilerPlugin(Dependency.paradise)
-    ),
-    dependencies = Seq(toolkit)
-  )
+  lazy val examples_ex1 = Project("uimascala-examples-ex1", base = file("uima-examples/ex1"))
+    .settings(defaultSettings ++ uimaScalaSettings)
+    .dependsOn(toolkit)
 
-  lazy val examples_ex2 = Project(
-    id = "uimascala-examples-ex2",
-    base = file("uima-examples/ex2"),
-    settings = defaultSettings ++ Seq(
-      addCompilerPlugin(Dependency.paradise)
-    ),
-    dependencies = Seq(toolkit)
-  )
+  lazy val examples_ex2 = Project("uimascala-examples-ex2", base = file("uima-examples/ex2"))
+    .settings(defaultSettings ++ uimaScalaSettings)
+    .dependsOn(toolkit)
   
   // Settings
 
