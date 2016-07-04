@@ -13,25 +13,25 @@ import org.specs2.Specification
 class ResourceSpec extends Specification {
 
   // format: OFF
-  def is =
-    "A Resource should" ^
-      "return default parameters" ! defaultParams^
-      "convert parameter to a list" ! paramToList^
-      "bind a resource" ! bind^
-      "bind a resource from Uima" ! bindUima^
-      "be set by a Binding" ! setBinding^
-      "return a class name" ! className^
-      "return a interface name" ! interfaceName^
-    p^
-    "A SharedResource should" ^
-      "return default parameters" ! sharedDefaultParams^
-      "convert parameter to a list" ! sharedParamToList^
-      "bind a resource" ! sharedBind^
-      "bind a resource from Uima" ! sharedBindUima^
-      "be set by a Binding" ! sharedSetBinding^
-      "return a class name" ! sharedClassName^
-      "return a interface name" ! sharedInterfaceName^
-    end
+  def is = s2"""
+    A Resource should
+      return default parameters ${defaultParams}
+      convert parameter to a list ${paramToList}
+      bind a resource ${bind}
+      bind a resource from Uima ${bindUima}
+      be set by a Binding ${setBinding}
+      return a class name ${className}
+      return a interface name ${interfaceName}
+   
+    A SharedResource should
+      return default parameters ${sharedDefaultParams}
+      convert parameter to a list ${sharedParamToList}
+      bind a resource ${sharedBind}
+      bind a resource from Uima ${sharedBindUima}
+      be set by a Binding ${sharedSetBinding}
+      return a class name ${sharedClassName}
+      return a interface name ${sharedInterfaceName}
+  """
 
   def defaultParams = {
     object r extends Resource[DummyRes](Map("a" -> "b"))

@@ -10,16 +10,16 @@ import java.util.regex.Pattern
 class ParameterSpec extends Specification {
 
   // format: OFF
-  def is =
-    "A Parameter can" ^
-      "return default values if not value is set" ! defaultVal^
-      "have a new value" ! newVal^
-      "be set from uima" ! fromUima^
-      "be converted to uima" ! toUima^
-      "be mutli valued" ! multiVal^
-      "be single valued" ! singleVal^
-      "have a correct uima type" ! uimaType^
-    end
+  def is = s2"""
+    A Parameter can
+      return default values if not value is set ${defaultVal}
+      have a new value ${newVal}
+      be set from uima ${fromUima}
+      be converted to uima ${toUima}
+      be mutli valued ${multiVal}
+      be single valued ${singleVal}
+      have a correct uima type ${uimaType}
+  """
 
   def defaultVal = {
     object param extends Parameter[String]("a")

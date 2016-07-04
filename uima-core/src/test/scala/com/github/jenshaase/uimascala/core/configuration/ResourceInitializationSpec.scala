@@ -9,21 +9,20 @@ import org.apache.uima.resource.DataResource
 import org.apache.uima.resource.Resource_ImplBase
 
 class ResourceInitializationSpec extends Specification {
-  def is =
+  def is = s2"""
+    This specification describes the resource initialization
 
-    "This specification describes the resource initialization" ^
-      p ^
-      "The ResourceMock class should" ^
-      "have 4 resource objects" ! nbResource(4) ^
-      "have a resource called 'dictionary'" ! hasResource("dictionary") ^
-      "have a resource called 'name'" ! hasResource("name") ^
-      "have a resource called 'stopwords'" ! hasResource("stopwords") ^
-      "have a resource called 'optName'" ! hasResource("optName") ^
-      "return the correct dictionary resource" ! todo ^
-      "return the correct name resource" ! todo ^
-      "return the correct stopwords resource" ! todo ^
-      "return the correct optName resource" ! todo ^
-      end
+      The ResourceMock class should
+      have 4 resource objects ${nbResource(4)}
+      have a resource called 'dictionary' ${hasResource("dictionary")}
+      have a resource called 'name' ${hasResource("name")}
+      have a resource called 'stopwords' ${hasResource("stopwords")}
+      have a resource called 'optName' ${hasResource("optName")}
+      return the correct dictionary resource (todo)
+      return the correct name resource (todo)
+      return the correct stopwords resource (todo)
+      return the correct optName resource (todo)
+  """
 
   def nbResource(count: Int) =
     new ResourceMock().resources.size must be equalTo (count)

@@ -7,18 +7,17 @@ import org.specs2.Specification
 import com.github.jenshaase.uimascala.core.configuration._
 
 class ConfigurationInitalizationSpec extends Specification {
-  def is =
+  def is = s2"""
+    This is a specification to check the configuration system
+      
+      ConfigMock should
 
-    "This is a specification to check the configuration system" ^
-      p ^
-      "ConfigMock should" ^
-      "have 4 parameters" ! nbParams(4) ^
-      "have a parameter called 'stringParam'" ! hasParam("stringParam") ^
-      "have a parameter called 'optStringParam'" ! hasParam("stringListParam") ^
-      "have a parameter called 'intParam'" ! hasParam("intParam") ^
-      "have a parameter called 'optIntParam'" ! hasParam("intListParam") ^
-      "generate a key value list of parameters" ! todo
-  end
+      have 4 parameters  ${nbParams(4)}
+      have a parameter called 'stringParam' ${hasParam("stringParam")}
+      have a parameter called 'optStringParam' ${hasParam("stringListParam")}
+      have a parameter called 'intParam' ${hasParam("intParam")}
+      have a parameter called 'optIntParam' ${hasParam("intListParam")}
+  """
 
   def hasParam(name: String) =
     new ConfigMock().parameters.map(_.name).contains(name) must beTrue
