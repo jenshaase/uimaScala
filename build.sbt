@@ -7,6 +7,9 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.11.8"
 )
 
+lazy val root = (project in file(".")).
+  aggregate(core, toolkit)
+
 lazy val core = (project in file("uima-core")).
   settings(commonSettings: _*).
   settings(releaseSettings: _*).
