@@ -8,8 +8,8 @@
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features>
         <featureDescription>
-          <name>building</name>
-          <rangeTypeName>uima.cas.String</rangeTypeName>
+          <name>pos</name>
+          <rangeTypeName>com.github.jenshaase.uimascala.typesystem.POS</rangeTypeName>
         </featureDescription>
       </features>
     </typeDescription>
@@ -19,6 +19,18 @@
       <description></description>
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features>
+      </features>
+    </typeDescription>
+
+    <typeDescription>
+      <name>com.github.jenshaase.uimascala.typesystem.POS</name>
+      <description></description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>name</name>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
       </features>
     </typeDescription>
   </types>

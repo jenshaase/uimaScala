@@ -43,6 +43,16 @@ lazy val whitespaceTokenizer = (project in file("segmenter/whitespace-tokenizer"
   settings(componentSettings).
   dependsOn(core, typeSystem, regexTokenizer)
 
+lazy val stanfordPosTagger = (project in file("part-of-speech-tagger/stanford-pos-tagger")).
+  settings(componentSettings).
+  settings(
+    libraryDependencies ++= Seq(
+      "edu.stanford.nlp" % "stanford-corenlp" % "3.6.0",
+      "edu.stanford.nlp" % "stanford-corenlp" % "3.6.0" % "test" classifier "models-german"
+    )
+  ).
+  dependsOn(core, typeSystem)
+
 lazy val toolkit = (project in file("toolkit")).
   settings(commonSettings: _*).
   settings(uimaScalaSettings: _*).
