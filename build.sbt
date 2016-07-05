@@ -8,9 +8,12 @@ lazy val commonSettings = Seq(
 )
 
 lazy val root = (project in file(".")).
+  settings(
+    publishArtifact in Compile := false
+  ).
   aggregate(core, toolkit)
 
-lazy val core = (project in file("uima-core")).
+lazy val core = (project in file("core")).
   settings(commonSettings: _*).
   settings(releaseSettings: _*).
   settings(
@@ -21,7 +24,7 @@ lazy val core = (project in file("uima-core")).
     )
   )
 
-lazy val toolkit = (project in file("uima-toolkit")).
+lazy val toolkit = (project in file("toolkit")).
   settings(commonSettings: _*).
   settings(uimaScalaSettings: _*).
   settings(releaseSettings: _*).

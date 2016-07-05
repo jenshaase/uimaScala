@@ -13,7 +13,7 @@ class ARFFWriterSpecs extends Specification {
   "A ARFF writer" should {
     "write a valid arff file" in {
       val target = new File("target/test/arff/test.arff")
-      val test = new File("uima-toolkit/src/test/resources/arff/test.arff");
+      val test = new File("toolkit/src/test/resources/arff/test.arff");
 
       val writer = new ARFFWriter(new File("target/test/arff/test.arff"),
         Meta("test", List(

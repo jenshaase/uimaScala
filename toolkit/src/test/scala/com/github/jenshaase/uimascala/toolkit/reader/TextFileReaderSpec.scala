@@ -20,7 +20,7 @@ class TextFileReaderSpec extends Specification {
   "Text file reader" should {
     "add document annotation" in {
       var reader = new TextFileReader().config(
-        _.path := new File("uima-toolkit/src/test/resources/reader/textFileReader/test1")).
+        _.path := new File("toolkit/src/test/resources/reader/textFileReader/test1")).
         asCollectionReader
 
       val data = new ReaderIterator(reader).toList
@@ -34,7 +34,7 @@ class TextFileReaderSpec extends Specification {
 
     "read directories recursivly" in {
       val reader = new TextFileReader().config(
-        _.path := new File("uima-toolkit/src/test/resources/reader/textFileReader/test2")).
+        _.path := new File("toolkit/src/test/resources/reader/textFileReader/test2")).
         asCollectionReader
 
       new ReaderIterator(reader).
@@ -44,7 +44,7 @@ class TextFileReaderSpec extends Specification {
 
     "read only files that match the pattern" in {
       val reader = new TextFileReader().config(
-        _.path := new File("uima-toolkit/src/test/resources/reader/textFileReader/test3")).
+        _.path := new File("toolkit/src/test/resources/reader/textFileReader/test3")).
         asCollectionReader
 
       new ReaderIterator(reader).

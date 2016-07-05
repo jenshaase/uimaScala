@@ -17,7 +17,7 @@ class StopwordTaggerSpec extends Specification {
 
     "add annotations for each stopword" in {
       val tagger = new StopwordTagger().config(
-        _.stopwordFile := new File("uima-toolkit/src/main/resources/stopwords/german.txt")).
+        _.stopwordFile := new File("toolkit/src/main/resources/stopwords/german.txt")).
         asAnalysisEngine
       val jcas = tokenizer.newJCas()
       jcas.setDocumentText("Hallo, alle zusammen. Wie geht es euch?")
@@ -36,7 +36,7 @@ class StopwordTaggerSpec extends Specification {
 
     "remove stopword tokens" in {
       val tagger = new StopwordRemover().config(
-        _.stopwordFile := new File("uima-toolkit/src/main/resources/stopwords/german.txt")).
+        _.stopwordFile := new File("toolkit/src/main/resources/stopwords/german.txt")).
         asAnalysisEngine
       val jcas = tokenizer.newJCas()
       jcas.setDocumentText("Hallo, alle zusammen. Wie geht es euch?")
