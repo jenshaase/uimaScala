@@ -19,7 +19,7 @@ lazy val core = (project in file("core")).
   settings(
     libraryDependencies ++= Seq(
       "org.apache.uima" % "uimafit-core" % "2.2.0",
-      "org.scalaz.stream" %% "scalaz-stream" % "0.7a",
+      "org.scalaz.stream" %% "scalaz-stream" % "0.8",
       "org.specs2" %% "specs2-core" % "3.8.4" % "test"
     )
   )
