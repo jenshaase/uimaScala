@@ -7,6 +7,7 @@ import com.github.jenshaase.uimascala.core._
 
 trait annotators {
 
+  @deprecated("Use com.github.jenshaase.uimascala.segmenter.RegexTokenizer")
   def regexTokenizer[T <: Annotation](pattern: Regex, allowEmptyToken: Boolean = true)(implicit cf: ClassTag[T]) =
     annotate { cas =>
       val txt = cas.getDocumentText
@@ -23,6 +24,7 @@ trait annotators {
         cas.annotate[T](mostlyAll, txt.length)
     }
 
+  @deprecated("Use com.github.jenshaase.uimascala.segmenter.WhitespaceTokenizer")
   def whitespaceTokenizer[T <: Annotation](allowEmptyToken: Boolean = true)(implicit cf: ClassTag[T]) =
     regexTokenizer("\\s+".r, allowEmptyToken)
 
