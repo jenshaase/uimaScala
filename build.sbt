@@ -14,7 +14,11 @@ lazy val root = (project in file(".")).
   settings(
     publishArtifact in Compile := false
   ).
-  aggregate(core, typeSystem, breakIteratorSegmenter, regexTokenizer, whitespaceTokenizer)
+  aggregate(
+    core, typeSystem,
+    breakIteratorSegmenter, regexTokenizer, whitespaceTokenizer, stanfordSegmenter,
+    stanfordPosTagger
+  )
 
 lazy val core = (project in file("core")).
   settings(commonSettings: _*).
@@ -42,6 +46,15 @@ lazy val regexTokenizer = (project in file("segmenter/regex-tokenizer")).
 lazy val whitespaceTokenizer = (project in file("segmenter/whitespace-tokenizer")).
   settings(componentSettings).
   dependsOn(core, typeSystem, regexTokenizer)
+
+lazy val stanfordSegmenter = (project in file("segmenter/stanford-segmenter")).
+  settings(componentSettings).
+  settings(
+    libraryDependencies ++= Seq(
+      "edu.stanford.nlp" % "stanford-corenlp" % "3.6.0"
+    )
+  ).
+  dependsOn(core, typeSystem)
 
 lazy val stanfordPosTagger = (project in file("part-of-speech-tagger/stanford-pos-tagger")).
   settings(componentSettings).
