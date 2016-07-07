@@ -11,6 +11,10 @@
           <name>pos</name>
           <rangeTypeName>com.github.jenshaase.uimascala.typesystem.POS</rangeTypeName>
         </featureDescription>
+        <featureDescription>
+          <name>parent</name>
+          <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
+        </featureDescription>
       </features>
     </typeDescription>
 
@@ -29,6 +33,57 @@
       <features>
         <featureDescription>
           <name>name</name>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+
+    <typeDescription>
+      <name>com.github.jenshaase.uimascala.typesystem.Dependency</name>
+      <description></description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>governor</name>
+          <rangeTypeName>com.github.jenshaase.uimascala.typesystem.Token</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>dependent</name>
+          <rangeTypeName>com.github.jenshaase.uimascala.typesystem.Token</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>dependencyType</name>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+
+    <typeDescription>
+      <name>com.github.jenshaase.uimascala.typesystem.DependencyRoot</name>
+      <description></description>
+      <supertypeName>com.github.jenshaase.uimascala.typesystem.Dependency</supertypeName>
+    </typeDescription>
+
+    <typeDescription>
+      <name>com.github.jenshaase.uimascala.typesystem.Constituent</name>
+      <description></description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>constituentType</name>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>parent</name>
+          <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>children</name>
+          <rangeTypeName>uima.cas.FSArray</rangeTypeName>
+          <elementType>uima.tcas.Annotation</elementType>
+        </featureDescription>
+        <featureDescription>
+          <name>syntacticFunction</name>
           <rangeTypeName>uima.cas.String</rangeTypeName>
         </featureDescription>
       </features>

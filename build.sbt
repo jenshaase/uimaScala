@@ -17,7 +17,8 @@ lazy val root = (project in file(".")).
   aggregate(
     core, typeSystem,
     breakIteratorSegmenter, regexTokenizer, whitespaceTokenizer, stanfordSegmenter, arkTweetTokenizer,
-    stanfordPosTagger, arkTweetPosTagger
+    stanfordPosTagger, arkTweetPosTagger,
+    stanfordParser
   )
 
 lazy val core = (project in file("core")).
@@ -80,6 +81,16 @@ lazy val arkTweetPosTagger = (project in file("part-of-speech-tagger/ark-tweet-p
   settings(
     libraryDependencies ++= Seq(
       "edu.cmu.cs" % "ark-tweet-nlp" % "0.3.2"
+    )
+  ).
+  dependsOn(core, typeSystem)
+
+lazy val stanfordParser = (project in file("parser/stanford-parser")).
+  settings(componentSettings).
+  settings(
+    libraryDependencies ++= Seq(
+      "edu.stanford.nlp" % "stanford-corenlp" % "3.6.0",
+      "edu.stanford.nlp" % "stanford-corenlp" % "3.6.0" % "test" classifier "models-german"
     )
   ).
   dependsOn(core, typeSystem)
