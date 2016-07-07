@@ -45,15 +45,14 @@ import org.apache.uima.cas.Feature;
     stringBuffer.append("\n");
     val typeName = jg.getJavaName(td);
     val typeName_Type = typeName + "_Type";
-    stringBuffer.append(s"""/** ${jg.nullBlank(td.getDescription())}
- * @generated */
+    stringBuffer.append(s"""/** ${jg.nullBlank(td.getDescription())} */
 public class ${typeName_Type} extends ${jg.getJavaName(td.getSupertypeName())}_Type {
-  /** @generated 
+  /**
    * @return the generator for this type
    */
   @Override
   protected FSGenerator getFSGenerator() {return fsGenerator;}
-  /** @generated */
+
   private final FSGenerator fsGenerator = 
     new FSGenerator() {
       public FeatureStructure createFS(int addr, CASImpl cas) {
@@ -69,11 +68,10 @@ public class ${typeName_Type} extends ${jg.getJavaName(td.getSupertypeName())}_T
         } else return new ${typeName}(addr, ${typeName_Type}.this);
   	  }
     };
-  /** @generated */
+
   @SuppressWarnings ("hiding")
   public final static int typeIndexID = ${typeName}.typeIndexID;
-  /** @generated 
-     @modifiable */
+
   @SuppressWarnings ("hiding")
   public final static boolean featOkTst = JCasRegistry.getFeatOkTst("${td.getName()}");
 """);
@@ -97,11 +95,9 @@ public class ${typeName_Type} extends ${jg.getJavaName(td.getSupertypeName())}_T
       val casFeatCode = "casFeatCode_" + featName;
 
       stringBuffer.append(s""" 
-  /** @generated */
   final Feature casFeat_${featName};
-  /** @generated */
   final int     ${casFeatCode};
-  /** @generated
+  /**
    * @param addr low level Feature Structure reference
    * @return the feature value 
    */ 
@@ -110,7 +106,7 @@ public class ${typeName_Type} extends ${jg.getJavaName(td.getSupertypeName())}_T
       jcas.throwFeatMissing("${featName}", "${td.getName()}");
     return ll_cas.ll_get${getSetNamePart}Value(addr, ${casFeatCode});
   }
-  /** @generated
+  /**
    * @param addr low level Feature Structure reference
    * @param v value to set 
    */    
@@ -123,7 +119,7 @@ public class ${typeName_Type} extends ${jg.getJavaName(td.getSupertypeName())}_T
       
       if (jg.hasArrayRange(fd)) {
         stringBuffer.append(s"""
-  /** @generated
+  /**
    * @param addr low level Feature Structure reference
    * @param i index of item in the array
    * @return value at index i in the array 
@@ -137,7 +133,7 @@ public class ${typeName_Type} extends ${jg.getJavaName(td.getSupertypeName())}_T
 	return ll_cas.ll_get${getSetArrayNamePart}ArrayValue(ll_cas.ll_getRefValue(addr, ${casFeatCode}), i);
   }
    
-  /** @generated
+  /**
    * @param addr low level Feature Structure reference
    * @param i index of item in the array
    * @param v value to set
@@ -160,7 +156,6 @@ public class ${typeName_Type} extends ${jg.getJavaName(td.getSupertypeName())}_T
     if (td.getName().equals("uima.cas.Annotation")) {
       stringBuffer.append("  ");
       stringBuffer.append(s"""  /** @see org.apache.uima.cas.text.AnnotationFS#getCoveredText() 
-    * @generated
     * @param inst the low level Feature Structure reference 
     * @return the covered text 
     */ 
@@ -178,7 +173,6 @@ public class ${typeName_Type} extends ${jg.getJavaName(td.getSupertypeName())}_T
     stringBuffer.append(s"""
 
   /** initialize variables to correspond with Cas Type and Features
-	 * @generated
 	 * @param jcas JCas
 	 * @param casType Type 
 	 */

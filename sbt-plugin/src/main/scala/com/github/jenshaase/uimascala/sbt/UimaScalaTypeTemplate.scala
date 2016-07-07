@@ -39,31 +39,20 @@ import org.apache.uima.jcas.cas.TOP_Type;
     val typeName_Type = typeName + "_Type";
     val jcasTypeCasted = "((" + typeName_Type + ")jcasType)";
 
-    stringBuffer.append(s"""/** ${jg.nullBlank(td.getDescription())}
- * @generated */
+    stringBuffer.append(s"""/** ${jg.nullBlank(td.getDescription())} */
 public class ${typeName} extends ${jg.getJavaName(td.getSupertypeName())} {
-  /** @generated
-   * @ordered 
-   */
   @SuppressWarnings ("hiding")
   public final static int typeIndexID = JCasRegistry.register(${typeName}.class);
-  /** @generated
-   * @ordered 
-   */
   @SuppressWarnings ("hiding")
   public final static int type = typeIndexID;
-  /** @generated
-   * @return index of the type  
-   */
   @Override
   public              int getTypeIndexID() {return typeIndexID;}
  
-  /** Never called.  Disable default constructor
-   * @generated */
+  /** Never called.  Disable default constructor */
   protected ${typeName}() {/* intentionally empty block */}
     
   /** Internal - constructor used by generator 
-   * @generated
+   *
    * @param addr low level Feature Structure reference
    * @param type the type of this Feature Structure 
    */
@@ -72,7 +61,7 @@ public class ${typeName} extends ${jg.getJavaName(td.getSupertypeName())} {
     readObject();
   }
   
-  /** @generated
+  /**
    * @param jcas JCas to which this Feature Structure belongs 
    */
   public ${typeName}(JCas jcas) {
@@ -83,7 +72,7 @@ public class ${typeName} extends ${jg.getJavaName(td.getSupertypeName())} {
 
     if (jg.isSubTypeOfAnnotation(td)) {
       stringBuffer.append(s"""
-  /** @generated
+  /**
    * @param jcas JCas to which this Feature Structure belongs
    * @param begin offset to the begin spot in the SofA
    * @param end offset to the end spot in the SofA 
@@ -103,7 +92,6 @@ public class ${typeName} extends ${jg.getJavaName(td.getSupertypeName())} {
    * Write your own initialization here
    * <!-- end-user-doc -->
    *
-   * @generated modifiable 
    */
   private void readObject() {/*default - does nothing empty block */}
      
@@ -129,7 +117,6 @@ public class ${typeName} extends ${jg.getJavaName(td.getSupertypeName())} {
   //* Feature: ${featName}
 
   /** getter for ${featName} - gets ${featDescCmt}
-   * @generated
    * @return value of the feature 
    */
   public ${rangeType} get${featUName}() {
@@ -138,7 +125,6 @@ public class ${typeName} extends ${jg.getJavaName(td.getSupertypeName())} {
     return ${jg.getFeatureValue(fd, td)};}
     
   /** setter for ${featName} - sets ${featDescCmt} 
-   * @generated
    * @param v value to set into the feature 
    */
   public void set${featUName}(${rangeType} v) {
@@ -150,7 +136,6 @@ public class ${typeName} extends ${jg.getJavaName(td.getSupertypeName())} {
       if (jg.hasArrayRange(fd)) {
         stringBuffer.append(s"""  
   /** indexed getter for ${featName} - gets an indexed value - ${featDescCmt}
-   * @generated
    * @param i index in the array to get
    * @return value of the element at index i 
    */
@@ -161,7 +146,6 @@ public class ${typeName} extends ${jg.getJavaName(td.getSupertypeName())} {
     return ${jg.getArrayFeatureValue(fd, td)};}
 
   /** indexed setter for ${featName} - sets an indexed value - ${featDescCmt}
-   * @generated
    * @param i index in the array to set
    * @param v value to set into the array 
    */
@@ -182,7 +166,6 @@ public class ${typeName} extends ${jg.getJavaName(td.getSupertypeName())} {
     if (td.getName().equals("uima.cas.Annotation")) {
       stringBuffer.append("  ");
       stringBuffer.append("""  /** Constructor with begin and end passed as arguments 
-    * @generated
     * @param jcas JCas this Annotation is in
     * @param begin the begin offset
     * @param end the end offset
@@ -194,7 +177,6 @@ public class ${typeName} extends ${jg.getJavaName(td.getSupertypeName())} {
   } 
   
   /** @see org.apache.uima.cas.text.AnnotationFS#getCoveredText() 
-    * @generated
     * @return the covered Text 
     */ 
   public String getCoveredText() { 
@@ -207,7 +189,6 @@ public class ${typeName} extends ${jg.getJavaName(td.getSupertypeName())} {
   } 
   
   /** @deprecated 
-    * @generated
     * @return the begin offset 
     */
   public int getStart() {return getBegin();}
