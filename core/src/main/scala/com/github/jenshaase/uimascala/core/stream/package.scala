@@ -10,46 +10,43 @@ import org.apache.uima.fit.factory.AnalysisEngineFactory.createEngine
 import org.apache.uima.jcas.JCas
 import org.apache.uima.util.CasCreationUtils
 import org.apache.uima.fit.factory.TypeSystemDescriptionFactory
-import scalaz._, Scalaz._
-import scalaz.stream._
+import fs2._
 
 package object stream {
 
-  type AnnotatorProcess = Process1[JCas, JCas]
+  type AnnotatorProcess[F[_]] = Pipe[F, JCas, JCas]
 
-  def annotate(f: (JCas => Any)): AnnotatorProcess =
-    Process.await1[JCas].map { cas =>
+  def annotate[F[_]](f: (JCas => Any)): AnnotatorProcess[F] =
+    _.map { cas =>
       f(cas)
       cas
-    }.repeat
+    }
 
-  def annotate(a: AnalysisEngine): AnnotatorProcess =
-    Process.await1[JCas].map { cas =>
+  def annotate[F[_]](a: AnalysisEngine): AnnotatorProcess[F] =
+    _.map { cas =>
       a.process(cas)
       cas
-    }.repeat
+    }
 
-  def annotate(a: AnalysisEngineDescription): AnnotatorProcess =
+  def annotate[F[_]](a: AnalysisEngineDescription): AnnotatorProcess[F] =
     annotate(createEngine(a))
 
-  def annotate(a: AsAnalysisEngine): AnnotatorProcess =
+  def annotate[F[_]](a: AsAnalysisEngine): AnnotatorProcess[F] =
     annotate(a.asAnalysisEngine)
 
-  def initCas[I](f: ((I, JCas) => Any)): Process1[I, JCas] =
-    Process.await1[I].map { something =>
+  def initCas[F[_], I](f: ((I, JCas) => Any)): Pipe[F, I, JCas] =
+    _.map { something =>
       val cas = CasCreationUtils.createCas(
         TypeSystemDescriptionFactory.createTypeSystemDescription, null, null).getJCas
 
       f(something, cas)
       cas
-    }.repeat
+    }
 
-  def casFromText = initCas[String] { (str ,cas) =>
+  def casFromText[F[_]] = initCas[F, String] { (str ,cas) =>
     cas.setDocumentText(str)
   }
 
-  def extractCas[I](f: JCas => I): Process1[JCas, I] =
-    Process.await1[JCas].map { cas =>
-      f(cas)
-    }.repeat
+  def extractCas[F[_], I](f: JCas => I): Pipe[F, JCas, I] =
+    _.map(f)
 }

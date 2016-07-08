@@ -163,7 +163,7 @@ class StanfordParser extends SCasAnnotator_ImplBase {
 
           val dep = new Dependency(jcas)
           dep.setDependencyType(currTypedDep.reln().toString());
-          dep.setGovernor(depToken);
+          dep.setGovernor(govToken);
           dep.setDependent(depToken);
           dep.setBegin(dep.getDependent().getBegin());
           dep.setEnd(dep.getDependent().getEnd());

@@ -1,9 +1,7 @@
 package com.github.jenshaase.uimascala.core.stream
 
 import org.specs2.mutable._
-import scalaz._, Scalaz._
-import scalaz.stream._
-import scalaz.concurrent.Task
+import fs2._
 import org.apache.uima.jcas.tcas.Annotation
 import com.github.jenshaase.uimascala.core._
 
@@ -13,16 +11,15 @@ class annotateSpec extends Specification {
 
   "Annotators" should {
 
-    val tokenizeText =
-      casFromText |>
-      whitespaceTokenizer[Annotation](false)
+    def tokenizeText[F[_]] =
+      casFromText[F] andThen whitespaceTokenizer[F, Annotation](false)
 
     "tokenize a document" in {
-      val p = Process("this is a text", " and another text ") |>
-        tokenizeText |>
-        extractCas[List[String]] { cas =>
+      val p = Stream.pure("this is a text", " and another text ").
+        through(tokenizeText).
+        through(extractCas { cas =>
           cas.select[Annotation].drop(1).map(_.getCoveredText).toList
-        }
+        })
  
       p.toList must be equalTo (List(
         List("this", "is", "a", "text"),
@@ -31,12 +28,12 @@ class annotateSpec extends Specification {
     }
 
     "remove stopwords" in {
-      val p = Process("this is a text", " and another text ") |>
-        tokenizeText |>
-        removeStopwords[Annotation](s => Set("is", "a").contains(s)) |>
-        extractCas[List[String]] { cas =>
+      val p = Stream.pure("this is a text", " and another text ").
+        through(tokenizeText).
+        through(removeStopwords[Pure, Annotation](s => Set("is", "a").contains(s))).
+        through(extractCas { cas =>
           cas.select[Annotation].drop(1).map(_.getCoveredText).toList
-        }
+        })
  
       p.toList must be equalTo (List(
         List("this", "text"),
