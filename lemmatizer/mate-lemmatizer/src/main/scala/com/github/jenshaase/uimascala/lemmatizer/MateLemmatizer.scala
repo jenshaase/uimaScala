@@ -1,4 +1,4 @@
-package com.github.jenshaase.uimascala.pos
+package com.github.jenshaase.uimascala.lemmatizer
 
 import com.github.jenshaase.uimascala.core._
 import com.github.jenshaase.uimascala.core.configuration._
@@ -10,22 +10,21 @@ import scala.collection.JavaConversions._
 import is2.data.SentenceData09
 import is2.io.CONLLReader09
 import is2.io.IOGenerals
-import is2.tag.Options
-import is2.tag.Tagger
+import is2.lemmatizer.Lemmatizer
 
-class MatePosTaggerResource extends SharedResourceObject {
-  private var tagger: Tagger = _
+class MateLemmatizerResource extends SharedResourceObject {
+  private var lemmatizer: Lemmatizer = _
 
   def load(data: DataResource) {
     val uri = data.getUri.toString
 
     if (new java.io.File(uri).exists) {
-      tagger = new Tagger(new Options(Array("-model", uri)))
+      lemmatizer = new Lemmatizer(uri)
     } else {
       val resourceUri = if (uri.startsWith("/")) uri else "/" + uri
       val resource = this.getClass.getResource(resourceUri)
 
-      val file = java.io.File.createTempFile("mate-pos-tagger", ".temp")
+      val file = java.io.File.createTempFile("mate-lemmatizer", ".temp")
       file.deleteOnExit();
 
       val source = resource.openStream();
@@ -35,16 +34,16 @@ class MatePosTaggerResource extends SharedResourceObject {
         source.close();
       }
 
-      tagger = new Tagger(new Options(Array("-model", file.getAbsolutePath)))
+      lemmatizer = new Lemmatizer(file.getAbsolutePath)
     }
   }
 
-  def getTagger = tagger
+  def getLemmatizer = lemmatizer
 }
 
-class MatePosTagger extends SCasAnnotator_ImplBase {
+class MateLemmatizer extends SCasAnnotator_ImplBase {
 
-  object model extends SharedResource[MatePosTaggerResource]("")
+  object model extends SharedResource[MateLemmatizerResource]("")
 
   def process(jcas: JCas) = {
     jcas.select[Sentence].foreach { sentence =>
@@ -52,23 +51,17 @@ class MatePosTagger extends SCasAnnotator_ImplBase {
 
       val sentenceData = new SentenceData09()
       sentenceData.init(Array[String](IOGenerals.ROOT) ++ tokens.map(_.getCoveredText))
-      sentenceData.setLemmas(Array[String](IOGenerals.ROOT_LEMMA) ++ tokens.map { t =>
-        if (t.getLemma != null) {
-          t.getLemma.getValue()
-        } else {
-          "_"
-        }
-      })
 
-      model.resource.getTagger.apply(sentenceData).ppos.drop(1).zipWithIndex.foreach { case (tag, idx) =>
+      model.resource.getLemmatizer.apply(sentenceData).plemmas.zipWithIndex.foreach { case (tag, idx) =>
         val token = tokens(idx)
 
-        val pos = new POS(jcas, token.getBegin, token.getEnd)
-        pos.setName(tag)
-        add(pos)
+        val lemma = new Lemma(jcas, token.getBegin, token.getEnd)
+        lemma.setValue(tag)
+        add(lemma)
 
-        token.setPos(pos)
+        token.setLemma(lemma)
       }
     }
   }
 }
+

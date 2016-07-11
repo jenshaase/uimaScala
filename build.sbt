@@ -17,7 +17,8 @@ lazy val root = (project in file(".")).
   aggregate(
     core, typeSystem,
     breakIteratorSegmenter, regexTokenizer, whitespaceTokenizer, stanfordSegmenter, arkTweetTokenizer,
-    stanfordPosTagger, arkTweetPosTagger,
+    mateLemmatizer,
+    stanfordPosTagger, arkTweetPosTagger, matePosTagger,
     stanfordParser
   )
 
@@ -36,6 +37,9 @@ lazy val typeSystem = (project in file("type-system")).
   settings(componentSettings: _*).
   settings(uimaScalaSettings: _*).
   dependsOn(core)
+
+// ==================================================
+// Segmenter
 
 lazy val breakIteratorSegmenter = (project in file("segmenter/break-iterator-segmenter")).
   settings(componentSettings).
@@ -66,6 +70,25 @@ lazy val arkTweetTokenizer = (project in file("segmenter/ark-tweet-tokenizer")).
     )
   ).
   dependsOn(core, typeSystem)
+
+// ==================================================
+// Lemmatizer
+
+lazy val mateLemmatizer = (project in file("lemmatizer/mate-lemmatizer")).
+  settings(componentSettings).
+  settings(
+    libraryDependencies ++= Seq(
+      "com.googlecode.mate-tools" % "anna" % "3.5",
+      "de.tudarmstadt.ukp.dkpro.core" % "de.tudarmstadt.ukp.dkpro.core.matetools-model-lemmatizer-de-tiger" % "20121024.1" % "test"
+    ),
+    resolvers ++= Seq(
+      "ukp-oss-model-releases" at "http://zoidberg.ukp.informatik.tu-darmstadt.de/artifactory/public-model-releases-local"
+    )
+  ).
+  dependsOn(core, typeSystem)
+
+// ==================================================
+// POS Tagger
 
 lazy val stanfordPosTagger = (project in file("part-of-speech-tagger/stanford-pos-tagger")).
   settings(componentSettings).
@@ -99,12 +122,28 @@ lazy val arkTweetPosTagger = (project in file("part-of-speech-tagger/ark-tweet-p
   ).
   dependsOn(core, typeSystem)
 
+// ==================================================
+// Parser
+
 lazy val stanfordParser = (project in file("parser/stanford-parser")).
   settings(componentSettings).
   settings(
     libraryDependencies ++= Seq(
       "edu.stanford.nlp" % "stanford-corenlp" % "3.6.0",
       "edu.stanford.nlp" % "stanford-corenlp" % "3.6.0" % "test" classifier "models-german"
+    )
+  ).
+  dependsOn(core, typeSystem)
+
+lazy val mateParser = (project in file("parser/mate-parser")).
+  settings(componentSettings).
+  settings(
+    libraryDependencies ++= Seq(
+      "com.googlecode.mate-tools" % "anna" % "3.5",
+      "de.tudarmstadt.ukp.dkpro.core" % "de.tudarmstadt.ukp.dkpro.core.matetools-model-parser-de-tiger" % "20121024.1" % "test"
+    ),
+    resolvers ++= Seq(
+      "ukp-oss-model-releases" at "http://zoidberg.ukp.informatik.tu-darmstadt.de/artifactory/public-model-releases-local"
     )
   ).
   dependsOn(core, typeSystem)
