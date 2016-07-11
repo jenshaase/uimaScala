@@ -12,6 +12,10 @@
           <rangeTypeName>com.github.jenshaase.uimascala.typesystem.POS</rangeTypeName>
         </featureDescription>
         <featureDescription>
+          <name>lemma</name>
+          <rangeTypeName>com.github.jenshaase.uimascala.typesystem.Lemma</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
           <name>parent</name>
           <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
         </featureDescription>
@@ -33,6 +37,18 @@
       <features>
         <featureDescription>
           <name>name</name>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+
+    <typeDescription>
+      <name>com.github.jenshaase.uimascala.typesystem.Lemma</name>
+      <description></description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>value</name>
           <rangeTypeName>uima.cas.String</rangeTypeName>
         </featureDescription>
       </features>

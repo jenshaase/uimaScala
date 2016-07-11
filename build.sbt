@@ -77,6 +77,19 @@ lazy val stanfordPosTagger = (project in file("part-of-speech-tagger/stanford-po
   ).
   dependsOn(core, typeSystem)
 
+lazy val matePosTagger = (project in file("part-of-speech-tagger/mate-pos-tagger")).
+  settings(componentSettings).
+  settings(
+    libraryDependencies ++= Seq(
+      "com.googlecode.mate-tools" % "anna" % "3.5",
+      "de.tudarmstadt.ukp.dkpro.core" % "de.tudarmstadt.ukp.dkpro.core.matetools-model-tagger-de-tiger" % "20121024.1" % "test"
+    ),
+    resolvers ++= Seq(
+      "ukp-oss-model-releases" at "http://zoidberg.ukp.informatik.tu-darmstadt.de/artifactory/public-model-releases-local"
+    )
+  ).
+  dependsOn(core, typeSystem)
+
 lazy val arkTweetPosTagger = (project in file("part-of-speech-tagger/ark-tweet-pos-tagger")).
   settings(componentSettings).
   settings(
