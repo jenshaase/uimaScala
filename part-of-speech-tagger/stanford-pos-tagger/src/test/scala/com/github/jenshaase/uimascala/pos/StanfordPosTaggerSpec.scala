@@ -62,27 +62,5 @@ class StanfordPosTaggerSpec extends Specification {
       jcas.selectByIndex[POS](0).getCoveredText must be equalTo ("Hallo")
       jcas.selectByIndex[POS](1).getCoveredText must be equalTo ("Welt")
     }
-
-    "test" in {
-      val tagger: AnalysisEngine = new StanfordPosTagger().
-        config(
-          _.model := SharedBinding[MaxentTaggerResource]("edu/stanford/nlp/models/pos-tagger/german/german-fast.tagger")
-        ).
-        asAnalysisEngine
-
-      val jcas = tagger.newJCas()
-      jcas.setDocumentText("Wie alt bist du?")
-      jcas.annotate[Sentence](0, 16);
-      jcas.annotate[Token](0, 3)
-      jcas.annotate[Token](4, 7)
-      jcas.annotate[Token](8, 12)
-      jcas.annotate[Token](13, 15)
-      jcas.annotate[Token](15, 16)
-      tagger.process(jcas)
-
-      println(jcas.select[POS].map(_.getName).toList)
-
-      true must be equalTo (true)
-    }
   }
 }

@@ -12,14 +12,16 @@ lazy val componentSettings = commonSettings ++ releaseSettings
 
 lazy val root = (project in file(".")).
   settings(
-    publishArtifact in Compile := false
+    publishArtifact in Compile := false,
+    parallelExecution in Test := false
   ).
   aggregate(
     core, typeSystem,
     breakIteratorSegmenter, regexTokenizer, whitespaceTokenizer, stanfordSegmenter, arkTweetTokenizer,
-    mateLemmatizer,
-    stanfordPosTagger, arkTweetPosTagger, matePosTagger,
+    stanfordPosTagger, arkTweetPosTagger, 
     stanfordParser
+    // Do not run these test in build environment because of too much memory consumption
+    //mateLemmatizer, mateParser, matePosTagger
   )
 
 lazy val core = (project in file("core")).
