@@ -104,5 +104,17 @@
         </featureDescription>
       </features>
     </typeDescription>
+
+    <typeDescription>
+      <name>com.github.jenshaase.uimascala.typesystem.NamedEntity</name>
+      <description></description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>value</name>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
   </types>
 </typeSystemDescription>

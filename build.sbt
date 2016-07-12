@@ -19,7 +19,8 @@ lazy val root = (project in file(".")).
     core, typeSystem,
     breakIteratorSegmenter, regexTokenizer, whitespaceTokenizer, stanfordSegmenter, arkTweetTokenizer,
     stanfordPosTagger, arkTweetPosTagger, 
-    stanfordParser
+    stanfordParser,
+    stanfordNer
     // Do not run these test in build environment because of too much memory consumption
     //mateLemmatizer, mateParser, matePosTagger
   )
@@ -146,6 +147,19 @@ lazy val mateParser = (project in file("parser/mate-parser")).
     ),
     resolvers ++= Seq(
       "ukp-oss-model-releases" at "http://zoidberg.ukp.informatik.tu-darmstadt.de/artifactory/public-model-releases-local"
+    )
+  ).
+  dependsOn(core, typeSystem)
+
+// ==================================================
+// Name Entity Recognizer
+
+lazy val stanfordNer = (project in file("name-entity-recognizer/stanford-ner")).
+  settings(componentSettings).
+  settings(
+    libraryDependencies ++= Seq(
+      "edu.stanford.nlp" % "stanford-corenlp" % "3.6.0",
+      "edu.stanford.nlp" % "stanford-corenlp" % "3.6.0" % "test" classifier "models-german"
     )
   ).
   dependsOn(core, typeSystem)
