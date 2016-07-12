@@ -177,17 +177,6 @@ lazy val nGramLanguageIdentifier = (project in file("language-identification/n-g
   ).
   dependsOn(core, typeSystem)
 
-lazy val toolkit = (project in file("toolkit")).
-  settings(commonSettings: _*).
-  settings(uimaScalaSettings: _*).
-  settings(releaseSettings: _*).
-  settings(
-    libraryDependencies ++= Seq(
-      "org.specs2" %% "specs2-core" % "3.8.4" % "test"
-    )
-  ).
-  dependsOn(core)
-
 
 lazy val releaseSettings = Seq(
   releasePublishArtifactsAction := PgpKeys.publishSigned.value,
