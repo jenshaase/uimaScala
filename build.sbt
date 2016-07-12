@@ -20,7 +20,8 @@ lazy val root = (project in file(".")).
     breakIteratorSegmenter, regexTokenizer, whitespaceTokenizer, stanfordSegmenter, arkTweetTokenizer,
     stanfordPosTagger, arkTweetPosTagger, 
     stanfordParser,
-    stanfordNer
+    stanfordNer,
+    nGramLanguageIdentifier
     // Do not run these test in build environment because of too much memory consumption
     //mateLemmatizer, mateParser, matePosTagger
   )
@@ -160,6 +161,18 @@ lazy val stanfordNer = (project in file("name-entity-recognizer/stanford-ner")).
     libraryDependencies ++= Seq(
       "edu.stanford.nlp" % "stanford-corenlp" % "3.6.0",
       "edu.stanford.nlp" % "stanford-corenlp" % "3.6.0" % "test" classifier "models-german"
+    )
+  ).
+  dependsOn(core, typeSystem)
+
+// ==================================================
+// Language Identifer
+
+lazy val nGramLanguageIdentifier = (project in file("language-identification/n-gram-language-identifier")).
+  settings(componentSettings).
+  settings(
+    libraryDependencies ++= Seq(
+      "com.optimaize.languagedetector" % "language-detector" % "0.5"
     )
   ).
   dependsOn(core, typeSystem)
