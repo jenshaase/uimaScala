@@ -213,6 +213,7 @@ lazy val releaseSettings = Seq(
   },
   publishMavenStyle := true,
   pomExtra := (
+    <url>https://github.com/jenshaase/uimaScala</url>
     <scm>
       <url>git@github.com:jenshaase/uimascala.git</url>
       <connection>scm:git:git@github.com:jenshaase/uimascala.git</connection>
