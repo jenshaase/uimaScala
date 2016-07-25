@@ -17,6 +17,7 @@ import edu.stanford.nlp.international.french.process.FrenchTokenizer
 import edu.stanford.nlp.trees.international.pennchinese.CHTBTokenizer
 import edu.stanford.nlp.process.{WordToSentenceProcessor, Tokenizer, PTBTokenizer, CoreLabelTokenFactory}
 import edu.stanford.nlp.ling.CoreAnnotations.{CharacterOffsetBeginAnnotation, CharacterOffsetEndAnnotation}
+import edu.stanford.nlp.trees.international.negra.NegraPennTokenizer
 
 class StanfordSegmenter extends SCasAnnotator_ImplBase {
 
@@ -115,6 +116,7 @@ class StanfordSegmenter extends SCasAnnotator_ImplBase {
       case "en" => Some(new PTBTokenizer[CoreLabel](new StringReader(text), new CoreLabelTokenFactory(), "invertible"))
       case "es" => Some(SpanishTokenizer.factory(new CoreLabelTokenFactory(), null).getTokenizer(new StringReader(text)))
       case "fr" => Some(FrenchTokenizer.factory().getTokenizer(new StringReader(text), "tokenizeNLs=false"))
+      case "de" => Some(new NegraPennTokenizer(new StringReader(text)))
       case "zh" => Some(new CHTBTokenizer(new StringReader(text)))
       case _ => None
     }

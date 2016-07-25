@@ -5,6 +5,7 @@ package com.github.jenshaase.uimascala
 
 import org.apache.uima.jcas.tcas.Annotation
 import org.apache.uima.jcas.JCas
+import org.apache.uima.jcas.cas.FSArray
 import com.github.jenshaase.uimascala.core.wrapper._
 import com.github.jenshaase.uimascala.core.configuration._
 import org.apache.uima.collection.CollectionReader

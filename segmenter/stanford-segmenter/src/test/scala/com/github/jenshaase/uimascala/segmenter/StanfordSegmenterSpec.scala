@@ -60,5 +60,18 @@ class StanfordSegmenterSpec extends Specification {
       jcas.selectByIndex[Sentence](0).getCoveredText must be equalTo ("Bonjour à tous.")
       jcas.selectByIndex[Sentence](1).getCoveredText must be equalTo ("C'est parti!")
     }
+
+    "segment english text without a point" in {
+      val segmenter: AnalysisEngine = new StanfordSegmenter().
+        asAnalysisEngine
+
+      val jcas = segmenter.newJCas()
+      jcas.setDocumentText("This is a sentence")
+      jcas.setDocumentLanguage("en")
+      segmenter.process(jcas)
+
+      jcas.select[Sentence].size must be equalTo(1)
+      jcas.selectByIndex[Sentence](0).getCoveredText must be equalTo ("This is a sentence")
+    }
   }
 }

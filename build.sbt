@@ -17,8 +17,8 @@ lazy val root = (project in file(".")).
   ).
   aggregate(
     core, typeSystem,
-    breakIteratorSegmenter, regexTokenizer, whitespaceTokenizer, stanfordSegmenter, arkTweetTokenizer,
-    stanfordPosTagger, arkTweetPosTagger, 
+    breakIteratorSegmenter, regexTokenizer, whitespaceTokenizer, stanfordSegmenter, arkTweetTokenizer, openNlpSegmenter, luceneTokenizer,
+    stanfordPosTagger, arkTweetPosTagger,
     stanfordParser,
     stanfordNer,
     nGramLanguageIdentifier
@@ -71,6 +71,29 @@ lazy val arkTweetTokenizer = (project in file("segmenter/ark-tweet-tokenizer")).
   settings(
     libraryDependencies ++= Seq(
       "edu.cmu.cs" % "ark-tweet-nlp" % "0.3.2"
+    )
+  ).
+  dependsOn(core, typeSystem)
+
+lazy val openNlpSegmenter = (project in file("segmenter/open-nlp-segmenter")).
+  settings(componentSettings).
+  settings(
+    libraryDependencies ++= Seq(
+      "org.apache.opennlp" % "opennlp-tools" % "1.6.0",
+      "de.tudarmstadt.ukp.dkpro.core" % "de.tudarmstadt.ukp.dkpro.core.opennlp-model-sentence-de-maxent" % "20120616.1" % "test",
+      "de.tudarmstadt.ukp.dkpro.core" % "de.tudarmstadt.ukp.dkpro.core.opennlp-model-token-de-maxent" % "20120616.1" % "test"
+    ),
+    resolvers ++= Seq(
+      "ukp-oss-model-releases" at "http://zoidberg.ukp.informatik.tu-darmstadt.de/artifactory/public-model-releases-local"
+    )
+  ).
+  dependsOn(core, typeSystem)
+
+lazy val luceneTokenizer = (project in file("segmenter/lucene-tokenizer")).
+  settings(componentSettings).
+  settings(
+    libraryDependencies ++= Seq(
+      "org.apache.lucene" % "lucene-analyzers-common" % "6.1.0"
     )
   ).
   dependsOn(core, typeSystem)

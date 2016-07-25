@@ -56,6 +56,12 @@ class JCasWrapper(cas: JCas) {
     JCasUtil.selectCovered(cas, cf.runtimeClass.asInstanceOf[Class[T]], coveringAnnotation)
 
   /**
+   * @see org.apache.uima.fit.uitl.JCasUtil#selectCovered
+   */
+  def selectCovered[T <: Annotation](begin: Int, end: Int)(implicit cf: ClassTag[T]) =
+    JCasUtil.selectCovered(cas, cf.runtimeClass.asInstanceOf[Class[T]], begin, end)
+
+  /**
    * @see org.apache.uima.fit.uitl.JCasUtil#selectSingle
    */
   def selectSingle[T <: TOP](implicit cf: ClassTag[T]) =
