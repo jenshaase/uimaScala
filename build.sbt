@@ -11,6 +11,7 @@ lazy val commonSettings = Seq(
 lazy val componentSettings = commonSettings ++ releaseSettings
 
 lazy val root = (project in file(".")).
+  settings(releaseSettings:_*).
   settings(
     publishArtifact in Compile := false,
     parallelExecution in Test := false
