@@ -223,5 +223,12 @@ lazy val releaseSettings = Seq(
         <name>Jens Haase</name>
       </developer>
     </developers>
+    <licenses>
+      <license>
+        <name>Apache 2</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        <distribution>repo</distribution>
+      </license>
+    </licenses>
   )
 )
